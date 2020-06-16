@@ -1,0 +1,13 @@
+
+---------------------------------------------------------------------------------
+
+You must correct the errors before the genes will be included into VectorBase.org.
+If this is a partial prediction please add no-ATG or no-STOP in the Apollo infromation editor.
+	
+On behalf of the VectorBase.org team I would like to thank you for improving our gene models.
+If you need more help do not hesitate to contact us: info@vectorbase.org.
+	
+This is an automated Email generated because you annotated a gene in Apolllo.
+
+"This service uses your VectorBase Apollo account contact details to supply you with updates and data analysis. Please see the VectorBase Personal Data Privacy Policy for details of how we use these personal data"
+https://www.vectorbase.org/privacy

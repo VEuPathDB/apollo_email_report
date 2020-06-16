@@ -1,0 +1,10 @@
+twoGenes@ebi.ac.uk
+Dear Annotator (twoGenes@ebi.ac.uk),
+Your annotation in Apollo hosted at VectorBase.org contains errors.
+Species: sandbox1
+Gene: AGAP009849-LAWSON (ID:0ef472ed-0cd1-463a-87c1-951f87391085)
+Location: 3R:44198175..44199781
+The scaffold of this feature exon : 60a49f41-e279-40fc-964a-415c3d046bb9 with value 2R is not in accordance with its parent 67a2cec7-73f4-4d12-b5df-a99c00ced9a9 with value 3R.
+Gene: AGAP009509-LAWSON (ID:562c1191-cc6d-4221-9871-4c0c37c340da)
+Location: 3R:34973060..34977102
+The strand of this feature exon : 66114592-ba25-4923-b880-ac3b9ac193ca with value - is not in accordance with its parent 03ba7a60-266b-48af-91bd-21878f706d10 with value +.

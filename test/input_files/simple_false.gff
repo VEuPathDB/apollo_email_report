@@ -1,0 +1,9 @@
+##gff-version 3
+##sequence-region 3R 1 53200684
+3R	.	gene	51887721	51894443	.	-	.	owner=simple@ebi.ac.uk;ID=6c797cb7-1246-4add-aab4-a3287a12d27a;date_last_modified=2019-03-01;Name=AGAP010269;status=Finished annotating;date_creation=2019-03-01
+3R	.	mRNA	51887721	51894443	.	-	.	owner=simple@ebi.ac.uk;Parent=6c797cb7-1246-4add-aab4-a3287a12d27a;ID=8c5922b3-fe26-49dc-8aeb-9ac867b96c07;date_last_modified=2019-03-01;Name=AGAP010269-LAWSON-00001;status=Finished annotating;date_creation=2019-03-01
+2R	.	exon	51892005	51892549	.	-	.	Parent=8c5922b3-fe26-49dc-8aeb-9ac867b96c07;ID=f18e9140-5589-405b-86c3-0e54cf01390d;Name=f18e9140-5589-405b-86c3-0e54cf01390d
+3R	.	exon	51887720	51891824	.	-	.	Parent=8c5922b3-fe26-49dc-8aeb-9ac867b96c07;ID=5658ea5d-b0e4-49e5-af85-3d1fc0e14fb7;Name=5658ea5d-b0e4-49e5-af85-3d1fc0e14fb7
+3R	.	exon	51893669	51894444	.	-	.	Parent=8c5922b3-fe26-49dc-8aeb-9ac867b96c07;ID=0d894875-59a8-4a57-9852-6ec0b4d47f91;Name=0d894875-59a8-4a57-9852-6ec0b4d47f91
+3R	.	CDS	51892005	51892156	.	+	0	Parent=8c5922b3-fe26-49dc-8aeb-9ac867b96c07;ID=7e02fe88-00f1-45ac-9260-954072dc72f2;Name=7e02fe88-00f1-45ac-9260-954072dc72f2
+3R	.	CDS	51888596	51891824	.	-	1	Parent=8c5922b3-fe26-49dc-8aeb-9ac867b96c07;ID=7e02fe88-00f1-45ac-9260-954072dc72f2;Name=7e02fe88-00f1-45ac-9260-954072dc72f2

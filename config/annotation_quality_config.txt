@@ -1,0 +1,14 @@
+[APOLLO]
+base_url = https://apollo.vectorbase.org/Apollo/
+username = 
+password = 
+[MAILGUN]
+url = https://api.mailgun.net/v3/vectorbase.org/messages
+api_key =  
+[EMAIL]
+from_address = VectorBase <info@vectorbase.org>
+subject = 'Error in Gene Annotation'
+[SETUP]
+days = 1
+dir = 
+static_footer = static_footer.txt

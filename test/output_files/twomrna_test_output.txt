@@ -1,0 +1,10 @@
+twomrna@ebi.ac.uk
+Dear Annotator (twomrna@ebi.ac.uk),
+Your annotation in Apollo hosted at VectorBase.org contains errors.
+Species: sandbox
+Gene: AGAP009584-LAWSON (ID:78fbaf52-0a8b-4acb-a93c-5d50238e47bf)
+Location: 3R:36668778..36675722
+The scaffold of this feature exon : 1ab42e63-577f-4c9d-b8b3-5b1ab2bd400f with value 2R is not in accordance with its parent 14f85617-72a1-4658-8abc-05f94e551114 with value 3R.
+The position of this feature exon : 1ab42e63-577f-4c9d-b8b3-5b1ab2bd400f with value Begin:36671349..End:36671527 is not in accordance with its parent 14f85617-72a1-4658-8abc-05f94e551114 with value Begin:36671350..End:36675722.
+The position of this feature exon : d15fbe32-b3db-4b5e-ab49-5b580705165c with value Begin:36675298..End:36675723 is not in accordance with its parent 642d09c5-f020-47b7-b37a-f043b8597e56 with value Begin:36668778..End:36675722.
+The scaffold of this feature CDS : 26187b4d-cdb3-4263-a6af-a5556bfb5474 with value 2R is not in accordance with its parent 642d09c5-f020-47b7-b37a-f043b8597e56 with value 3R.

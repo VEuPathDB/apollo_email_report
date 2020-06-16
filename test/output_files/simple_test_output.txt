@@ -1,0 +1,13 @@
+simple@ebi.ac.uk
+Dear Annotator (simple@ebi.ac.uk),
+Your annotation in Apollo hosted at VectorBase.org contains errors.
+Species: sand_box
+Gene: AGAP010269 (ID:6c797cb7-1246-4add-aab4-a3287a12d27a)
+Location: 3R:51887721..51894443
+The scaffold of this feature exon : f18e9140-5589-405b-86c3-0e54cf01390d with value 2R is not in accordance with its parent 8c5922b3-fe26-49dc-8aeb-9ac867b96c07 with value 3R.
+The position of this feature exon : 5658ea5d-b0e4-49e5-af85-3d1fc0e14fb7 with value Begin:51887720..End:51891824 is not in accordance with its parent 8c5922b3-fe26-49dc-8aeb-9ac867b96c07 with value Begin:51887721..End:51894443.
+The position of this feature exon : 0d894875-59a8-4a57-9852-6ec0b4d47f91 with value Begin:51893669..End:51894444 is not in accordance with its parent 8c5922b3-fe26-49dc-8aeb-9ac867b96c07 with value Begin:51887721..End:51894443.
+The strand of this feature CDS : 7e02fe88-00f1-45ac-9260-954072dc72f2 with value + is not in accordance with its parent 8c5922b3-fe26-49dc-8aeb-9ac867b96c07 with value -.
+The coding sequence for mRNA: 8c5922b3-fe26-49dc-8aeb-9ac867b96c07 has no start codon.
+The coding sequence for mRNA: 8c5922b3-fe26-49dc-8aeb-9ac867b96c07 has no stop codon.
+The coding sequence for mRNA: 8c5922b3-fe26-49dc-8aeb-9ac867b96c07 has 1 internal stop codon.

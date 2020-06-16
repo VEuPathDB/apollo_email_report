@@ -1,0 +1,11 @@
+3R	.	gene	36668778	36675722	.	+	.	owner=twomrna@ebi.ac.uk;ID=78fbaf52-0a8b-4acb-a93c-5d50238e47bf;date_last_modified=2019-03-03;Name=AGAP009584-LAWSON;status=Finished annotating;date_creation=2019-03-03
+3R	.	mRNA	36671350	36675722	.	+	.	owner=twomrna@ebi.ac.uk;Parent=78fbaf52-0a8b-4acb-a93c-5d50238e47bf;ID=14f85617-72a1-4658-8abc-05f94e551114;date_last_modified=2019-03-03;Name=AGAP009584-LAWSON-iso2-00002;status=Finished annotating;date_creation=2019-03-03
+2R	.	exon	36671349	36671527	.	+	.	Parent=14f85617-72a1-4658-8abc-05f94e551114;ID=1ab42e63-577f-4c9d-b8b3-5b1ab2bd400f;Name=1ab42e63-577f-4c9d-b8b3-5b1ab2bd400f
+3R	.	exon	36675298	36675722	.	+	.	Parent=14f85617-72a1-4658-8abc-05f94e551114;ID=b11c9f8e-a922-4af1-a3f8-4783ac89b842;Name=b11c9f8e-a922-4af1-a3f8-4783ac89b842
+3R	.	CDS	36671504	36671527	.	+	0	Parent=14f85617-72a1-4658-8abc-05f94e551114;ID=79cdd16a-3988-4d9a-81a6-e0a17384013c;Name=79cdd16a-3988-4d9a-81a6-e0a17384013c
+3R	.	CDS	36675298	36675597	.	+	0	Parent=14f85617-72a1-4658-8abc-05f94e551114;ID=79cdd16a-3988-4d9a-81a6-e0a17384013c;Name=79cdd16a-3988-4d9a-81a6-e0a17384013c
+3R	.	mRNA	36668778	36675722	.	+	.	owner=twomrna@ebi.ac.uk;Parent=78fbaf52-0a8b-4acb-a93c-5d50238e47bf;ID=642d09c5-f020-47b7-b37a-f043b8597e56;date_last_modified=2019-03-03;Name=AGAP009584-LAWSON-iso1-00001;status=Finished annotating;date_creation=2019-03-03
+3R	.	exon	36675298	36675723	.	+	.	Parent=642d09c5-f020-47b7-b37a-f043b8597e56;ID=d15fbe32-b3db-4b5e-ab49-5b580705165c;Name=d15fbe32-b3db-4b5e-ab49-5b580705165c
+2R	.	CDS	36668951	36668974	.	+	0	Parent=642d09c5-f020-47b7-b37a-f043b8597e56;ID=26187b4d-cdb3-4263-a6af-a5556bfb5474;Name=26187b4d-cdb3-4263-a6af-a5556bfb5474
+3R	.	CDS	36675298	36675597	.	+	0	Parent=642d09c5-f020-47b7-b37a-f043b8597e56;ID=26187b4d-cdb3-4263-a6af-a5556bfb5474;Name=26187b4d-cdb3-4263-a6af-a5556bfb5474
+3R	.	exon	36668778	36668974	.	+	.	Parent=642d09c5-f020-47b7-b37a-f043b8597e56;ID=a10847e4-9b6e-4dfb-b279-f0f40f056123;Name=a10847e4-9b6e-4dfb-b279-f0f40f056123

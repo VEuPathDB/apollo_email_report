@@ -1,0 +1,30 @@
+##gff-version 3
+##sequence-region SDB2L 1 49364325
+SDB2L	.	gene	24665045	24666509	.	+	.	owner=mikkel@ebi.ac.uk;ID=71bbd345-3b6a-4744-af9a-c50a75adfc4f;date_last_modified=2019-07-22;Name=SDBAGAP006014-RA;date_creation=2019-07-22
+SDB2L	.	mRNA	24665045	24666509	.	+	.	owner=mikkel@ebi.ac.uk;Parent=71bbd345-3b6a-4744-af9a-c50a75adfc4f;ID=9ba2e283-177c-47da-ae1e-70898dfd796e;date_last_modified=2019-07-22;Name=SDBAGAP006014-RA-00001;date_creation=2019-07-22
+SDB2L	.	exon	24665731	24666509	.	+	.	Parent=9ba2e283-177c-47da-ae1e-70898dfd796e;ID=9d0796ac-3bbc-4baf-bb97-e87cca47c665;Name=9d0796ac-3bbc-4baf-bb97-e87cca47c665
+SDB2L	.	CDS	24665045	24665639	.	+	0	Parent=9ba2e283-177c-47da-ae1e-70898dfd796e;ID=ab110be7-525b-47e9-bfc7-8505b7cf25a7;Name=ab110be7-525b-47e9-bfc7-8505b7cf25a7
+SDB2L	.	CDS	24665731	24666509	.	+	2	Parent=9ba2e283-177c-47da-ae1e-70898dfd796e;ID=ab110be7-525b-47e9-bfc7-8505b7cf25a7;Name=ab110be7-525b-47e9-bfc7-8505b7cf25a7
+SDB2L	.	exon	24665045	24665639	.	+	.	Parent=9ba2e283-177c-47da-ae1e-70898dfd796e;ID=d8a53659-7c18-47ae-af26-6cf7913da6f9;Name=d8a53659-7c18-47ae-af26-6cf7913da6f9
+###
+SDB2L	.	substitution_artifact	44999801	44999801	.	+	.	owner=dany.penados@gmail.com;residues=A;ID=cefd6fe1-71e5-41f5-92fb-faa0a9424b25;date_last_modified=2019-06-04;Name=cefd6fe1-71e5-41f5-92fb-faa0a9424b25;date_creation=2019-06-04
+###
+##sequence-region SDB2R 1 61545105
+SDB2R	.	gene	30730689	30753555	.	+	.	owner=mikkel@ebi.ac.uk;ID=414598c7-cc48-418e-9e99-2d818159b97b;date_last_modified=2019-07-22;Name=SDBAGAP002996-RA;date_creation=2019-07-22
+SDB2R	.	mRNA	30730689	30753555	.	+	.	owner=mikkel@ebi.ac.uk;Parent=414598c7-cc48-418e-9e99-2d818159b97b;ID=bb373e78-7029-4398-b360-7d1b2c37c43d;date_last_modified=2019-07-22;Name=SDBAGAP002996-RA-00001;date_creation=2019-07-22
+SDB2R	.	CDS	30736470	30736542	.	+	0	Parent=bb373e78-7029-4398-b360-7d1b2c37c43d;ID=ac59e41b-7d03-41bc-8159-3c7cda75ecaf;Name=ac59e41b-7d03-41bc-8159-3c7cda75ecaf
+SDB2R	.	CDS	30750000	30751134	.	+	2	Parent=bb373e78-7029-4398-b360-7d1b2c37c43d;ID=ac59e41b-7d03-41bc-8159-3c7cda75ecaf;Name=ac59e41b-7d03-41bc-8159-3c7cda75ecaf
+SDB2R	.	CDS	30751254	30751530	.	+	1	Parent=bb373e78-7029-4398-b360-7d1b2c37c43d;ID=ac59e41b-7d03-41bc-8159-3c7cda75ecaf;Name=ac59e41b-7d03-41bc-8159-3c7cda75ecaf
+SDB2R	.	CDS	30751622	30751771	.	+	0	Parent=bb373e78-7029-4398-b360-7d1b2c37c43d;ID=ac59e41b-7d03-41bc-8159-3c7cda75ecaf;Name=ac59e41b-7d03-41bc-8159-3c7cda75ecaf
+SDB2R	.	CDS	30751848	30752069	.	+	0	Parent=bb373e78-7029-4398-b360-7d1b2c37c43d;ID=ac59e41b-7d03-41bc-8159-3c7cda75ecaf;Name=ac59e41b-7d03-41bc-8159-3c7cda75ecaf
+SDB2R	.	CDS	30752157	30752375	.	+	0	Parent=bb373e78-7029-4398-b360-7d1b2c37c43d;ID=ac59e41b-7d03-41bc-8159-3c7cda75ecaf;Name=ac59e41b-7d03-41bc-8159-3c7cda75ecaf
+SDB2R	.	exon	30751848	30752069	.	+	.	Parent=bb373e78-7029-4398-b360-7d1b2c37c43d;ID=abbacfcd-ab69-4313-a928-b6ae0caf10b2;Name=abbacfcd-ab69-4313-a928-b6ae0caf10b2
+SDB2R	.	exon	30751254	30751530	.	+	.	Parent=bb373e78-7029-4398-b360-7d1b2c37c43d;ID=0e451547-4e68-428d-b079-500312a80b4a;Name=0e451547-4e68-428d-b079-500312a80b4a
+SDB2R	.	exon	30750000	30751134	.	+	.	Parent=bb373e78-7029-4398-b360-7d1b2c37c43d;ID=537a71e6-4dd5-4ede-85aa-bd7a0fdb0dcc;Name=537a71e6-4dd5-4ede-85aa-bd7a0fdb0dcc
+SDB2R	.	exon	30730689	30730733	.	+	.	Parent=bb373e78-7029-4398-b360-7d1b2c37c43d;ID=fdd663e2-eea4-4199-af3c-bafc9fcd150e;Name=fdd663e2-eea4-4199-af3c-bafc9fcd150e
+SDB2R	.	exon	30752157	30753555	.	+	.	Parent=bb373e78-7029-4398-b360-7d1b2c37c43d;ID=a231794b-2579-456b-a70d-41eba3c74dcb;Name=a231794b-2579-456b-a70d-41eba3c74dcb
+SDB2R	.	exon	30736184	30736542	.	+	.	Parent=bb373e78-7029-4398-b360-7d1b2c37c43d;ID=851ae4f7-646d-48c8-aa44-1ad6c5730c3f;Name=851ae4f7-646d-48c8-aa44-1ad6c5730c3f
+SDB2R	.	exon	30751622	30751771	.	+	.	Parent=bb373e78-7029-4398-b360-7d1b2c37c43d;ID=dd820eea-70a7-46fb-aabe-f83c29f6393b;Name=dd820eea-70a7-46fb-aabe-f83c29f6393b
+###
+SDB2R	.	insertion_artifact	30780080	30780080	.	+	.	owner=cmpaiz@uvg.edu.gt;residues=AAAGAGC;ID=7e539cb9-abbc-4df7-9cfc-ce1fb679559d;date_last_modified=2019-06-04;Name=7e539cb9-abbc-4df7-9cfc-ce1fb679559d;date_creation=2019-06-04
+###
