@@ -40,7 +40,7 @@ class MyTestCase(unittest.TestCase):
         annotation_quality_report.sort_and_write_errors(error_lookup_table, sort_order_list, 0, './')
 
         time_stamp = str(datetime.datetime.now().date())
-        file_name = './' + 'simple@ebi.ac.uk' + '_' + time_stamp + '.txt'
+        file_name = './' + 'simple@ebi.ac.uk' + '_' + time_stamp + '.error'
         self.assertEqual(True, filecmp.cmp('./output_files/simple_test_output.txt', file_name, shallow=False))
 
     def test_two_annotators(self):
@@ -75,10 +75,10 @@ class MyTestCase(unittest.TestCase):
         annotation_quality_report.sort_and_write_errors(error_lookup_table, sort_order_list, 0, './')
 
         time_stamp = str(datetime.datetime.now().date())
-        file_name1 = './' + 'annotator1@ebi.ac.uk' + '_' + time_stamp + '.txt'
+        file_name1 = './' + 'annotator1@ebi.ac.uk' + '_' + time_stamp + '.error'
         self.assertEqual(True, filecmp.cmp('./output_files/annotator1_test_output.txt', file_name1, shallow=False))
 
-        file_name2 = './' + 'annotator2@ebi.ac.uk' + '_' + time_stamp + '.txt'
+        file_name2 = './' + 'annotator2@ebi.ac.uk' + '_' + time_stamp + '.error'
         self.assertEqual(True, filecmp.cmp('./output_files/annotator2_test_output.txt', file_name2, shallow=False))
 
     def test_two_species(self):
@@ -114,7 +114,7 @@ class MyTestCase(unittest.TestCase):
         annotation_quality_report.sort_and_write_errors(error_lookup_table, sort_order_list, 0, './')
 
         time_stamp = str(datetime.datetime.now().date())
-        file_name = './' + 'species@ebi.ac.uk' + '_' + time_stamp + '.txt'
+        file_name = './' + 'species@ebi.ac.uk' + '_' + time_stamp + '.error'
         self.assertEqual(True, filecmp.cmp('./output_files/species_test_output.txt', file_name, shallow=False))
 
     def test_two_genes(self):
@@ -150,7 +150,7 @@ class MyTestCase(unittest.TestCase):
         annotation_quality_report.sort_and_write_errors(error_lookup_table, sort_order_list, 0, './')
 
         time_stamp = str(datetime.datetime.now().date())
-        file_name = './' + 'twoGenes@ebi.ac.uk' + '_' + time_stamp + '.txt'
+        file_name = './' + 'twoGenes@ebi.ac.uk' + '_' + time_stamp + '.error'
         self.assertEqual(True, filecmp.cmp('./output_files/twoGenes_test_output.txt', file_name, shallow=False))
 
     def test_two_mrna(self):
@@ -186,7 +186,7 @@ class MyTestCase(unittest.TestCase):
         annotation_quality_report.sort_and_write_errors(error_lookup_table, sort_order_list, 0, './')
 
         time_stamp = str(datetime.datetime.now().date())
-        file_name = './' + 'twomrna@ebi.ac.uk' + '_' + time_stamp + '.txt'
+        file_name = './' + 'twomrna@ebi.ac.uk' + '_' + time_stamp + '.error'
         self.assertEqual(True, filecmp.cmp('./output_files/twomrna_test_output.txt', file_name, shallow=False))
 
 

@@ -1,15 +1,15 @@
 ##gff-version 3
 ##sequence-region 3R 1 53200684
-3R	.	gene	51887721	51894443	.	-	.	owner=lawson@ebi.ac.uk;ID=6c797cb7-1246-4add-aab4-a3287a12d27a;date_last_modified=2019-03-01;Name=AGAP010269-LAWSON;status=Finished annotating;date_creation=2019-03-01
-3R	.	mRNA	51887721	51894443	.	-	.	owner=lawson@ebi.ac.uk;Parent=6c797cb7-1246-4add-aab4-a3287a12d27a;ID=8c5922b3-fe26-49dc-8aeb-9ac867b96c07;date_last_modified=2019-03-01;Name=AGAP010269-LAWSON-00001;status=Finished annotating;date_creation=2019-03-01
+3R	.	gene	51887721	51894443	.	-	.	owner=xxxxx@xxx.xx.xx;ID=6c797cb7-1246-4add-aab4-a3287a12d27a;date_last_modified=2019-03-01;Name=AGAP010269-LAWSON;status=Finished annotating;date_creation=2019-03-01
+3R	.	mRNA	51887721	51894443	.	-	.	owner=xxxxx@xxx.xx.xx;Parent=6c797cb7-1246-4add-aab4-a3287a12d27a;ID=8c5922b3-fe26-49dc-8aeb-9ac867b96c07;date_last_modified=2019-03-01;Name=AGAP010269-LAWSON-00001;status=Finished annotating;date_creation=2019-03-01
 3R	.	exon	51892005	51892549	.	+	.	Parent=8c5922b3-fe26-49dc-8aeb-9ac867b96c07;ID=f18e9140-5589-405b-86c3-0e54cf01390d;Name=f18e9140-5589-405b-86c3-0e54cf01390d
 2R	.	exon	51887721	51894444	.	-	.	Parent=8c5922b3-fe26-49dc-8aeb-9ac867b96c07;ID=5658ea5d-b0e4-49e5-af85-3d1fc0e14fb7;Name=5658ea5d-b0e4-49e5-af85-3d1fc0e14fb7
 3R	.	exon	51893669	51894443	.	-	.	Parent=8c5922b3-fe26-49dc-8aeb-9ac867b96c07;ID=0d894875-59a8-4a57-9852-6ec0b4d47f91;Name=0d894875-59a8-4a57-9852-6ec0b4d47f91
 3R	.	CDS	51894444	51887720	.	-	0	Parent=8c5922b3-fe26-49dc-8aeb-9ac867b96c07;ID=7e02fe88-00f1-45ac-9260-954072dc72f2;Name=7e02fe88-00f1-45ac-9260-954072dc72f2
 1R	.	CDS	51888596	51891824	.	-	1	Parent=8c5922b3-fe26-49dc-8aeb-9ac867b96c07;ID=7e02fe88-00f1-45ac-9260-954072dc72f2;Name=7e02fe88-00f1-45ac-9260-954072dc72f2
 ###
-3R	.	gene	36019250	36041894	.	-	.	owner=lawson@ebi.ac.uk;ID=87479bae-d36e-4341-9de6-7ef13ca16fcf;date_last_modified=2018-11-27;Name=AGAP009550-LAWSON;status=Finished annotating;date_creation=2018-11-27
-3R	.	mRNA	36019250	36041894	.	-	.	owner=lawson@ebi.ac.uk;Parent=87479bae-d36e-4341-9de6-7ef13ca16fcf;ID=952a4f19-3d3d-4256-8c99-e6a0b32e63da;date_last_modified=2018-11-27;Name=AGAP009550-LAWSON-iso1-00001;status=Finished annotating;date_creation=2018-11-27
+3R	.	gene	36019250	36041894	.	-	.	owner=xxxxx@xxx.xx.xx;ID=87479bae-d36e-4341-9de6-7ef13ca16fcf;date_last_modified=2018-11-27;Name=AGAP009550-LAWSON;status=Finished annotating;date_creation=2018-11-27
+3R	.	mRNA	36019250	36041894	.	-	.	owner=xxxxx@xxx.xx.xx;Parent=87479bae-d36e-4341-9de6-7ef13ca16fcf;ID=952a4f19-3d3d-4256-8c99-e6a0b32e63da;date_last_modified=2018-11-27;Name=AGAP009550-LAWSON-iso1-00001;status=Finished annotating;date_creation=2018-11-27
 3R	.	exon	36041134	36041894	.	-	.	Parent=952a4f19-3d3d-4256-8c99-e6a0b32e63da;ID=4bfdcf7b-cbc6-43f2-a8c3-a464a44f7e14;Name=4bfdcf7b-cbc6-43f2-a8c3-a464a44f7e14-exon
 3R	.	exon	36038462	36040499	.	-	.	Parent=952a4f19-3d3d-4256-8c99-e6a0b32e63da;ID=f829f345-86e6-4c6d-ab2b-75c79ac37ba0;Name=f829f345-86e6-4c6d-ab2b-75c79ac37ba0-exon
 3R	.	exon	36019250	36019901	.	-	.	Parent=952a4f19-3d3d-4256-8c99-e6a0b32e63da;ID=d2d8dfcf-6bc0-47a2-9f55-7deef76d33b0;Name=d2d8dfcf-6bc0-47a2-9f55-7deef76d33b0-exon
@@ -58,7 +58,7 @@
 3R	.	exon	36034180	36035187	.	-	.	Parent=952a4f19-3d3d-4256-8c99-e6a0b32e63da;ID=b9d3d265-1f55-4c7a-8570-628bd3e0e6fa;Name=b9d3d265-1f55-4c7a-8570-628bd3e0e6fa-exon
 3R	.	exon	36036568	36036860	.	-	.	Parent=952a4f19-3d3d-4256-8c99-e6a0b32e63da;ID=5a645873-bf07-4ed6-ac0e-aa3072c304e1;Name=5a645873-bf07-4ed6-ac0e-aa3072c304e1-exon
 3R	.	exon	36035322	36036492	.	-	.	Parent=952a4f19-3d3d-4256-8c99-e6a0b32e63da;ID=afda5ffd-7622-455e-a352-a1dd103128bd;Name=afda5ffd-7622-455e-a352-a1dd103128bd-exon
-3R	.	mRNA	36019250	36041894	.	-	.	owner=lawson@ebi.ac.uk;Parent=87479bae-d36e-4341-9de6-7ef13ca16fcf;ID=7d08e5d9-c5a4-4377-9191-89a8daeb37b5;date_last_modified=2018-11-27;Name=AGAP009550-LAWSON-iso2-00002;status=Finished annotating;date_creation=2018-11-27
+3R	.	mRNA	36019250	36041894	.	-	.	owner=xxxxx@xxx.xx.xx;Parent=87479bae-d36e-4341-9de6-7ef13ca16fcf;ID=7d08e5d9-c5a4-4377-9191-89a8daeb37b5;date_last_modified=2018-11-27;Name=AGAP009550-LAWSON-iso2-00002;status=Finished annotating;date_creation=2018-11-27
 2R	.	exon	36019250	46019901	.	+	.	Parent=7d08e5d9-c5a4-4377-9191-89a8daeb37b5;ID=e33d1bd5-093f-4183-81f2-c5c50734244c;Name=e33d1bd5-093f-4183-81f2-c5c50734244c-exon
 3R	.	exon	36028243	36029162	.	-	.	Parent=7d08e5d9-c5a4-4377-9191-89a8daeb37b5;ID=b01b48da-8488-49fc-9cdb-c676adeacfdd;Name=b01b48da-8488-49fc-9cdb-c676adeacfdd-exon
 3R	.	exon	36020024	36020494	.	-	.	Parent=7d08e5d9-c5a4-4377-9191-89a8daeb37b5;ID=ab9586e0-08a5-4aa1-9918-38db8f62147a;Name=ab9586e0-08a5-4aa1-9918-38db8f62147a-exon
@@ -108,8 +108,8 @@
 3R	.	exon	36029970	36030148	.	-	.	Parent=7d08e5d9-c5a4-4377-9191-89a8daeb37b5;ID=ae72ef3a-b657-48eb-b1ca-477cb081f09b;Name=ae72ef3a-b657-48eb-b1ca-477cb081f09b-exon
 3R	.	exon	36040566	36041023	.	-	.	Parent=7d08e5d9-c5a4-4377-9191-89a8daeb37b5;ID=3ae88705-5273-4dbb-92e8-ae8ddc83eae2;Name=3ae88705-5273-4dbb-92e8-ae8ddc83eae2-exon
 ###
-3R	.	gene	50848449	50851177	.	-	.	owner=lawson@ebi.ac.uk;ID=9519cfca-0c42-44d4-ab09-d37d33245d07;date_last_modified=2019-03-03;Name=AGAP010217-LAWSON;status=Finished annotating;date_creation=2019-03-03
-3R	.	mRNA	50848449	50851177	.	-	.	owner=lawson@ebi.ac.uk;Parent=9519cfca-0c42-44d4-ab09-d37d33245d07;ID=5d7a93e5-6390-4568-832b-a5d7ca162ac6;date_last_modified=2019-03-03;Name=AGAP010217-LAWSON-00001;status=Finished annotating;date_creation=2019-03-03
+3R	.	gene	50848449	50851177	.	-	.	owner=xxxxx@xxx.xx.xx;ID=9519cfca-0c42-44d4-ab09-d37d33245d07;date_last_modified=2019-03-03;Name=AGAP010217-LAWSON;status=Finished annotating;date_creation=2019-03-03
+3R	.	mRNA	50848449	50851177	.	-	.	owner=xxxxx@xxx.xx.xx;Parent=9519cfca-0c42-44d4-ab09-d37d33245d07;ID=5d7a93e5-6390-4568-832b-a5d7ca162ac6;date_last_modified=2019-03-03;Name=AGAP010217-LAWSON-00001;status=Finished annotating;date_creation=2019-03-03
 3R	.	exon	50849493	50849634	.	-	.	Parent=5d7a93e5-6390-4568-832b-a5d7ca162ac6;ID=e7680bb0-6207-4716-8b3f-7b5915d112f5;Name=e7680bb0-6207-4716-8b3f-7b5915d112f5
 3R	.	exon	50848449	50849395	.	-	.	Parent=5d7a93e5-6390-4568-832b-a5d7ca162ac6;ID=5a1902dc-870b-4a85-bd94-9077aa3bbd05;Name=5a1902dc-870b-4a85-bd94-9077aa3bbd05
 3R	.	exon	50851034	50851177	.	-	.	Parent=5d7a93e5-6390-4568-832b-a5d7ca162ac6;ID=34bc41b9-fa5e-4123-89e0-17d9469140d8;Name=34bc41b9-fa5e-4123-89e0-17d9469140d8
@@ -122,20 +122,20 @@
 3R	.	CDS	50849493	50849634	.	-	0	Parent=5d7a93e5-6390-4568-832b-a5d7ca162ac6;ID=07ed31bb-5eb9-4d75-9471-d86c3d034c18;Name=07ed31bb-5eb9-4d75-9471-d86c3d034c18
 3R	.	CDS	50848755	50849395	.	-	2	Parent=5d7a93e5-6390-4568-832b-a5d7ca162ac6;ID=07ed31bb-5eb9-4d75-9471-d86c3d034c18;Name=07ed31bb-5eb9-4d75-9471-d86c3d034c18
 ###
-3R	.	gene	36668778	36675722	.	+	.	owner=lawson@ebi.ac.uk;ID=78fbaf52-0a8b-4acb-a93c-5d50238e47bf;date_last_modified=2019-03-03;Name=AGAP009584-LAWSON;status=Finished annotating;date_creation=2019-03-03
-3R	.	mRNA	36671350	36675722	.	+	.	owner=lawson@ebi.ac.uk;Parent=78fbaf52-0a8b-4acb-a93c-5d50238e47bf;ID=14f85617-72a1-4658-8abc-05f94e551114;date_last_modified=2019-03-03;Name=AGAP009584-LAWSON-iso2-00002;status=Finished annotating;date_creation=2019-03-03
+3R	.	gene	36668778	36675722	.	+	.	owner=xxxxx@xxx.xx.xx;ID=78fbaf52-0a8b-4acb-a93c-5d50238e47bf;date_last_modified=2019-03-03;Name=AGAP009584-LAWSON;status=Finished annotating;date_creation=2019-03-03
+3R	.	mRNA	36671350	36675722	.	+	.	owner=xxxxx@xxx.xx.xx;Parent=78fbaf52-0a8b-4acb-a93c-5d50238e47bf;ID=14f85617-72a1-4658-8abc-05f94e551114;date_last_modified=2019-03-03;Name=AGAP009584-LAWSON-iso2-00002;status=Finished annotating;date_creation=2019-03-03
 3R	.	exon	36671350	36671527	.	+	.	Parent=14f85617-72a1-4658-8abc-05f94e551114;ID=1ab42e63-577f-4c9d-b8b3-5b1ab2bd400f;Name=1ab42e63-577f-4c9d-b8b3-5b1ab2bd400f
 3R	.	exon	36675298	36675722	.	+	.	Parent=14f85617-72a1-4658-8abc-05f94e551114;ID=b11c9f8e-a922-4af1-a3f8-4783ac89b842;Name=b11c9f8e-a922-4af1-a3f8-4783ac89b842
 3R	.	CDS	36671504	36671527	.	+	0	Parent=14f85617-72a1-4658-8abc-05f94e551114;ID=79cdd16a-3988-4d9a-81a6-e0a17384013c;Name=79cdd16a-3988-4d9a-81a6-e0a17384013c
 3R	.	CDS	36675298	36675597	.	+	0	Parent=14f85617-72a1-4658-8abc-05f94e551114;ID=79cdd16a-3988-4d9a-81a6-e0a17384013c;Name=79cdd16a-3988-4d9a-81a6-e0a17384013c
-3R	.	mRNA	36668778	36675722	.	+	.	owner=lawson@ebi.ac.uk;Parent=78fbaf52-0a8b-4acb-a93c-5d50238e47bf;ID=642d09c5-f020-47b7-b37a-f043b8597e56;date_last_modified=2019-03-03;Name=AGAP009584-LAWSON-iso1-00001;status=Finished annotating;date_creation=2019-03-03
+3R	.	mRNA	36668778	36675722	.	+	.	owner=xxxxx@xxx.xx.xx;Parent=78fbaf52-0a8b-4acb-a93c-5d50238e47bf;ID=642d09c5-f020-47b7-b37a-f043b8597e56;date_last_modified=2019-03-03;Name=AGAP009584-LAWSON-iso1-00001;status=Finished annotating;date_creation=2019-03-03
 3R	.	exon	36675298	36675722	.	+	.	Parent=642d09c5-f020-47b7-b37a-f043b8597e56;ID=d15fbe32-b3db-4b5e-ab49-5b580705165c;Name=d15fbe32-b3db-4b5e-ab49-5b580705165c
 3R	.	CDS	36668951	36668974	.	+	0	Parent=642d09c5-f020-47b7-b37a-f043b8597e56;ID=26187b4d-cdb3-4263-a6af-a5556bfb5474;Name=26187b4d-cdb3-4263-a6af-a5556bfb5474
 3R	.	CDS	36675298	36675597	.	+	0	Parent=642d09c5-f020-47b7-b37a-f043b8597e56;ID=26187b4d-cdb3-4263-a6af-a5556bfb5474;Name=26187b4d-cdb3-4263-a6af-a5556bfb5474
 3R	.	exon	36668778	36668974	.	+	.	Parent=642d09c5-f020-47b7-b37a-f043b8597e56;ID=a10847e4-9b6e-4dfb-b279-f0f40f056123;Name=a10847e4-9b6e-4dfb-b279-f0f40f056123
 ###
-3R	.	gene	52301033	52349893	.	-	.	owner=lawson@ebi.ac.uk;ID=7f897e2f-ce1e-4f03-b06e-14848285ed9f;date_last_modified=2019-03-03;Name=AGAP010292-LAWSON;status=Finished annotating;date_creation=2019-03-03
-3R	.	mRNA	52301033	52349893	.	-	.	owner=lawson@ebi.ac.uk;Parent=7f897e2f-ce1e-4f03-b06e-14848285ed9f;ID=a4c53873-fdb6-4a1f-a11c-4a763f6f6b22;date_last_modified=2019-03-03;Name=AGAP010292-LAWSON-iso2-00002;status=Finished annotating;date_creation=2019-03-03
+3R	.	gene	52301033	52349893	.	-	.	owner=xxxxx@xxx.xx.xx;ID=7f897e2f-ce1e-4f03-b06e-14848285ed9f;date_last_modified=2019-03-03;Name=AGAP010292-LAWSON;status=Finished annotating;date_creation=2019-03-03
+3R	.	mRNA	52301033	52349893	.	-	.	owner=xxxxx@xxx.xx.xx;Parent=7f897e2f-ce1e-4f03-b06e-14848285ed9f;ID=a4c53873-fdb6-4a1f-a11c-4a763f6f6b22;date_last_modified=2019-03-03;Name=AGAP010292-LAWSON-iso2-00002;status=Finished annotating;date_creation=2019-03-03
 3R	.	exon	52329268	52329342	.	-	.	Parent=a4c53873-fdb6-4a1f-a11c-4a763f6f6b22;ID=fa82f783-cddd-4016-9272-b293e9b03c12;Name=fa82f783-cddd-4016-9272-b293e9b03c12
 3R	.	exon	52304793	52304912	.	-	.	Parent=a4c53873-fdb6-4a1f-a11c-4a763f6f6b22;ID=43c684df-bb85-4707-bcb7-e96b1e615434;Name=43c684df-bb85-4707-bcb7-e96b1e615434
 3R	.	exon	52301033	52301208	.	-	.	Parent=a4c53873-fdb6-4a1f-a11c-4a763f6f6b22;ID=9219f1f7-ba7f-43a6-988b-426b4505d733;Name=9219f1f7-ba7f-43a6-988b-426b4505d733
@@ -160,7 +160,7 @@
 3R	.	exon	52320607	52320709	.	-	.	Parent=a4c53873-fdb6-4a1f-a11c-4a763f6f6b22;ID=23752756-6613-47c8-b2ce-90989abf9042;Name=23752756-6613-47c8-b2ce-90989abf9042
 3R	.	exon	52303360	52303734	.	-	.	Parent=a4c53873-fdb6-4a1f-a11c-4a763f6f6b22;ID=a7b03c2c-bd2d-4534-b218-1fe9817cdbfa;Name=a7b03c2c-bd2d-4534-b218-1fe9817cdbfa
 3R	.	exon	52301278	52301430	.	-	.	Parent=a4c53873-fdb6-4a1f-a11c-4a763f6f6b22;ID=807f43ab-c795-47cb-b435-5aeb0a249e5f;Name=807f43ab-c795-47cb-b435-5aeb0a249e5f
-3R	.	mRNA	52301033	52349893	.	-	.	owner=lawson@ebi.ac.uk;Parent=7f897e2f-ce1e-4f03-b06e-14848285ed9f;ID=845a404b-46bd-4a44-9f05-63773cacb86e;date_last_modified=2019-03-03;Name=AGAP010292-LAWSON-iso1-00001;status=Finished annotating;date_creation=2019-03-03
+3R	.	mRNA	52301033	52349893	.	-	.	owner=xxxxx@xxx.xx.xx;Parent=7f897e2f-ce1e-4f03-b06e-14848285ed9f;ID=845a404b-46bd-4a44-9f05-63773cacb86e;date_last_modified=2019-03-03;Name=AGAP010292-LAWSON-iso1-00001;status=Finished annotating;date_creation=2019-03-03
 3R	.	exon	52301033	52301208	.	-	.	Parent=845a404b-46bd-4a44-9f05-63773cacb86e;ID=5b009007-1533-4a7c-b3bd-971d45ce3aee;Name=5b009007-1533-4a7c-b3bd-971d45ce3aee
 3R	.	exon	52320607	52320709	.	-	.	Parent=845a404b-46bd-4a44-9f05-63773cacb86e;ID=ac037849-a64d-4365-be81-4f22023eb2f6;Name=ac037849-a64d-4365-be81-4f22023eb2f6
 3R	.	exon	52303360	52303734	.	-	.	Parent=845a404b-46bd-4a44-9f05-63773cacb86e;ID=5b053fc4-e74b-494c-b741-37f55a91f93b;Name=5b053fc4-e74b-494c-b741-37f55a91f93b
@@ -186,8 +186,8 @@
 3R	.	exon	52301278	52301430	.	-	.	Parent=845a404b-46bd-4a44-9f05-63773cacb86e;ID=ff11cc9a-2196-4b79-99e5-7caa10e2c4bb;Name=ff11cc9a-2196-4b79-99e5-7caa10e2c4bb
 3R	.	exon	52304302	52304478	.	-	.	Parent=845a404b-46bd-4a44-9f05-63773cacb86e;ID=47d08406-59af-4995-aaa3-e35942065129;Name=47d08406-59af-4995-aaa3-e35942065129
 ###
-3R	.	gene	48159823	48201423	.	-	.	owner=lawson@ebi.ac.uk;ID=20f79752-871e-4849-90e5-db93ee45e5b7;date_last_modified=2019-03-03;Name=AGAP010044-LAWSON;status=Finished annotating;date_creation=2019-03-03
-3R	.	mRNA	48159823	48185847	.	-	.	owner=lawson@ebi.ac.uk;Parent=20f79752-871e-4849-90e5-db93ee45e5b7;ID=e943dab2-ad1f-476b-a9a1-9e8c18f13921;date_last_modified=2019-03-03;Name=AGAP010044-LAWSON-iso3-00003;status=Finished annotating;date_creation=2019-03-03
+3R	.	gene	48159823	48201423	.	-	.	owner=xxxxx@xxx.xx.xx;ID=20f79752-871e-4849-90e5-db93ee45e5b7;date_last_modified=2019-03-03;Name=AGAP010044-LAWSON;status=Finished annotating;date_creation=2019-03-03
+3R	.	mRNA	48159823	48185847	.	-	.	owner=xxxxx@xxx.xx.xx;Parent=20f79752-871e-4849-90e5-db93ee45e5b7;ID=e943dab2-ad1f-476b-a9a1-9e8c18f13921;date_last_modified=2019-03-03;Name=AGAP010044-LAWSON-iso3-00003;status=Finished annotating;date_creation=2019-03-03
 3R	.	exon	48181921	48182997	.	-	.	Parent=e943dab2-ad1f-476b-a9a1-9e8c18f13921;ID=14a8ab55-c975-4c05-a599-e04267311c7c;Name=14a8ab55-c975-4c05-a599-e04267311c7c
 3R	.	CDS	48185138	48185220	.	-	0	Parent=e943dab2-ad1f-476b-a9a1-9e8c18f13921;ID=03b8727c-35ad-4eaf-ab12-6954f69fc7e7;Name=03b8727c-35ad-4eaf-ab12-6954f69fc7e7
 3R	.	CDS	48181921	48182997	.	-	1	Parent=e943dab2-ad1f-476b-a9a1-9e8c18f13921;ID=03b8727c-35ad-4eaf-ab12-6954f69fc7e7;Name=03b8727c-35ad-4eaf-ab12-6954f69fc7e7
@@ -196,14 +196,14 @@
 3R	.	exon	48169093	48169144	.	-	.	Parent=e943dab2-ad1f-476b-a9a1-9e8c18f13921;ID=7899aad3-9c48-46bc-b44a-a27848c91c9c;Name=7899aad3-9c48-46bc-b44a-a27848c91c9c
 3R	.	exon	48185138	48185847	.	-	.	Parent=e943dab2-ad1f-476b-a9a1-9e8c18f13921;ID=a1c7d0b0-ab41-42e0-bf83-b55f762a9459;Name=a1c7d0b0-ab41-42e0-bf83-b55f762a9459
 3R	.	exon	48159823	48161417	.	-	.	Parent=e943dab2-ad1f-476b-a9a1-9e8c18f13921;ID=6053c14e-6e5c-4a85-b428-8ca12ab7a17b;Name=6053c14e-6e5c-4a85-b428-8ca12ab7a17b
-3R	.	mRNA	48159823	48174413	.	-	.	owner=lawson@ebi.ac.uk;Parent=20f79752-871e-4849-90e5-db93ee45e5b7;ID=c48c23b0-1661-46e3-aca7-495ffdb7cbe0;date_last_modified=2019-03-03;Name=AGAP010044-LAWSON-iso4-00004;status=Finished annotating;date_creation=2019-03-03
+3R	.	mRNA	48159823	48174413	.	-	.	owner=xxxxx@xxx.xx.xx;Parent=20f79752-871e-4849-90e5-db93ee45e5b7;ID=c48c23b0-1661-46e3-aca7-495ffdb7cbe0;date_last_modified=2019-03-03;Name=AGAP010044-LAWSON-iso4-00004;status=Finished annotating;date_creation=2019-03-03
 3R	.	CDS	48172192	48172292	.	-	0	Parent=c48c23b0-1661-46e3-aca7-495ffdb7cbe0;ID=e197705b-40e0-4e85-90ae-0de17bd274d1;Name=e197705b-40e0-4e85-90ae-0de17bd274d1
 3R	.	CDS	48169093	48169144	.	-	1	Parent=c48c23b0-1661-46e3-aca7-495ffdb7cbe0;ID=e197705b-40e0-4e85-90ae-0de17bd274d1;Name=e197705b-40e0-4e85-90ae-0de17bd274d1
 3R	.	CDS	48161106	48161417	.	-	0	Parent=c48c23b0-1661-46e3-aca7-495ffdb7cbe0;ID=e197705b-40e0-4e85-90ae-0de17bd274d1;Name=e197705b-40e0-4e85-90ae-0de17bd274d1
 3R	.	exon	48172192	48174413	.	-	.	Parent=c48c23b0-1661-46e3-aca7-495ffdb7cbe0;ID=09659de6-6706-4c19-b230-8db72cc1a3c3;Name=09659de6-6706-4c19-b230-8db72cc1a3c3
 3R	.	exon	48169093	48169144	.	-	.	Parent=c48c23b0-1661-46e3-aca7-495ffdb7cbe0;ID=2333b8bf-ca08-4fe1-bdae-8ffb317947b6;Name=2333b8bf-ca08-4fe1-bdae-8ffb317947b6
 3R	.	exon	48159823	48161417	.	-	.	Parent=c48c23b0-1661-46e3-aca7-495ffdb7cbe0;ID=a7a60306-5372-47e3-8c77-14573ac5be55;Name=a7a60306-5372-47e3-8c77-14573ac5be55
-3R	.	mRNA	48159823	48201423	.	-	.	owner=lawson@ebi.ac.uk;Parent=20f79752-871e-4849-90e5-db93ee45e5b7;ID=2ba56845-644f-44be-a9a3-75b37cb978b9;date_last_modified=2019-03-03;Name=AGAP010044-LAWSON-iso1-00001;status=Finished annotating;date_creation=2019-03-03
+3R	.	mRNA	48159823	48201423	.	-	.	owner=xxxxx@xxx.xx.xx;Parent=20f79752-871e-4849-90e5-db93ee45e5b7;ID=2ba56845-644f-44be-a9a3-75b37cb978b9;date_last_modified=2019-03-03;Name=AGAP010044-LAWSON-iso1-00001;status=Finished annotating;date_creation=2019-03-03
 3R	.	exon	48201271	48201423	.	-	.	Parent=2ba56845-644f-44be-a9a3-75b37cb978b9;ID=b730ef77-6dd8-4aee-9312-21abfda61b04;Name=b730ef77-6dd8-4aee-9312-21abfda61b04
 3R	.	exon	48169093	48169144	.	-	.	Parent=2ba56845-644f-44be-a9a3-75b37cb978b9;ID=620fb3db-2671-4ea1-a46f-084af2348026;Name=620fb3db-2671-4ea1-a46f-084af2348026
 3R	.	CDS	48193752	48196357	.	-	0	Parent=2ba56845-644f-44be-a9a3-75b37cb978b9;ID=85e150dd-9c4c-4420-9385-55a752a3205a;Name=85e150dd-9c4c-4420-9385-55a752a3205a
@@ -211,7 +211,7 @@
 3R	.	CDS	48161106	48161417	.	-	0	Parent=2ba56845-644f-44be-a9a3-75b37cb978b9;ID=85e150dd-9c4c-4420-9385-55a752a3205a;Name=85e150dd-9c4c-4420-9385-55a752a3205a
 3R	.	exon	48193752	48196931	.	-	.	Parent=2ba56845-644f-44be-a9a3-75b37cb978b9;ID=d7a8bece-16dc-4d70-8753-b4dc4a16a630;Name=d7a8bece-16dc-4d70-8753-b4dc4a16a630
 3R	.	exon	48159823	48161417	.	-	.	Parent=2ba56845-644f-44be-a9a3-75b37cb978b9;ID=bf5501f4-5124-4ca5-84bc-0e59227093ed;Name=bf5501f4-5124-4ca5-84bc-0e59227093ed
-3R	.	mRNA	48159823	48188294	.	-	.	owner=lawson@ebi.ac.uk;Parent=20f79752-871e-4849-90e5-db93ee45e5b7;ID=e5af4538-7416-4fcb-bd9c-8131ee165c94;date_last_modified=2019-03-03;Name=AGAP010044-LAWSON-iso2-00002;status=Finished annotating;date_creation=2019-03-03
+3R	.	mRNA	48159823	48188294	.	-	.	owner=xxxxx@xxx.xx.xx;Parent=20f79752-871e-4849-90e5-db93ee45e5b7;ID=e5af4538-7416-4fcb-bd9c-8131ee165c94;date_last_modified=2019-03-03;Name=AGAP010044-LAWSON-iso2-00002;status=Finished annotating;date_creation=2019-03-03
 3R	.	exon	48159823	48161417	.	-	.	Parent=e5af4538-7416-4fcb-bd9c-8131ee165c94;ID=85fbba26-04fd-4fd3-b396-414545bc9aca;Name=85fbba26-04fd-4fd3-b396-414545bc9aca
 3R	.	exon	48169093	48169144	.	-	.	Parent=e5af4538-7416-4fcb-bd9c-8131ee165c94;ID=6472bb39-30d9-4e19-9e4e-fa9f0e735a00;Name=6472bb39-30d9-4e19-9e4e-fa9f0e735a00
 3R	.	exon	48187493	48188294	.	-	.	Parent=e5af4538-7416-4fcb-bd9c-8131ee165c94;ID=37b1ee0f-8200-4dac-acad-7523ae2210ef;Name=37b1ee0f-8200-4dac-acad-7523ae2210ef
@@ -219,15 +219,15 @@
 3R	.	CDS	48169093	48169144	.	-	1	Parent=e5af4538-7416-4fcb-bd9c-8131ee165c94;ID=f4b6fb23-19e0-4ef5-8483-dd912f97d403;Name=f4b6fb23-19e0-4ef5-8483-dd912f97d403
 3R	.	CDS	48161106	48161417	.	-	0	Parent=e5af4538-7416-4fcb-bd9c-8131ee165c94;ID=f4b6fb23-19e0-4ef5-8483-dd912f97d403;Name=f4b6fb23-19e0-4ef5-8483-dd912f97d403
 ###
-3R	.	gene	44198175	44199781	.	+	.	owner=lawson@ebi.ac.uk;ID=0ef472ed-0cd1-463a-87c1-951f87391085;date_last_modified=2019-03-01;Name=AGAP009849-LAWSON;status=Finished annotating;date_creation=2019-03-01
-3R	.	mRNA	44198175	44199781	.	+	.	owner=lawson@ebi.ac.uk;Parent=0ef472ed-0cd1-463a-87c1-951f87391085;ID=67a2cec7-73f4-4d12-b5df-a99c00ced9a9;date_last_modified=2019-03-01;Name=AGAP009849-LAWSON-00001;status=Finished annotating;date_creation=2019-03-01
+3R	.	gene	44198175	44199781	.	+	.	owner=xxxxx@xxx.xx.xx;ID=0ef472ed-0cd1-463a-87c1-951f87391085;date_last_modified=2019-03-01;Name=AGAP009849-LAWSON;status=Finished annotating;date_creation=2019-03-01
+3R	.	mRNA	44198175	44199781	.	+	.	owner=xxxxx@xxx.xx.xx;Parent=0ef472ed-0cd1-463a-87c1-951f87391085;ID=67a2cec7-73f4-4d12-b5df-a99c00ced9a9;date_last_modified=2019-03-01;Name=AGAP009849-LAWSON-00001;status=Finished annotating;date_creation=2019-03-01
 3R	.	exon	44198175	44198943	.	+	.	Parent=67a2cec7-73f4-4d12-b5df-a99c00ced9a9;ID=60a49f41-e279-40fc-964a-415c3d046bb9;Name=60a49f41-e279-40fc-964a-415c3d046bb9
 3R	.	CDS	44198516	44198943	.	+	0	Parent=67a2cec7-73f4-4d12-b5df-a99c00ced9a9;ID=477133cc-e5c2-4c7f-8301-ca67444f3f06;Name=477133cc-e5c2-4c7f-8301-ca67444f3f06
 3R	.	CDS	44199010	44199631	.	+	1	Parent=67a2cec7-73f4-4d12-b5df-a99c00ced9a9;ID=477133cc-e5c2-4c7f-8301-ca67444f3f06;Name=477133cc-e5c2-4c7f-8301-ca67444f3f06
 3R	.	exon	44199010	44199781	.	+	.	Parent=67a2cec7-73f4-4d12-b5df-a99c00ced9a9;ID=4cede9c9-e11a-4e58-aafa-7ef3c1e36ccc;Name=4cede9c9-e11a-4e58-aafa-7ef3c1e36ccc
 ###
-3R	.	gene	34973060	34977102	.	+	.	owner=lawson@ebi.ac.uk;ID=562c1191-cc6d-4221-9871-4c0c37c340da;date_last_modified=2019-03-03;Name=AGAP009509-LAWSON;status=Finished annotating;date_creation=2019-03-03
-3R	.	mRNA	34973060	34977102	.	+	.	owner=lawson@ebi.ac.uk;Parent=562c1191-cc6d-4221-9871-4c0c37c340da;ID=03ba7a60-266b-48af-91bd-21878f706d10;date_last_modified=2019-03-03;Name=AGAP009509-LAWSON-00001;status=Finished annotating;date_creation=2019-03-03
+3R	.	gene	34973060	34977102	.	+	.	owner=xxxxx@xxx.xx.xx;ID=562c1191-cc6d-4221-9871-4c0c37c340da;date_last_modified=2019-03-03;Name=AGAP009509-LAWSON;status=Finished annotating;date_creation=2019-03-03
+3R	.	mRNA	34973060	34977102	.	+	.	owner=xxxxx@xxx.xx.xx;Parent=562c1191-cc6d-4221-9871-4c0c37c340da;ID=03ba7a60-266b-48af-91bd-21878f706d10;date_last_modified=2019-03-03;Name=AGAP009509-LAWSON-00001;status=Finished annotating;date_creation=2019-03-03
 3R	.	exon	34976338	34977102	.	+	.	Parent=03ba7a60-266b-48af-91bd-21878f706d10;ID=9e4fcd44-72a6-4f01-85b0-efbd160e29b3;Name=9e4fcd44-72a6-4f01-85b0-efbd160e29b3
 3R	.	exon	34973541	34973742	.	+	.	Parent=03ba7a60-266b-48af-91bd-21878f706d10;ID=41009f1d-de43-422a-9d29-ec1ff521edc5;Name=41009f1d-de43-422a-9d29-ec1ff521edc5
 3R	.	exon	34973060	34973303	.	+	.	Parent=03ba7a60-266b-48af-91bd-21878f706d10;ID=ddb7ff1c-53e3-405e-ae1b-43539387498b;Name=ddb7ff1c-53e3-405e-ae1b-43539387498b

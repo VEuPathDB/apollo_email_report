@@ -19,13 +19,13 @@ class MyTestCase(unittest.TestCase):
         position = mini_gff.fields[('position', '26187b4d-cdb3-4263-a6af-a5556bfb5474_26')]
         self.assertEqual(position, (36675298, 36675597))
 
-        gene_id = mini_gff.child_parent_reletionship['5d7a93e5-6390-4568-832b-a5d7ca162ac6']
+        gene_id = mini_gff.child_parent_relationship['5d7a93e5-6390-4568-832b-a5d7ca162ac6']
         self.assertEqual(gene_id, '9519cfca-0c42-44d4-ab09-d37d33245d07')
 
-        mrna_parent_id = mini_gff.child_parent_reletionship['14f85617-72a1-4658-8abc-05f94e551114']
+        mrna_parent_id = mini_gff.child_parent_relationship['14f85617-72a1-4658-8abc-05f94e551114']
         self.assertEqual('78fbaf52-0a8b-4acb-a93c-5d50238e47bf', mrna_parent_id)
 
-        cds_parent_id = mini_gff.child_parent_reletionship['79cdd16a-3988-4d9a-81a6-e0a17384013c']
+        cds_parent_id = mini_gff.child_parent_relationship['79cdd16a-3988-4d9a-81a6-e0a17384013c']
         self.assertEqual('14f85617-72a1-4658-8abc-05f94e551114', cds_parent_id)
 
         gene_id_2 = mini_gff.get_gene_id('79cdd16a-3988-4d9a-81a6-e0a17384013c')
