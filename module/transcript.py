@@ -14,10 +14,9 @@ class CodingSequence:
     def get_sequence(self, base_url=None, fasta_file=None):
 
         if base_url:
-            url = base_url + "sequence/{}/{}/{}.{}?ignoreCache=true".format(self.organism_name,
-                                                                                            self.sequence_name,
-                                                                                            self.feature_name,
-                                                                                            CodingSequence.sequence_type)
+            url = base_url + "sequence/{}/{}/{}.{}?ignoreCache=true".format(self.organism_name, self.sequence_name,
+                                                                            self.feature_name,
+                                                                            CodingSequence.sequence_type)
             response = requests.get(url)
             seq = response.text
             if response.status_code == requests.codes.ok:

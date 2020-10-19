@@ -60,8 +60,8 @@ def download_gff(base_url, username, password, organism, out_dir):
         return False
 
 
-def validate_gff(base_url, gff_file_path, gene_organism):
-    gff_file_object = gff_file.HandleGFF(gff_file_path, gene_organism)
+def validate_gff(base_url, gff_file_path, gene_organism, moderator):
+    gff_file_object = gff_file.HandleGFF(gff_file_path, gene_organism, moderator)
     gff_file_object.read_gff_file()
     gff_file_object.scan_gff_for_errors()
     gff_file_object.scan_mrna_sequence(base_url=base_url)
@@ -123,7 +123,7 @@ def write_function(dict_of_list, order_of_list, index, out_dir, file_handle=None
         file_handle = open(file_name, 'a')
         file_handle.write(owner + "\n")
         file_handle.write("Dear Annotator (" + owner + ")," + "\n")
-        file_handle.write("Your annotation in Apollo hosted at VectorBase.org contains errors." + "\n")
+        file_handle.write("Your annotation in Apollo hosted at VEuPathDB.org contains errors." + "\n")
     elif order_of_list[index] == 'organism_name':
         organism_name = dict_of_list['organism_name'][0].organism_name
         organism_str = "Species: {}\n".format(organism_name)
@@ -159,7 +159,7 @@ def write_summary_text(annotator_summary, out_dir):
     unfinished_genes = annotator_summary.total_gene_count - annotator_summary.finished_gene_count
     file_handle.write(annotator_summary.email + "\n")
     file_handle.write('Dear Annotator (' + annotator_summary.email + '),' + "\n")
-    file_handle.write('Here is a summary of your annotation in Apollo hosted at VectorBase.org.' + "\n")
+    file_handle.write('Here is a summary of your annotation in Apollo hosted at VEuPathDB.org.' + "\n")
     file_handle.write('Finished Genes: ' + str(annotator_summary.finished_gene_count) + "\n")
     file_handle.write('Unfinished Genes: ' + str(unfinished_genes))
     # file_handle.write('The annotation contains the following errors:')

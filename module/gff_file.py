@@ -3,13 +3,14 @@ from module import annotator, transcript, validation_error
 
 
 class HandleGFF:
-    def __init__(self, file_path, gene_organism):
+    def __init__(self, file_path, gene_organism, moderator):
         self.file_path = file_path
         self.gene_organism = gene_organism
+        self.moderator = moderator
         self.future_type = dict()
         self.gene_meta_info = dict()
         self.feature_owner = dict()
-        self.child_parent_reletionship = dict()
+        self.child_parent_relationship = dict()
         self.transcripts = list()
         self.annotators = dict()
 
@@ -30,8 +31,6 @@ class HandleGFF:
                 = extract_fields_from_gff(fields)
             if owner is not None:
                 owner = self.get_first_owner(owner)
-            if owner == 'lawson@ebi.ac.uk':
-                disqualified_features.append(feature_id)
             if feature_type not in allowed_feature:
                 disqualified_features.append(feature_id)
 
@@ -51,7 +50,7 @@ class HandleGFF:
                     else:
                         self.annotators[owner].add_gene(name, False)
                 else:
-                    owner = 'mikkel@ebi.ac.uk'
+                    owner = self.moderator
                     print("No owner for Gene: " + feature_id)
 
             if feature_type == 'mRNA':
@@ -67,10 +66,10 @@ class HandleGFF:
                     else:
                         self.annotators[owner].add_mrna(False)
                 else:
-                    owner = 'mikkel@ebi.ac.uk'
+                    owner = self.moderator
                     print("No owner for mRNA: " + feature_id)
 
-            if feature_id in self.child_parent_reletionship:
+            if feature_id in self.child_parent_relationship:
                 feature_id = feature_id + '_' + str(line_number)
 
             self.feature_owner[feature_id] = owner
@@ -80,9 +79,9 @@ class HandleGFF:
             self.fields[('position', feature_id)] = (int(fields[3]), int(fields[4]))
 
             if parent_id:
-                self.child_parent_reletionship[feature_id] = parent_id
+                self.child_parent_relationship[feature_id] = parent_id
             elif feature_type == 'gene':
-                self.child_parent_reletionship[feature_id] = feature_id  # to avoid checking if ID exists
+                self.child_parent_relationship[feature_id] = feature_id  # to avoid checking if ID exists
             else:
                 print("Feature not recognized", feature_type, feature_id)
         file_handle.close()
@@ -93,17 +92,17 @@ class HandleGFF:
         return owners[0]
 
     def get_gene_id(self, feature_id):
-        if feature_id == self.child_parent_reletionship[feature_id]:
+        if feature_id == self.child_parent_relationship[feature_id]:
             return feature_id
         else:
-            parent_id = self.child_parent_reletionship[feature_id]
+            parent_id = self.child_parent_relationship[feature_id]
             return self.get_gene_id(parent_id)
 
     def get_parent_owner(self, feature_id):
         if self.feature_owner[feature_id]:
             return self.feature_owner[feature_id]
         else:
-            parent_id = self.child_parent_reletionship[feature_id]
+            parent_id = self.child_parent_relationship[feature_id]
             return self.get_parent_owner(parent_id)
 
     def get_mrna_id(self, feature_id):
@@ -112,17 +111,17 @@ class HandleGFF:
         elif self.future_type[feature_id] == 'gene':
             return None
         else:
-            parent_id = self.child_parent_reletionship[feature_id]
+            parent_id = self.child_parent_relationship[feature_id]
             return self.get_mrna_id(parent_id)
 
     def scan_gff_for_errors(self):
         for key, value in self.fields.items():
             field, feature_id = key
 
-            if feature_id not in self.child_parent_reletionship:
+            if feature_id not in self.child_parent_relationship:
                 continue
 
-            parent_id = self.child_parent_reletionship[feature_id]
+            parent_id = self.child_parent_relationship[feature_id]
             parent_value = self.fields[(field, parent_id)]
 
             gene_id = self.get_gene_id(feature_id)
