@@ -1,10 +1,11 @@
-On behalf of the VectorBase.org team I would like to thank you for improving our gene models.
+On behalf of the VEuPathDB.org team I would like to thank you for improving our gene models.
 You should receive a separate email giving more details about any errors.
 A list, of unfinished genes, is attached to this Email.
 Please remember you must mark a gene and transcript status as Finished in the Apollo information editor,
-before it will be included in VectorBase.org.
-You can add more value to the annotation by using our Gene metadata capture froms.
-https://www.vectorbase.org/content/metadata-web-forms.
-If you need more help do not hesitate to contact us: info@vectorbase.org; 
+before it will be included in VEuPathDB.org.
+
+If you need more help do not hesitate to contact us: help@veupathdb.org.
 	
-This is an automated Email generated because you annotated a gene in Apolllo.
+This is an automated Email generated because you annotated a gene in Apollo.
+
+This service uses your VEuPathDB Apollo account contact details to supply you with updates and data analysis.
