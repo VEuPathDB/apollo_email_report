@@ -1,5 +1,0 @@
-mikkel@ebi.ac.uk
-Dear Annotator (mikkel@ebi.ac.uk),
-Here is a summary of your annotation in Apollo hosted at VectorBase.org.
-Finished Genes: 0
-Unfinished Genes: 2
