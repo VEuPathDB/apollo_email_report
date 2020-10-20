@@ -1,6 +1,6 @@
 simple@ebi.ac.uk
 Dear Annotator (simple@ebi.ac.uk),
-Your annotation in Apollo hosted at VectorBase.org contains errors.
+Your annotation in Apollo hosted at VEuPathDB.org contains errors.
 Species: sand_box
 Gene: AGAP010269 (ID:6c797cb7-1246-4add-aab4-a3287a12d27a)
 Location: 3R:51887721..51894443

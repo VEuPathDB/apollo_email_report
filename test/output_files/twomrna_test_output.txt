@@ -1,6 +1,6 @@
 twomrna@ebi.ac.uk
 Dear Annotator (twomrna@ebi.ac.uk),
-Your annotation in Apollo hosted at VectorBase.org contains errors.
+Your annotation in Apollo hosted at VEuPathDB.org contains errors.
 Species: sandbox
 Gene: AGAP009584-LAWSON (ID:78fbaf52-0a8b-4acb-a93c-5d50238e47bf)
 Location: 3R:36668778..36675722

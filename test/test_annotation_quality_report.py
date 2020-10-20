@@ -15,7 +15,7 @@ class MyTestCase(unittest.TestCase):
             gene_id, organism = line.rstrip().split("\t")
             false_gene_organism[gene_id] = organism
 
-        false_gff = gff_file.HandleGFF(false_gff_file, false_gene_organism)
+        false_gff = gff_file.HandleGFF(false_gff_file, false_gene_organism, '')
         false_gff.read_gff_file()
 
         false_gff.gene_organism = false_gene_organism
@@ -51,7 +51,7 @@ class MyTestCase(unittest.TestCase):
             gene_id, organism = line.rstrip().split("\t")
             false_gene_organism[gene_id] = organism
 
-        false_gff = gff_file.HandleGFF(two_genes_false_gff, false_gene_organism)
+        false_gff = gff_file.HandleGFF(two_genes_false_gff, false_gene_organism, '')
         false_gff.read_gff_file()
 
         false_gff.gene_organism = false_gene_organism
@@ -90,7 +90,7 @@ class MyTestCase(unittest.TestCase):
             gene_id, organism = line.rstrip().split("\t")
             false_gene_organism[gene_id] = organism
 
-        false_gff = gff_file.HandleGFF(two_genes_false_gff, false_gene_organism)
+        false_gff = gff_file.HandleGFF(two_genes_false_gff, false_gene_organism, '')
         false_gff.read_gff_file()
 
         false_gff.gene_organism = false_gene_organism
@@ -126,7 +126,7 @@ class MyTestCase(unittest.TestCase):
             gene_id, organism = line.rstrip().split("\t")
             false_gene_organism[gene_id] = organism
 
-        false_gff = gff_file.HandleGFF(two_genes_false_gff, false_gene_organism)
+        false_gff = gff_file.HandleGFF(two_genes_false_gff, false_gene_organism, '')
         false_gff.read_gff_file()
 
         false_gff.gene_organism = false_gene_organism
@@ -162,7 +162,7 @@ class MyTestCase(unittest.TestCase):
             gene_id, organism = line.rstrip().split("\t")
             false_gene_organism[gene_id] = organism
 
-        false_gff = gff_file.HandleGFF(two_genes_false_gff, false_gene_organism)
+        false_gff = gff_file.HandleGFF(two_genes_false_gff, false_gene_organism, '')
         false_gff.read_gff_file()
 
         false_gff.gene_organism = false_gene_organism

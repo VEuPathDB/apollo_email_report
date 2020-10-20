@@ -1,6 +1,6 @@
 species@ebi.ac.uk
 Dear Annotator (species@ebi.ac.uk),
-Your annotation in Apollo hosted at VectorBase.org contains errors.
+Your annotation in Apollo hosted at VEuPathDB.org contains errors.
 Species: sandbox_one
 Gene: AGAP009849-LAWSON (ID:0ef472ed-0cd1-463a-87c1-951f87391085)
 Location: 3R:44198175..44199781
