@@ -40,10 +40,10 @@ class CodingSequence:
             else:
                 return False
         elif fasta_file:
-            file_handle = open(fasta_file, 'r')
-            for seq in file_handle:
-                if seq[0] != '>':
-                    self.sequence += seq.rstrip()
+            with open(fasta_file, 'r') as file_handle:
+                for seq in file_handle:
+                    if seq[0] != '>':
+                        self.sequence += seq.rstrip()
         else:
             return False
 
