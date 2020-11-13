@@ -44,14 +44,14 @@ class CodingSequence:
         else:
             return False
 
-    def coding_sequence_has_start_codon(self):
+    def has_start_codon(self):
         if self.sequence[0:3] == 'ATG':
             return True
         else:
             self.errors['start_codon'] = 'no start codon'
             return False
 
-    def coding_sequence_has_stop_codon(self):
+    def has_stop_codon(self):
         last_codon = self.sequence[-3:]
         if last_codon == 'TAA' or last_codon == 'TAG' or last_codon == 'TGA':
             return True
@@ -59,7 +59,7 @@ class CodingSequence:
             self.errors['stop_codon'] = 'no stop codon'
             return False
 
-    def coding_sequence_no_internal_stop_codon(self):
+    def no_internal_stop_codon(self):
         internal_stop_codon_count = 0
         for i in range(0, len(self.sequence) - 3, 3):
             codon = self.sequence[i:i + 3]
