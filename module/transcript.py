@@ -11,62 +11,122 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
+import gzip
 import requests
 
+from dataclasses import dataclass, field
+from typing import Dict, FrozenSet, List, Optional
 
+from Bio import SeqIO # type: ignore
+# NB: the above mentioned ^^^^^^^^ "type ignore" means "don't check this dep/package"
+
+class GeneticCode:
+    # this class can be moved somewhere else
+    table: Dict[int, Dict[str, List[str]]] = {
+            1 : {
+                "START" : ["ATG"],
+                "STOP" : ["TAA", "TAG", "TGA"]
+            },
+            # ...
+        }
+
+    @classmethod
+    def starts(cls, code):
+        if not self.table or code not in self.table:
+            return []
+        return self.table[code].get("START", [])
+
+    @classmethod
+    def stops(cls, code):
+        if not self.table or code not in self.table:
+            return []
+        return self.table[code].get("STOP", [])
+
+
+@dataclass
 class CodingSequence:
-    sequence_type = 'cds'
+    # may be usinf `dataclass` is an overkill in this case
+    # internal, not added as init parameters
+    sequence_type: str = field(init = False, default = 'cds')
+    errors: Dict[str, str] = field(init = False, repr = False, default_factory = dict)
+    valid_starts: FrozenSet[str] = field(init = False, default_factory = frozenset)
+    valid_stops: FrozenSet[str] = field(init = False, default_factory = frozenset)
+    # fields 
+    feature_name: str
+    organism_name: str
+    sequence_name: str
+    sequence: Optional[str] = field(repr = False, default = None)
+    genetic_code: Optional[int] = field(default = 1)
 
-    def __init__(self, feature_name, organism_name, sequence_name):
-        self.feature_name = feature_name
-        self.organism_name = organism_name
-        self.sequence_name = sequence_name
-        self.errors = dict()
-        self.sequence = str()
+    def __post_init__(self):
+        self.valid_starts = fozenset(GeneticCode.starts(self.genetic_code))
+        self.valid_stops = fozenset(GeneticCode.stops(self.genetic_code))
 
-    def get_sequence(self, base_url=None, fasta_file=None):
+    def get_sequence_from_file(self, fasta_file: str) -> bool:
+        try:
+          _open = fasta_file.endswith(".gz") and gzip.open or open
+          with _open(fasta_file, 'rt') as fasta:
+            fasta_parser = SeqIO.parse(fasta, "fasta")
+            for rec in fasta_parser:
+              # m.b check if rec.name == self.feature_name
+              self.sequence = rec.seq
+              break
+        except:
+            return False
 
-        if base_url:
-            url = base_url + "sequence/{}/{}/{}.{}?ignoreCache=true".format(self.organism_name, self.sequence_name,
-                                                                            self.feature_name,
-                                                                            CodingSequence.sequence_type)
+        if not self.sequence: return False
+        return True
+
+    def get_sequence_from_url(self, base_url: str) -> bool:
+        try:
+            url = base_url + "sequence/{}/{}/{}.{}?ignoreCache=true".format(
+                self.organism_name,
+                self.sequence_name,
+                self.feature_name,
+                CodingSequence.sequence_type
+            )
             response = requests.get(url)
-            seq = response.text
-            if response.status_code == requests.codes.ok:
-                self.sequence = seq
-            else:
-                return False
-        elif fasta_file:
-            file_handle = open(fasta_file, 'r')
-            for seq in file_handle:
-                if seq[0] != '>':
-                    self.sequence += seq.rstrip()
-        else:
+            if response and response.status_code == requests.codes.ok:
+                self.sequence = response.text
+        except:
             return False
 
-    def coding_sequence_has_start_codon(self):
-        if self.sequence[0:3] == 'ATG':
+        if not self.sequence: return False
+        return True
+
+    def get_sequence(self, uri:str) -> bool:
+        return self.get_sequence_from_file(uri) or self.get_sequence_from_url(uri)
+
+    def error(self, tag: str, message: str) -> bool:
+        self.errors[tag] = message
+        return False
+
+    def has_start_codon(self):
+        seq = self.sequence
+        if not seq or len(seq) < 3: return False
+        first_codon = seq[0:3]
+        if first_codon in self.valid_starts:
             return True
-        else:
-            self.errors['start_codon'] = 'no start codon'
-            return False
+        return self.error('start_codon', 'no start codon')
 
-    def coding_sequence_has_stop_codon(self):
+    def has_stop_codon(self):
+        seq = self.sequence
+        if not seq or len(seq) < 3: return False
         last_codon = self.sequence[-3:]
-        if last_codon == 'TAA' or last_codon == 'TAG' or last_codon == 'TGA':
+        if last_codon in self.valid_stops:
             return True
-        else:
-            self.errors['stop_codon'] = 'no stop codon'
-            return False
+        return self.error('stop_codon', 'no stop codon')
 
-    def coding_sequence_no_internal_stop_codon(self):
-        internal_stop_codon_count = 0
-        for i in range(0, len(self.sequence) - 3, 3):
-            codon = self.sequence[i:i + 3]
-            if codon == 'TAA' or codon == 'TAG' or codon == 'TGA':
-                internal_stop_codon_count += 1
-                self.errors['no_internal_stop_codon'] = str(internal_stop_codon_count) + ' internal stop codon'
-        if internal_stop_codon_count:
-            return False
-        else:
-            return True
+    def no_internal_stop_codon(self):
+        seq = self.sequence
+        if not seq or len(seq) < 3: return True
+        internal_stops = 0
+        for i in range(0, len(seq) - 3, 3):
+            codon = seq[i:i + 3]
+            if codon in self.valid_stops:
+                internal_stops += 1
+        if internal_stops:
+            return self.error('no_internal_stop_codon', '%d internal stop codon' % (internal_stops))
+        return True
+
