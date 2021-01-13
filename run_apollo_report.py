@@ -24,7 +24,7 @@ sys.setrecursionlimit(2500)
 def prepare_summary_gff(config):
     gff_dir = config['SETUP']['dir']
     organism_file = config['SETUP']['organism_file']
-
+    make_new_directory(gff_dir)
     organism_file_handle = open(organism_file)
     master_gff_file_name = gff_dir + '/master.gff'
     master_gff_file_handle = open(master_gff_file_name, 'w')
@@ -216,7 +216,7 @@ def send_emails(config, email_type, list_of_emails):
 
 if __name__ == '__main__':
     report_config = configparser.ConfigParser()
-    report_config.read('../config/apollo_report_config.conf')
+    report_config.read('./config/apollo_report_config.conf')
 
     if report_config['PIPELINE']['summary_annotation'] == 'yes':
         gene_to_organism, master_gff = prepare_summary_gff(report_config)
