@@ -12,5 +12,5 @@ pip install -r requirements.txt
 
 ## Usage
 ```bash
-python3  ./script/run_apollo_report.py
+python3  run_apollo_report.py
 ```
