@@ -192,6 +192,10 @@ def send_emails(config, email_type, list_of_emails):
     mailgun_url = config['MAILGUN']['url']
     mailgun_key = config['MAILGUN']['api_key']
     from_address = config['EMAIL']['from_address']
+    email_url = config['EMAIL']['base_url']
+    client_id = config['EMAIL']['client_id']
+    client_secret = config['EMAIL']['client_secret']
+
     mode = config['SETUP']['mode']
 
     if email_type == 'summary':
@@ -200,15 +204,18 @@ def send_emails(config, email_type, list_of_emails):
         subject = config['EMAIL']['error_subject']
 
     for email in list_of_emails:
-        email_address, email_message = email
+        user_id, email_message = email
+        email_address = report.get_email(email_url, client_id, client_secret, user_id)
+        if not email_address:
+            email_address = config['EMAIL']['moderator']
 
         if email_type == 'summary':
-            file_attached = email_dir + '/' + email_address + '.gene_list'
+            file_attached = email_dir + '/' + user_id + '.gene_list'
         else:
             file_attached = None
 
         if mode != 'live':
-            email_address = config['EMAIL']['moderator']  # overwrite for testing
+            email_address = config['EMAIL']['moderator']
 
         report.send_email_mailgun(mailgun_url, mailgun_key, from_address,
                                   email_address, subject, email_message, file_attached)

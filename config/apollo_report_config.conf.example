@@ -6,6 +6,9 @@ password =
 url = # mailgun webservice base URL
 api_key =  
 [EMAIL]
+base_url = # email address lookup service
+client_id = # `user name` for the application in the email address lookup service
+client_secret = # API_key for the email address lookup service
 from_address = # from/replay email address
 moderator = # email address of moderator
 summary_subject = # email subject line

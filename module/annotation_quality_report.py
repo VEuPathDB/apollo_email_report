@@ -13,6 +13,7 @@ limitations under the License.
 """
 import requests
 import datetime
+import re
 from module import gff_file
 
 
@@ -23,6 +24,26 @@ def get_recent_genes_from_apollo(base_url, username, password, days=1):
     response = requests.post(url, json=webservice_data)
     if response.status_code == requests.codes.ok:
         return response.json()
+    else:
+        return False
+
+
+def get_email(base_url, client_id, client_secret, user_id):
+    user_obj = re.match(r'.*\.(\d+?)$', user_id, flags=0)
+
+    if user_obj:
+        upenn_id = int(user_obj.group(1))
+    else:
+        return False
+
+    body = {"client_id": client_id,
+            "client_secret": client_secret,
+            "query": {
+                "userId": upenn_id
+            }}
+    response = requests.post(base_url, json=body)
+    if response.status_code == requests.codes.ok:
+        return response.json()["email"]
     else:
         return False
 
@@ -181,6 +202,7 @@ def write_summary_text(annotator_summary, out_dir):
 
 
 def send_email_mailgun(url, api_key, from_address, email_address, subject, message, file_attached=None):
+
     if file_attached:
         return requests.post(url, auth=("api", api_key), files=[("attachment", ("unfinished_genes.txt",
                                                                                 open(file_attached, "rb").read()))],
