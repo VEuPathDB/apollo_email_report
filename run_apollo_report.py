@@ -222,8 +222,14 @@ def send_emails(config, email_type, list_of_emails):
 
 
 if __name__ == '__main__':
+    # allow passing config file via cli arg
+    if len(sys.argv) == 1:
+        config_file = './config/apollo_report_config.conf'
+    else:
+        config_file = sys.argv[1]
+
     report_config = configparser.ConfigParser()
-    report_config.read('./config/apollo_report_config.conf')
+    report_config.read(config_file)
 
     if report_config['PIPELINE']['summary_annotation'] == 'yes':
         gene_to_organism, master_gff = prepare_summary_gff(report_config)
