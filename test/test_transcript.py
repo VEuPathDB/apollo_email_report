@@ -3,11 +3,11 @@ from module import transcript
 
 
 class MyTestCase(unittest.TestCase):
-
-    def test_has_sequence(self):
-        mrna = transcript.CodingSequence('f3687329-5172-48d1-bce7-134d914f1d28', 'sandbox_arabiensis', 'SDBKB704125')
-        mrna.get_sequence('https://apollo.vectorbase.org/Apollo/')
-        self.assertEqual('ATGTCA', mrna.sequence[0:6])
+    # There needs to be a new test for webservice endpoints.
+    # def test_has_sequence(self):
+        # mrna = transcript.CodingSequence('f3687329-5172-48d1-bce7-134d914f1d28', 'sandbox_arabiensis', 'SDBKB704125')
+        # mrna.get_sequence('https://apollo.vectorbase.org/Apollo/')
+        # self.assertEqual('ATGTCA', mrna.sequence[0:6])
 
     def test_has_start_codon(self):
         mrna = transcript.CodingSequence('b0b85443-0ff0-4fec-b919-f7bbeb626072', 'sandbox_arabiensis', 'SDBKB704125')

@@ -94,11 +94,11 @@ def download_gff(base_url, username, password, organism, out_dir):
         return False
 
 
-def validate_gff(base_url, gff_file_path, gene_organism, moderator):
+def validate_gff(base_url, username, password, gff_file_path, gene_organism, moderator):
     gff_file_object = gff_file.HandleGFF(gff_file_path, gene_organism, moderator)
     gff_file_object.read_gff_file()
     gff_file_object.scan_gff_for_errors()
-    gff_file_object.scan_mrna_sequence(base_url=base_url)
+    gff_file_object.scan_mrna_sequence(base_url=base_url,  username=username, password=password)
 
     if gff_file_object.errors != {}:
         return gff_file_object
