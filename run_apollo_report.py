@@ -153,7 +153,8 @@ def prepare_error_emails(config, master_gff_file_name, gene_organism_lookup, fil
     footer_text = footer_fh.readlines()
     messages = list()
 
-    gff_file_object = report.validate_gff(apollo_url, master_gff_file_name, gene_organism_lookup,
+    gff_file_object = report.validate_gff(apollo_url, config['APOLLO']['username'], config['APOLLO']['password'],
+                                          master_gff_file_name, gene_organism_lookup,
                                           config['EMAIL']['moderator'])
 
     if not gff_file_object:

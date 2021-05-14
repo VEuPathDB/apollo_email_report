@@ -172,12 +172,12 @@ class HandleGFF:
                     arguments['parent_value'] = parent_value
                     self.add_validation_error(feature_id, 'gff_error', **arguments)
 
-    def scan_mrna_sequence(self, base_url=None, fasta_file=None):
+    def scan_mrna_sequence(self, base_url=None,  username=None, password=None, fasta_file=None):
         for mrna_id, organism, scaffold in self.transcripts:
             mrna = transcript.CodingSequence(mrna_id, organism, scaffold)
 
             if base_url:
-                mrna.get_sequence(base_url=base_url)
+                mrna.get_sequence(base_url=base_url,  username=username, password=password)
             elif fasta_file:
                 mrna.get_sequence(fasta_file=fasta_file)
             else:

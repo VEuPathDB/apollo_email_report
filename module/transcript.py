@@ -24,13 +24,15 @@ class CodingSequence:
         self.errors = dict()
         self.sequence = str()
 
-    def get_sequence(self, base_url=None, fasta_file=None):
+    def get_sequence(self, base_url=None, username=None, password=None, fasta_file=None):
 
         if base_url:
-            url = base_url + "sequence/{}/{}/{}.{}?ignoreCache=true".format(self.organism_name, self.sequence_name,
-                                                                            self.feature_name,
-                                                                            CodingSequence.sequence_type)
-            response = requests.get(url)
+            url = base_url + "sequence/sequenceByName"
+            body = {'username': username, 'password': password, 'organismString': self.organism_name,
+                    'sequenceName': self.sequence_name, 'featureName': self.feature_name,
+                    'type': CodingSequence.sequence_type}
+
+            response = requests.post(url, json=body)
             seq = response.text
             if response.status_code == requests.codes.ok:
                 self.sequence = seq
