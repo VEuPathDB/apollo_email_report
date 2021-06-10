@@ -195,7 +195,8 @@ def write_summary_text(annotator_summary, out_dir):
     file_handle.write('Dear Annotator (' + annotator_summary.email + '),' + "\n")
     file_handle.write('Here is a summary of your annotation in Apollo hosted at VEuPathDB.org.' + "\n")
     file_handle.write('Finished Genes: ' + str(annotator_summary.finished_gene_count) + "\n")
-    file_handle.write('Unfinished Genes: ' + str(unfinished_genes))
+    file_handle.write('Unfinished Genes: ' + str(unfinished_genes) + "\n")
+    file_handle.write('Non Canonical splice site: ' + str(annotator_summary.non_canonical_count) + "\n")
     # file_handle.write('The annotation contains the following errors:')
     for gene_name in annotator_summary.unfinished_gene_list:
         gene_list_handle.write(gene_name + "\n")
