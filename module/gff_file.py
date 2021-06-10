@@ -33,7 +33,8 @@ class HandleGFF:
     def read_gff_file(self):
         file_handle = open(self.file_path, 'r')
         line_number = 0
-        allowed_feature = ['gene', 'mRNA', 'exon', 'CDS']
+        allowed_feature = ['gene', 'mRNA', 'exon', 'CDS', 'non_canonical_five_prime_splice_site',
+                           'non_canonical_three_prime_splice_site']
         disqualified_features = list()
         for line in file_handle:
             fields = line.rstrip().split("\t")
@@ -74,16 +75,18 @@ class HandleGFF:
                     if owner not in self.annotators:
                         self.annotators[owner] = annotator.AnnotatorSummary(owner)
 
-                    if status == 'Finished annotating':
-                        self.annotators[owner].add_mrna(True)
-                    else:
-                        self.annotators[owner].add_mrna(False)
+                    self.annotators[owner].add_mrna(True)
+
                 else:
                     owner = self.moderator
                     print("No owner for mRNA: " + feature_id)
 
             if feature_id in self.child_parent_relationship:
                 feature_id = feature_id + '_' + str(line_number)
+
+            if feature_type in ['non_canonical_five_prime_splice_site', 'non_canonical_three_prime_splice_site']:
+                owner = self.get_parent_owner(parent_id)
+                self.annotators[owner].add_non_canonical()
 
             self.feature_owner[feature_id] = owner
             self.future_type[feature_id] = feature_type

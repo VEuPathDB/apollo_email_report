@@ -11,6 +11,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+
+
 class AnnotatorSummary:
     def __init__(self, email):
         self.email = email
@@ -18,6 +20,7 @@ class AnnotatorSummary:
         self.total_mrna_count = int()
         self.finished_gene_count = int()
         self.finished_mrna_count = int()
+        self.non_canonical_count = int()
         self.gene_list = list()
         self.unfinished_gene_list = list()
 
@@ -30,8 +33,11 @@ class AnnotatorSummary:
             self.unfinished_gene_list.append(name)
         self.gene_list.append(name)
 
-    def add_mrna(self, finished=False):
+    def add_mrna(self, finished=True):
 
         self.total_mrna_count += 1
         if finished:
             self.finished_mrna_count += 1
+
+    def add_non_canonical(self):
+        self.non_canonical_count += 1
