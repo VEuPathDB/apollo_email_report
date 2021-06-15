@@ -1,11 +1,10 @@
 ===================================================================
-THIS SUMMARY EMAIL IS AUTOMATICALLY COMPUTER-GENERATED 
+THIS EMAIL IS AUTOMATICALLY COMPUTER-GENERATED 
 ===================================================================
-On behalf of the VEuPathDB.org team I would like to thank you for improving our gene models.
-You should receive a separate email giving more details about any errors.
-A list, of unfinished genes, is attached to this Email.
-Please remember you must mark a gene status as Finished in the Apollo information editor, before it will be integrated in VEuPathDB.org.
-
+You must correct these errors before your annotated genes will be integrated into VEuPathDB.org.
+If this is a partial prediction please tick the box in the annotators panel to partial 5’ (no start codon) or partial 3’ (no stop codon). Non-canonical splice sites are rare and therefore flagged for review. If there are non-canonical splice sites in your model, please recheck intron/exon boundaries, we will only accept these if there is strong enough evidence. 	
+On behalf of the VEuPathDB.org team I would like to thank you for improving our gene models. Unfinished and uncorrected gene models will be retained in our Apollo database for up to a year. 
 If you need more help do not hesitate to contact us: help@veupathdb.org.
 
-This service uses your VEuPathDB SSO account details to contact you with updates and data analysis.
+
+This service uses your VEuPathDB SSO account contact details to supply you with updates and data analysis.
