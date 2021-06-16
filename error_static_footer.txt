@@ -3,8 +3,9 @@ THIS EMAIL IS AUTOMATICALLY COMPUTER-GENERATED
 ===================================================================
 You must correct these errors before your annotated genes will be integrated into VEuPathDB.org.
 If this is a partial prediction please tick the box in the annotators panel to partial 5’ (no start codon) or partial 3’ (no stop codon). Non-canonical splice sites are rare and therefore flagged for review. If there are non-canonical splice sites in your model, please recheck intron/exon boundaries, we will only accept these if there is strong enough evidence. 	
-On behalf of the VEuPathDB.org team I would like to thank you for improving our gene models. Unfinished and uncorrected gene models will be retained in our Apollo database for up to a year. 
+On behalf of the VEuPathDB.org team I would like to thank you for using Apollo to improve gene annotation. Unfinished and uncorrected gene models will be retained in our Apollo database for up to a year. 
 If you need more help do not hesitate to contact us: help@veupathdb.org.
 
 
 This service uses your VEuPathDB SSO account contact details to supply you with updates and data analysis.
+
