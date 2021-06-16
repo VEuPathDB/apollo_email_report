@@ -1,7 +1,7 @@
 ===================================================================
 THIS SUMMARY EMAIL IS AUTOMATICALLY COMPUTER-GENERATED 
 ===================================================================
-On behalf of the VEuPathDB.org team I would like to thank you for improving our gene models.
+On behalf of the VEuPathDB.org team I would like to thank you for using Apollo to improve gene annotation.
 You should receive a separate email giving more details about any errors.
 A list, of unfinished genes, is attached to this Email.
 Please remember you must mark a gene status as Finished in the Apollo information editor, before it will be integrated in VEuPathDB.org.
