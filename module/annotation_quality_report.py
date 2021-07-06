@@ -201,13 +201,12 @@ def write_summary_text(annotator_summary, out_dir):
     for gene_name in annotator_summary.unfinished_gene_list:
         gene_list_handle.write(gene_name + "\n")
 
-
-def send_email_mailgun(url, api_key, from_address, email_address, subject, message, file_attached=None):
+def send_email_mailgun(url, api_key, from_address, email_address, moderator_email_address, subject, message, file_attached=None):
 
     if file_attached:
         return requests.post(url, auth=("api", api_key), files=[("attachment", ("unfinished_genes.txt",
                                                                                 open(file_attached, "rb").read()))],
-                             data={"from": from_address, "to": email_address, "subject": subject, "text": message})
+                             data={"from": from_address, "to": email_address, "bcc": moderator_email_address, "subject": subject, "text": message})
     else:
-        return requests.post(url, auth=("api", api_key), data={"from": from_address, "to": email_address,
+        return requests.post(url, auth=("api", api_key), data={"from": from_address, "to": email_address, "bcc": moderator_email_address,
                                                                "subject": subject, "text": message})
