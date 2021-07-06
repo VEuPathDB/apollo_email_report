@@ -51,8 +51,8 @@ def download_organism_gff(config, organism_name, out_dir):
     apollo_url = config['APOLLO']['base_url']
     apollo_user_name = config['APOLLO']['username']
     apollo_password = config['APOLLO']['password']
-
-    organism_new_dir = out_dir + '/' + organism_name + '/'
+    clean_organism_name = organism_name.replace('/', '')
+    organism_new_dir = out_dir + '/' + clean_organism_name + '/'
     make_new_directory(organism_new_dir)
     gff_file_name = report.download_gff(apollo_url, apollo_user_name, apollo_password, organism_name, organism_new_dir)
     return gff_file_name
@@ -221,7 +221,7 @@ def send_emails(config, email_type, list_of_emails):
             email_address = config['EMAIL']['moderator']
 
         report.send_email_mailgun(mailgun_url, mailgun_key, from_address,
-                                  email_address, subject, email_message, file_attached)
+                                  email_address, moderator_email_address, subject, email_message, file_attached)
 
 
 if __name__ == '__main__':
