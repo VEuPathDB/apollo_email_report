@@ -208,7 +208,7 @@ def send_emails(config, email_type, list_of_emails):
         user_id, email_message = email
         email_address = report.get_email(email_url, client_id, client_secret, user_id)
         moderators = config['EMAIL']['moderator']
-        email_address = email_address + ',' + moderators
+        moderator_email_address = moderators
         if not email_address:
             email_address = config['EMAIL']['moderator']
 
