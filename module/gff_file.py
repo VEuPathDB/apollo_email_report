@@ -59,7 +59,7 @@ class HandleGFF:
                 if owner is not None:
                     if owner not in self.annotators:
                         self.annotators[owner] = annotator.AnnotatorSummary(owner)
-                    if status == 'Finished annotating':
+                    if status == 'Finished':
                         self.annotators[owner].add_gene(name, True)
                     else:
                         self.annotators[owner].add_gene(name, False)
