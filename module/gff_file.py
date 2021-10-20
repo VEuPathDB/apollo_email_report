@@ -36,12 +36,14 @@ class HandleGFF:
         allowed_feature = ['gene', 'mRNA', 'exon', 'CDS', 'non_canonical_five_prime_splice_site',
                            'non_canonical_three_prime_splice_site']
         disqualified_features = list()
+        finished_gene_status = False
         for line in file_handle:
             fields = line.rstrip().split("\t")
             line_number += 1
             if len(fields) != 9:
+                finished_gene_status = False
                 continue  # skip line as not GFF
-            feature_type, owner, scaffold, strand, feature_id, parent_id, name, locus, status \
+            feature_type, owner, scaffold, strand, feature_id, parent_id, name, locus, status, partial \
                 = extract_fields_from_gff(fields)
             if owner is not None:
                 owner = self.get_first_owner(owner)
@@ -59,8 +61,9 @@ class HandleGFF:
                 if owner is not None:
                     if owner not in self.annotators:
                         self.annotators[owner] = annotator.AnnotatorSummary(owner)
-                    if status == 'Finished':
+                    if status == 'Finished' and partial != 'true':
                         self.annotators[owner].add_gene(name, True)
+                        finished_gene_status = True
                     else:
                         self.annotators[owner].add_gene(name, False)
                 else:
@@ -69,14 +72,16 @@ class HandleGFF:
 
             if feature_type == 'mRNA':
                 organism = self.gene_organism[parent_id]
-                self.transcripts.append((feature_id, organism, scaffold))
 
                 if owner is not None:
                     if owner not in self.annotators:
                         self.annotators[owner] = annotator.AnnotatorSummary(owner)
 
-                    self.annotators[owner].add_mrna(True)
-
+                    if finished_gene_status:
+                        self.annotators[owner].add_mrna(True)
+                        self.transcripts.append((feature_id, organism, scaffold))
+                    else:
+                        self.annotators[owner].add_mrna(False)
                 else:
                     owner = self.moderator
                     print("No owner for mRNA: " + feature_id)
@@ -90,9 +95,11 @@ class HandleGFF:
 
             self.feature_owner[feature_id] = owner
             self.future_type[feature_id] = feature_type
-            self.fields[('scaffold', feature_id)] = scaffold
-            self.fields[('strand', feature_id)] = strand
-            self.fields[('position', feature_id)] = (int(fields[3]), int(fields[4]))
+
+            if finished_gene_status:
+                self.fields[('scaffold', feature_id)] = scaffold
+                self.fields[('strand', feature_id)] = strand
+                self.fields[('position', feature_id)] = (int(fields[3]), int(fields[4]))
 
             if parent_id:
                 self.child_parent_relationship[feature_id] = parent_id
@@ -222,7 +229,6 @@ class HandleGFF:
                                                        feature_id, kwargs['feature_value'],
                                                        kwargs['parent_id'], kwargs['parent_value'])
 
-
 def extract_fields_from_gff(fields):
     scaffold = fields[0]
     feature_type = fields[2]
@@ -235,11 +241,13 @@ def extract_fields_from_gff(fields):
     parent_obj = re.match(r'.*Parent=(.+?);', fields[8], flags=0)
     name_obj = re.match(r'.*Name=(.+?);', fields[8], flags=0)
     status_obj = re.match(r'.*status=(.+?);', fields[8], flags=0)
+    partial_obj = re.match(r'.*is_fmax_partial=(.+?);', fields[8], flags=0)
     parent_id = None
     owner = None
     name = None
     locus = None
     status = None
+    partial = None
 
     if feature_type == 'gene':
         locus = "{}:{}..{}".format(scaffold, begin, end)
@@ -251,8 +259,10 @@ def extract_fields_from_gff(fields):
         name = name_obj.group(1)
     if status_obj:
         status = status_obj.group(1)
+    if partial_obj:
+        partial = partial_obj.group(1)
 
     if feature_id:
-        return feature_type, owner, scaffold, strand, feature_id, parent_id, name, locus, status
+        return feature_type, owner, scaffold, strand, feature_id, parent_id, name, locus, status, partial
     else:
         return False
