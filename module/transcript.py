@@ -30,7 +30,7 @@ class CodingSequence:
             url = base_url + "sequence/sequenceByName"
             body = {'username': username, 'password': password, 'organismString': self.organism_name,
                     'sequenceName': self.sequence_name, 'featureName': self.feature_name,
-                    'type': CodingSequence.sequence_type}
+                    'type': CodingSequence.sequence_type, 'ignoreCache':'true'}
 
             response = requests.post(url, json=body)
             seq = response.text
