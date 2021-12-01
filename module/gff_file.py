@@ -193,9 +193,9 @@ class HandleGFF:
             else:
                 return False
 
-            mrna.coding_sequence_has_start_codon()
-            mrna.coding_sequence_has_stop_codon()
-            mrna.coding_sequence_no_internal_stop_codon()
+            mrna.has_start_codon()
+            mrna.has_stop_codon()
+            mrna.no_internal_stop_codon()
 
             if mrna.errors != {}:
                 gene_id = self.get_gene_id(mrna_id)

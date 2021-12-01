@@ -16,6 +16,9 @@ import requests
 
 class CodingSequence:
     sequence_type = 'cds'
+    
+    start_codons = ('ATG')
+    stop_codons = ('TAA', 'TAG', 'TGA')
 
     def __init__(self, feature_name, organism_name, sequence_name):
         self.feature_name = feature_name
@@ -39,33 +42,34 @@ class CodingSequence:
             else:
                 return False
         elif fasta_file:
-            file_handle = open(fasta_file, 'r')
-            for seq in file_handle:
-                if seq[0] != '>':
-                    self.sequence += seq.rstrip()
+            with open(fasta_file, 'r') as file_handle:
+                for seq in file_handle:
+                    if seq[0] != '>':
+                        self.sequence += seq.rstrip()
         else:
             return False
 
-    def coding_sequence_has_start_codon(self):
-        if self.sequence[0:3] == 'ATG':
+    def has_start_codon(self):
+        first_codon = self.sequence[0:3]
+        if first_codon in self.start_codons:
             return True
         else:
             self.errors['start_codon'] = 'no start codon'
             return False
 
-    def coding_sequence_has_stop_codon(self):
+    def has_stop_codon(self):
         last_codon = self.sequence[-3:]
-        if last_codon == 'TAA' or last_codon == 'TAG' or last_codon == 'TGA':
+        if last_codon in self.stop_codons:
             return True
         else:
             self.errors['stop_codon'] = 'no stop codon'
             return False
 
-    def coding_sequence_no_internal_stop_codon(self):
+    def no_internal_stop_codon(self):
         internal_stop_codon_count = 0
         for i in range(0, len(self.sequence) - 3, 3):
             codon = self.sequence[i:i + 3]
-            if codon == 'TAA' or codon == 'TAG' or codon == 'TGA':
+            if codon in self.stop_codons:
                 internal_stop_codon_count += 1
                 self.errors['no_internal_stop_codon'] = str(internal_stop_codon_count) + ' internal stop codon'
         if internal_stop_codon_count:
