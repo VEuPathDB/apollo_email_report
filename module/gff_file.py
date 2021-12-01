@@ -229,7 +229,6 @@ class HandleGFF:
                                                        feature_id, kwargs['feature_value'],
                                                        kwargs['parent_id'], kwargs['parent_value'])
 
-
 def extract_fields_from_gff(fields):
     scaffold = fields[0]
     feature_type = fields[2]
@@ -262,7 +261,7 @@ def extract_fields_from_gff(fields):
         status = status_obj.group(1)
     if partial_obj:
         partial = partial_obj.group(1)
- 
+
     if feature_id:
         return feature_type, owner, scaffold, strand, feature_id, parent_id, name, locus, status, partial
     else:
