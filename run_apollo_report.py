@@ -65,7 +65,7 @@ def join_gff_to_master(organism, gff_file_name, master_gff_file_handle, gene_org
         fields = line.rstrip().split("\t")
         if len(fields) != 9:
             continue  # skip line as not GFF
-        feature_type, owner, scaffold, strand, feature_id, parent_id, name, locus, status \
+        feature_type, owner, scaffold, strand, feature_id, parent_id, name, locus, status, partial \
             = gff_file.extract_fields_from_gff(fields)
 
         if feature_type == 'gene':
