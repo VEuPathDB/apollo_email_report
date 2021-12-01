@@ -230,18 +230,11 @@ class HandleGFF:
                                                        kwargs['parent_id'], kwargs['parent_value'])
 
 def extract_fields_from_gff(fields):
-    scaffold = fields[0]
-    feature_type = fields[2]
-    begin = fields[3]
-    end = fields[4]
-    strand = fields[6]
-    owner_obj = re.match(r'.*owner=(.+?);', fields[8], flags=0)
-    id_obj = re.match(r'.*ID=(.+?);', fields[8], flags=0)
-    feature_id = id_obj.group(1)
-    parent_obj = re.match(r'.*Parent=(.+?);', fields[8], flags=0)
-    name_obj = re.match(r'.*Name=(.+?);', fields[8], flags=0)
-    status_obj = re.match(r'.*status=(.+?);', fields[8], flags=0)
-    partial_obj = re.match(r'.*is_fmax_partial=(.+?);', fields[8], flags=0)
+    
+    scaffold, _, feature_type, begin, end, _, strand, _, attribs_field = fields
+    
+    attribs = extract_attributes(attribs_field)
+    
     parent_id = None
     owner = None
     name = None
@@ -251,18 +244,34 @@ def extract_fields_from_gff(fields):
 
     if feature_type == 'gene':
         locus = "{}:{}..{}".format(scaffold, begin, end)
-    if owner_obj:
-        owner = owner_obj.group(1)
-    if parent_obj:
-        parent_id = parent_obj.group(1)
-    if name_obj:
-        name = name_obj.group(1)
-    if status_obj:
-        status = status_obj.group(1)
-    if partial_obj:
-        partial = partial_obj.group(1)
+
+    if "ID" in attribs:
+        feature_id = attribs["ID"]
+    if "owner" in attribs:
+        owner = attribs["owner"]
+    if "Parent" in attribs:
+        parent_id = attribs["Parent"]
+    if "Name" in attribs:
+        name = attribs["Name"]
+    if "status" in attribs:
+        status = attribs["status"]
+    if "is_fmax_partial" in attribs:
+        partial = attribs["is_fmax_partial"]
+    if "is_fmin_partial" in attribs:
+        partial = attribs["is_fmin_partial"]
 
     if feature_id:
         return feature_type, owner, scaffold, strand, feature_id, parent_id, name, locus, status, partial
     else:
         return False
+
+def extract_attributes(attrib_field: str) -> dict():
+    
+    attribs = dict()
+    pairs = attrib_field.split(";")
+    for pair in pairs:
+        key, value = pair.split("=")
+        attribs[key] = value
+    
+    return attribs
+
