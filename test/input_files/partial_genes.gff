@@ -1,0 +1,8 @@
+##gff-version 3
+##sequence-region AalBS2_2R 1 51801758
+AalBS2_2R	.	gene	39546443	39546919	.	+	.	owner=daniel.lawson.523698833;ID=6cf96adf-3369-4779-973c-071d6e5c32b3;is_fmax_partial=true;date_last_modified=2020-07-10;Name=AALB003614-RAa;status=Finished;no-atg=sequence gap;date_creation=2020-07-10
+AalBS2_2R	.	mRNA	39546443	39546919	.	+	.	owner=ucb.40063473,daniel.lawson.523698833;Parent=6cf96adf-3369-4779-973c-071d6e5c32b3;ID=2347c8a6-e6ab-48ea-91bf-f22e34520818;is_fmax_partial=true;date_last_modified=2021-07-15;Name=AALB003614-lawson-00001;status=Finished;date_creation=2020-07-10
+AalBS2_2R	.	exon	39546443	39546919	.	+	.	Parent=2347c8a6-e6ab-48ea-91bf-f22e34520818;ID=18820236-59d3-4e8f-a2bd-272a10e51fb4;Name=18820236-59d3-4e8f-a2bd-272a10e51fb4
+AalBS2_2R	.	CDS	39546443	39546631	.	+	0	Parent=2347c8a6-e6ab-48ea-91bf-f22e34520818;ID=2347c8a6-e6ab-48ea-91bf-f22e34520818-CDS;Name=2347c8a6-e6ab-48ea-91bf-f22e34520818-CDS
+###
+

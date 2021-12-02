@@ -77,5 +77,21 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual('8c5922b3-fe26-49dc-8aeb-9ac867b96c07', scaffold_error.gff_format_error[0].get('parent_id'))
         self.assertEqual('3R', scaffold_error.gff_format_error[0].get('parent_value'))
 
+    def test_partial_genes(self):
+        gff_path = './input_files/partial_genes.gff'
+        gene_organism = {'6cf96adf-3369-4779-973c-071d6e5c32b3': 'sand_box'}
+        gff = gff_file.HandleGFF(gff_path, gene_organism, '')
+        gff.read_gff_file()
+        self.assertEqual(gff.errors, {})
+        self.assertEqual(len(gff.transcripts), 0)
+
+    def test_partial_genes_untagged(self):
+        gff_path = './input_files/partial_genes_untagged.gff'
+        gene_organism = {'6cf96adf-3369-4779-973c-071d6e5c32b3': 'sand_box'}
+        gff = gff_file.HandleGFF(gff_path, gene_organism, '')
+        gff.read_gff_file()
+        gff.scan_gff_for_errors()
+        self.assertEqual(len(gff.transcripts), 1)
+
 if __name__ == '__main__':
     unittest.main()
