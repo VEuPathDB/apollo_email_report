@@ -3,11 +3,20 @@ from module import gff_file
 
 
 class MyTestCase(unittest.TestCase):
+    
+    def get_gene_organism(self, path: str) -> dict:
+        gene_organism = dict()
+        with open(path) as file_handle:
+            for line in file_handle:
+                gene_id, organism = line.rstrip().split("\t")
+                gene_organism[gene_id] = organism
+        
+        return gene_organism
 
     def test_read_gff_file(self):
         mini_gff_file = './input_files/mini.gff'
         gene_organism = {'9519cfca-0c42-44d4-ab09-d37d33245d07': 'sand_box', '78fbaf52-0a8b-4acb-a93c-5d50238e47bf': 'sand_box'}
-
+        
         mini_gff = gff_file.HandleGFF(mini_gff_file, gene_organism, '')
         mini_gff.read_gff_file()
         scaffold = mini_gff.fields[('scaffold', '9519cfca-0c42-44d4-ab09-d37d33245d07')]
@@ -34,12 +43,7 @@ class MyTestCase(unittest.TestCase):
     def test_scan_true_gff_for_errors(self):
         true_gff_file = './input_files/true.gff'
 
-        true_gene_organism = dict()
-
-        file_handle = open('./input_files/two_gene_organism.tsv')
-        for line in file_handle:
-            gene_id, organism = line.rstrip().split("\t")
-            true_gene_organism[gene_id] = organism
+        true_gene_organism = self.get_gene_organism('./input_files/two_gene_organism.tsv')
 
         true_gff = gff_file.HandleGFF(true_gff_file, true_gene_organism, '')
         true_gff.read_gff_file()
@@ -50,11 +54,7 @@ class MyTestCase(unittest.TestCase):
     def test_scan_false_gff_for_errors(self):
         false_gff_file = './input_files/simple_false.gff'
 
-        false_gene_organism = dict()
-        file_handle = open('./input_files/simple_organism.tsv')
-        for line in file_handle:
-            gene_id, organism = line.rstrip().split("\t")
-            false_gene_organism[gene_id] = organism
+        false_gene_organism = self.get_gene_organism('./input_files/simple_organism.tsv')
 
         false_gff = gff_file.HandleGFF(false_gff_file, false_gene_organism, '')
         false_gff.read_gff_file()
