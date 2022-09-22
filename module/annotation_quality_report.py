@@ -20,11 +20,19 @@ from module import gff_file
 def get_recent_genes_from_apollo(base_url, username, password, days=1):
 
     webservice_data = {'username': username, 'password': password, 'days': days}
-    url = base_url + 'annotationEditor/getRecentAnnotations'
+    url = base_url + '/annotationEditor/getRecentAnnotations'
     response = requests.post(url, json=webservice_data)
     if response.status_code == requests.codes.ok:
-        return response.json()
+        try:
+            return response.json()
+        except Exception:
+            print(response.text)
+            raise Exception()
     else:
+        if response.status_code == requests.codes.unauthorized:
+            raise Exception("Unauthorized")
+        else:
+            raise Exception(f"Response error: {response.status_code}")
         return False
 
 
@@ -52,11 +60,13 @@ def get_gff(base_url, username, password, genes, out_dir):
 
     features = list()
 
+    print(f"Get gff for {len(genes)} genes")
     for key in genes:
         features.append({'uniquename': key})
 
     webservice_data = {'username': username, 'password': password, 'features': features}
-    url = base_url + 'annotationEditor/getGff3'
+    url = base_url + '/annotationEditor/getGff3'
+
     response = requests.post(url, json=webservice_data)
     time_stamp = str(datetime.datetime.now().date())
     file_name = out_dir + 'apollo_' + time_stamp + '.gff'
@@ -66,6 +76,7 @@ def get_gff(base_url, username, password, genes, out_dir):
         return file_name
     else:
         return False
+
 
 
 def download_gff(base_url, username, password, organism, out_dir):
@@ -79,7 +90,7 @@ def download_gff(base_url, username, password, organism, out_dir):
                        'exportAllSequences': 'true',
                        'exportGff3Fasta': 'false'}
 
-    url = base_url + 'IOService/write'
+    url = base_url + '/IOService/write'
     response = requests.post(url, json=webservice_data)
 
     time_stamp = str(datetime.datetime.now().date())
