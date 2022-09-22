@@ -12,6 +12,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 import requests
+import re
 
 
 class CodingSequence:
@@ -35,6 +36,14 @@ class CodingSequence:
             response = requests.post(url, json=body)
             seq = response.text
             if response.status_code == requests.codes.ok:
+                matches = re.match(r'^([CTGAN]+)<', seq)
+                if matches:
+                    print(f"Remove weird html part at the end of {self.feature_name}")
+                    print(f"[{seq}]")
+                    seq = matches[1]
+                if not re.match(r'^[CGTAN]+$', seq):
+                    print(f"Incorrect CDS sequence: [{seq}]")
+                    return False
                 self.sequence = seq
             else:
                 return False
