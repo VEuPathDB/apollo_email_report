@@ -158,6 +158,7 @@ def write_function(dict_of_list, order_of_list, index, out_dir, file_handle=None
         file_handle.write(owner + "\n")
         file_handle.write("Dear Annotator (" + owner + ")," + "\n")
         file_handle.write("***  If you've done functional annotation and not structural annotation, please ignore this message. ***" + "\n")
+        file_handle.write("If you have already amended this gene annotation and think that it is correct, please ignore this message or contact us at: help@veupathdb.org to discuss any concerns." + "\n")
         file_handle.write("There is a gene annotation attributed to your account that has been edited by yourself or another annotator that currently has errors. If you made any edit to this gene in the last 24 hours could you please check that the gene is correct." + "\n")
     elif order_of_list[index] == 'organism_name':
         organism_name = dict_of_list['organism_name'][0].organism_name
