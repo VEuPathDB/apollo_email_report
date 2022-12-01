@@ -191,8 +191,12 @@ def write_summary_text(annotator_summary, out_dir) -> None:
     """Write an email summary and a list of unfinished genes to files for an annotator.
     
     The files are not created if there are no annotations for that user.
-
     """
+    # Do not create (and so do not send) an email if there is nothing for this annotator
+    any_change = annotator_summary.gene_count + annotator_summary.non_canonical_count
+    if not any_change:
+        return
+    
     # Create the email summary file
     file_name = out_dir + annotator_summary.email + '.summary'
     with open(file_name, 'w') as file_handle:
