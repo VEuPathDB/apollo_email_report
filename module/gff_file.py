@@ -12,6 +12,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 import re
+from typing import Dict, List
 from module import annotator, transcript, validation_error
 
 
@@ -229,38 +230,32 @@ class HandleGFF:
                                                        feature_id, kwargs['feature_value'],
                                                        kwargs['parent_id'], kwargs['parent_value'])
 
-def extract_fields_from_gff(fields):
-    scaffold = fields[0]
-    feature_type = fields[2]
-    begin = fields[3]
-    end = fields[4]
-    strand = fields[6]
-    owner_obj = re.match(r'.*owner=(.+?);', fields[8], flags=0)
-    id_obj = re.match(r'.*ID=(.+?);', fields[8], flags=0)
-    feature_id = id_obj.group(1)
-    parent_obj = re.match(r'.*Parent=(.+?);', fields[8], flags=0)
-    name_obj = re.match(r'.*Name=(.+?);', fields[8], flags=0)
-    status_obj = re.match(r'.*status=(.+?);', fields[8], flags=0)
-    partial_obj = re.match(r'.*is_fmax_partial=(.+?);', fields[8], flags=0)
-    parent_id = None
-    owner = None
-    name = None
-    locus = None
-    status = None
-    partial = None
+def parse_attribs(attribs_field: str) -> Dict:
+    """Returns the attribs as a Dict."""
+    attribs_str = attribs_field.split(";")
 
+    attribs = {}
+    for pair in attribs_str:
+        (key, value) = pair.split("=")
+        attribs[key] = value
+    
+    return attribs
+
+def extract_fields_from_gff(fields: List) -> Dict:
+    """Return a list of fields from a gff feature line"""
+    scaffold, _, feature_type, begin, end, _, strand, _, attribs_field = fields
+    attribs: dict = parse_attribs(attribs_field)
+    
+    feature_id = attribs.get('ID')
+    parent_id = attribs.get('Parent')
+    owner = attribs.get('owner')
+    name = attribs.get('Name')
+    status = attribs.get('status')
+    partial = attribs.get('is_fmax_partial') or attribs.get('is_fmin_partial')
+
+    locus = None
     if feature_type == 'gene':
         locus = "{}:{}..{}".format(scaffold, begin, end)
-    if owner_obj:
-        owner = owner_obj.group(1)
-    if parent_obj:
-        parent_id = parent_obj.group(1)
-    if name_obj:
-        name = name_obj.group(1)
-    if status_obj:
-        status = status_obj.group(1)
-    if partial_obj:
-        partial = partial_obj.group(1)
 
     if feature_id:
         return feature_type, owner, scaffold, strand, feature_id, parent_id, name, locus, status, partial
