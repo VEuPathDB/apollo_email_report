@@ -32,83 +32,82 @@ class HandleGFF:
         self.errors = dict()
 
     def read_gff_file(self):
-        file_handle = open(self.file_path, 'r')
-        line_number = 0
-        allowed_feature = ['gene', 'mRNA', 'exon', 'CDS', 'non_canonical_five_prime_splice_site',
-                           'non_canonical_three_prime_splice_site']
-        disqualified_features = list()
-        finished_gene_status = False
-        for line in file_handle:
-            fields = line.rstrip().split("\t")
-            line_number += 1
-            if len(fields) != 9:
-                finished_gene_status = False
-                continue  # skip line as not GFF
-            feature_type, owner, scaffold, strand, feature_id, parent_id, name, locus, status, partial \
-                = extract_fields_from_gff(fields)
-            if owner is not None:
-                owner = self.get_first_owner(owner)
-            if feature_type not in allowed_feature:
-                disqualified_features.append(feature_id)
-
-            if feature_id in disqualified_features:
-                continue
-            if parent_id in disqualified_features:
-                disqualified_features.append(feature_id)
-                continue
-
-            if feature_type == 'gene':
-                self.gene_meta_info[feature_id] = (name, locus)
+        with open(self.file_path, 'r') as file_handle:
+            line_number = 0
+            allowed_feature = ['gene', 'mRNA', 'exon', 'CDS', 'non_canonical_five_prime_splice_site',
+                            'non_canonical_three_prime_splice_site']
+            disqualified_features = list()
+            finished_gene_status = False
+            for line in file_handle:
+                fields = line.rstrip().split("\t")
+                line_number += 1
+                if len(fields) != 9:
+                    finished_gene_status = False
+                    continue  # skip line as not GFF
+                feature_type, owner, scaffold, strand, feature_id, parent_id, name, locus, status, partial \
+                    = extract_fields_from_gff(fields)
                 if owner is not None:
-                    if owner not in self.annotators:
-                        self.annotators[owner] = annotator.AnnotatorSummary(owner)
-                    if (status == 'Finished' or status == 'Finished annotating') and partial != 'true':
-                        self.annotators[owner].add_gene(name, True)
-                        finished_gene_status = True
+                    owner = self.get_first_owner(owner)
+                if feature_type not in allowed_feature:
+                    disqualified_features.append(feature_id)
+
+                if feature_id in disqualified_features:
+                    continue
+                if parent_id in disqualified_features:
+                    disqualified_features.append(feature_id)
+                    continue
+
+                if feature_type == 'gene':
+                    self.gene_meta_info[feature_id] = (name, locus)
+                    if owner is not None:
+                        if owner not in self.annotators:
+                            self.annotators[owner] = annotator.AnnotatorSummary(owner)
+                        if (status == 'Finished' or status == 'Finished annotating') and partial != 'true':
+                            self.annotators[owner].add_gene(name, True)
+                            finished_gene_status = True
+                        else:
+                            self.annotators[owner].add_gene(name, False)
                     else:
-                        self.annotators[owner].add_gene(name, False)
-                else:
-                    owner = self.moderator
-                    print("No owner for Gene: " + feature_id)
+                        owner = self.moderator
+                        print("No owner for Gene: " + feature_id)
 
-            if feature_type == 'mRNA':
-                organism = self.gene_organism[parent_id]
+                if feature_type == 'mRNA':
+                    organism = self.gene_organism[parent_id]
 
-                if owner is not None:
-                    if owner not in self.annotators:
-                        self.annotators[owner] = annotator.AnnotatorSummary(owner)
+                    if owner is not None:
+                        if owner not in self.annotators:
+                            self.annotators[owner] = annotator.AnnotatorSummary(owner)
 
-                    if finished_gene_status:
-                        self.annotators[owner].add_mrna(True)
-                        self.transcripts.append((feature_id, organism, scaffold))
+                        if finished_gene_status:
+                            self.annotators[owner].add_mrna(True)
+                            self.transcripts.append((feature_id, organism, scaffold))
+                        else:
+                            self.annotators[owner].add_mrna(False)
                     else:
-                        self.annotators[owner].add_mrna(False)
+                        owner = self.moderator
+                        print("No owner for mRNA: " + feature_id)
+
+                if feature_id in self.child_parent_relationship:
+                    feature_id = feature_id + '_' + str(line_number)
+
+                if feature_type in ['non_canonical_five_prime_splice_site', 'non_canonical_three_prime_splice_site']:
+                    owner = self.get_parent_owner(parent_id)
+                    self.annotators[owner].add_non_canonical()
+
+                self.feature_owner[feature_id] = owner
+                self.future_type[feature_id] = feature_type
+
+                if finished_gene_status:
+                    self.fields[('scaffold', feature_id)] = scaffold
+                    self.fields[('strand', feature_id)] = strand
+                    self.fields[('position', feature_id)] = (int(fields[3]), int(fields[4]))
+
+                if parent_id:
+                    self.child_parent_relationship[feature_id] = parent_id
+                elif feature_type == 'gene':
+                    self.child_parent_relationship[feature_id] = feature_id  # to avoid checking if ID exists
                 else:
-                    owner = self.moderator
-                    print("No owner for mRNA: " + feature_id)
-
-            if feature_id in self.child_parent_relationship:
-                feature_id = feature_id + '_' + str(line_number)
-
-            if feature_type in ['non_canonical_five_prime_splice_site', 'non_canonical_three_prime_splice_site']:
-                owner = self.get_parent_owner(parent_id)
-                self.annotators[owner].add_non_canonical()
-
-            self.feature_owner[feature_id] = owner
-            self.future_type[feature_id] = feature_type
-
-            if finished_gene_status:
-                self.fields[('scaffold', feature_id)] = scaffold
-                self.fields[('strand', feature_id)] = strand
-                self.fields[('position', feature_id)] = (int(fields[3]), int(fields[4]))
-
-            if parent_id:
-                self.child_parent_relationship[feature_id] = parent_id
-            elif feature_type == 'gene':
-                self.child_parent_relationship[feature_id] = feature_id  # to avoid checking if ID exists
-            else:
-                print("Feature not recognized", feature_type, feature_id)
-        file_handle.close()
+                    print("Feature not recognized", feature_type, feature_id)
 
     @staticmethod
     def get_first_owner(owner):

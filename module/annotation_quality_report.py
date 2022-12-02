@@ -123,6 +123,8 @@ def sort_and_write_errors(dict_of_list, order_of_lists, index, out_dir, file_han
         # print("going up to", order_of_lists[index - 1])
         dict_of_list[order_of_lists[index]].clear()
         sort_and_write_errors(dict_of_list, order_of_lists, index - 1, out_dir, file_handle)
+    if file_handle:
+        file_handle.close()
 
 
 def copy_function(dict_of_list, order_of_lists, index):
