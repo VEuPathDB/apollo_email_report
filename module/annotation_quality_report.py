@@ -195,7 +195,7 @@ def write_summary_text(annotator_summary, out_dir) -> None:
     The files are not created if there are no annotations for that user.
     """
     # Do not create (and so do not send) an email if there is nothing for this annotator
-    any_change = annotator_summary.total_gene_count + annotator_summary.non_canonical_count
+    any_change = annotator_summary.total_gene_count
     if not any_change:
         return
     
