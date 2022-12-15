@@ -10,10 +10,10 @@ class MyTestCase(unittest.TestCase):
         false_gff_file = './input_files/simple_false.gff'
 
         false_gene_organism = dict()
-        file_handle = open('./input_files/simple_organism.tsv')
-        for line in file_handle:
-            gene_id, organism = line.rstrip().split("\t")
-            false_gene_organism[gene_id] = organism
+        with open('./input_files/simple_organism.tsv') as file_handle:
+            for line in file_handle:
+                gene_id, organism = line.rstrip().split("\t")
+                false_gene_organism[gene_id] = organism
 
         false_gff = gff_file.HandleGFF(false_gff_file, false_gene_organism, '')
         false_gff.read_gff_file()
@@ -46,10 +46,11 @@ class MyTestCase(unittest.TestCase):
     def test_two_annotators(self):
         two_genes_false_gff = './input_files/two_annotator_false.gff'
         false_gene_organism = dict()
-        file_handle = open('./input_files/two_gene_organism.tsv')
-        for line in file_handle:
-            gene_id, organism = line.rstrip().split("\t")
-            false_gene_organism[gene_id] = organism
+
+        with open('./input_files/two_gene_organism.tsv') as file_handle:
+            for line in file_handle:
+                gene_id, organism = line.rstrip().split("\t")
+                false_gene_organism[gene_id] = organism
 
         false_gff = gff_file.HandleGFF(two_genes_false_gff, false_gene_organism, '')
         false_gff.read_gff_file()
@@ -85,10 +86,10 @@ class MyTestCase(unittest.TestCase):
 
         two_genes_false_gff = './input_files/two_species_false.gff'
         false_gene_organism = dict()
-        file_handle = open('./input_files/two_species_organism.tsv')
-        for line in file_handle:
-            gene_id, organism = line.rstrip().split("\t")
-            false_gene_organism[gene_id] = organism
+        with open('./input_files/two_species_organism.tsv') as file_handle:
+            for line in file_handle:
+                gene_id, organism = line.rstrip().split("\t")
+                false_gene_organism[gene_id] = organism
 
         false_gff = gff_file.HandleGFF(two_genes_false_gff, false_gene_organism, '')
         false_gff.read_gff_file()
@@ -121,10 +122,10 @@ class MyTestCase(unittest.TestCase):
 
         two_genes_false_gff = './input_files/two_genes_false.gff'
         false_gene_organism = dict()
-        file_handle = open('./input_files/two_gene_organism.tsv')
-        for line in file_handle:
-            gene_id, organism = line.rstrip().split("\t")
-            false_gene_organism[gene_id] = organism
+        with open('./input_files/two_gene_organism.tsv') as file_handle:
+            for line in file_handle:
+                gene_id, organism = line.rstrip().split("\t")
+                false_gene_organism[gene_id] = organism
 
         false_gff = gff_file.HandleGFF(two_genes_false_gff, false_gene_organism, '')
         false_gff.read_gff_file()
@@ -157,10 +158,10 @@ class MyTestCase(unittest.TestCase):
 
         two_genes_false_gff = './input_files/two_mrna_false.gff'
         false_gene_organism = dict()
-        file_handle = open('./input_files/two_mrna_organism.tsv')
-        for line in file_handle:
-            gene_id, organism = line.rstrip().split("\t")
-            false_gene_organism[gene_id] = organism
+        with open('./input_files/two_mrna_organism.tsv') as file_handle:
+            for line in file_handle:
+                gene_id, organism = line.rstrip().split("\t")
+                false_gene_organism[gene_id] = organism
 
         false_gff = gff_file.HandleGFF(two_genes_false_gff, false_gene_organism, '')
         false_gff.read_gff_file()

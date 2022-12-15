@@ -123,6 +123,8 @@ def sort_and_write_errors(dict_of_list, order_of_lists, index, out_dir, file_han
         # print("going up to", order_of_lists[index - 1])
         dict_of_list[order_of_lists[index]].clear()
         sort_and_write_errors(dict_of_list, order_of_lists, index - 1, out_dir, file_handle)
+    if file_handle:
+        file_handle.close()
 
 
 def copy_function(dict_of_list, order_of_lists, index):
@@ -187,21 +189,32 @@ def write_function(dict_of_list, order_of_list, index, out_dir, file_handle=None
     return file_handle
 
 
-def write_summary_text(annotator_summary, out_dir):
+def write_summary_text(annotator_summary, out_dir) -> None:
+    """Write an email summary and a list of unfinished genes to files for an annotator.
+    
+    The files are not created if there are no annotations for that user.
+    """
+    # Do not create (and so do not send) an email if there is nothing for this annotator
+    any_change = annotator_summary.total_gene_count
+    if not any_change:
+        return
+    
+    # Create the email summary file
     file_name = out_dir + annotator_summary.email + '.summary'
-    file_handle = open(file_name, 'w')
+    with open(file_name, 'w') as file_handle:
+        unfinished_genes = annotator_summary.total_gene_count - annotator_summary.finished_gene_count
+        file_handle.write(annotator_summary.email + "\n")
+        file_handle.write('Dear Annotator (' + annotator_summary.email + '),' + "\n")
+        file_handle.write('Here is a summary of your annotation in Apollo hosted at VEuPathDB.org.' + "\n")
+        file_handle.write('Finished Genes: ' + str(annotator_summary.finished_gene_count) + "\n")
+        file_handle.write('Unfinished Genes: ' + str(unfinished_genes) + "\n")
+        file_handle.write('Non Canonical splice site: ' + str(annotator_summary.non_canonical_count) + "\n")
+    
+    # Create the gene_list file
     gene_list_name = out_dir + annotator_summary.email + '.gene_list'
-    gene_list_handle = open(gene_list_name, 'w')
-    unfinished_genes = annotator_summary.total_gene_count - annotator_summary.finished_gene_count
-    file_handle.write(annotator_summary.email + "\n")
-    file_handle.write('Dear Annotator (' + annotator_summary.email + '),' + "\n")
-    file_handle.write('Here is a summary of your annotation in Apollo hosted at VEuPathDB.org.' + "\n")
-    file_handle.write('Finished Genes: ' + str(annotator_summary.finished_gene_count) + "\n")
-    file_handle.write('Unfinished Genes: ' + str(unfinished_genes) + "\n")
-    file_handle.write('Non Canonical splice site: ' + str(annotator_summary.non_canonical_count) + "\n")
-    # file_handle.write('The annotation contains the following errors:')
-    for gene_name in annotator_summary.unfinished_gene_list:
-        gene_list_handle.write(gene_name + "\n")
+    with open(gene_list_name, 'w') as gene_list_handle:
+        for gene_name in annotator_summary.unfinished_gene_list:
+            gene_list_handle.write(gene_name + "\n")
 
 def send_email_mailgun(url, api_key, from_address, email_address, moderator_email_address, subject, message, file_attached=None):
 

@@ -1,6 +1,8 @@
 twomrna@ebi.ac.uk
 Dear Annotator (twomrna@ebi.ac.uk),
-Your annotation in Apollo hosted at VEuPathDB.org contains errors.
+***  If you've done functional annotation and not structural annotation, please ignore this message. ***
+If you have already amended this gene annotation and think that it is correct, please ignore this message or contact us at: help@veupathdb.org to discuss any concerns.
+There is a gene annotation attributed to your account that has been edited by yourself or another annotator that currently has errors. If you made any edit to this gene in the last 24 hours could you please check that the gene is correct.
 Species: sandbox
 Gene: AGAP009584-LAWSON (ID:78fbaf52-0a8b-4acb-a93c-5d50238e47bf)
 Location: 3R:36668778..36675722
