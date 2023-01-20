@@ -18,7 +18,7 @@ import json
 import sys
 from module import annotation_quality_report as report, gff_file
 
-sys.setrecursionlimit(2500)
+sys.setrecursionlimit(15000)
 
 
 def prepare_summary_gff(config):
