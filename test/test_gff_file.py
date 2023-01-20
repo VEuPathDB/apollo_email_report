@@ -36,10 +36,10 @@ class MyTestCase(unittest.TestCase):
 
         true_gene_organism = dict()
 
-        file_handle = open('./input_files/two_gene_organism.tsv')
-        for line in file_handle:
-            gene_id, organism = line.rstrip().split("\t")
-            true_gene_organism[gene_id] = organism
+        with open('./input_files/two_gene_organism.tsv') as file_handle:
+            for line in file_handle:
+                gene_id, organism = line.rstrip().split("\t")
+                true_gene_organism[gene_id] = organism
 
         true_gff = gff_file.HandleGFF(true_gff_file, true_gene_organism, '')
         true_gff.read_gff_file()
@@ -51,10 +51,10 @@ class MyTestCase(unittest.TestCase):
         false_gff_file = './input_files/simple_false.gff'
 
         false_gene_organism = dict()
-        file_handle = open('./input_files/simple_organism.tsv')
-        for line in file_handle:
-            gene_id, organism = line.rstrip().split("\t")
-            false_gene_organism[gene_id] = organism
+        with open('./input_files/simple_organism.tsv') as file_handle:
+            for line in file_handle:
+                gene_id, organism = line.rstrip().split("\t")
+                false_gene_organism[gene_id] = organism
 
         false_gff = gff_file.HandleGFF(false_gff_file, false_gene_organism, '')
         false_gff.read_gff_file()
