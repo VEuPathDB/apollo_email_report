@@ -8,4 +8,6 @@ Please remember you must mark a gene status as Finished in the Apollo informatio
 
 If you need more help do not hesitate to contact us: help@veupathdb.org.
 
+You can find more information on annotating genes in Apollo in our apollo FAQ pages https://veupathdb.org/veupathdb/app/static-content/faq.html#apollo
+
 This service uses your VEuPathDB SSO account details to contact you with updates and data analysis.
