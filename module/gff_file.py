@@ -15,6 +15,7 @@ import re
 from typing import Dict, List
 from module import annotator, transcript, validation_error
 
+any_organism = 'ANY_ORGANISM'
 
 class HandleGFF:
     def __init__(self, file_path, gene_organism, moderator):
@@ -72,7 +73,9 @@ class HandleGFF:
                         print("No owner for Gene: " + feature_id)
 
                 if feature_type == 'mRNA':
-                    organism = self.gene_organism[parent_id]
+                    organism = self.gene_organism.get(parent_id)
+                    if not organism:
+                        organism = any_organism
 
                     if owner is not None:
                         if owner not in self.annotators:
@@ -154,7 +157,9 @@ class HandleGFF:
             gene_name, locus = self.gene_meta_info[gene_id]
             arguments = dict()
             arguments['owner'] = owner
-            arguments['organism_name'] = self.gene_organism[gene_id]
+            arguments['organism_name'] = self.gene_organism.get(gene_id)
+            if not arguments['organism_name']:
+                arguments['organism_name'] = any_organism
             arguments['gene_id'] = gene_id
             arguments['mrna_id'] = mrna_id
             arguments['gene_name'] = gene_name
@@ -204,7 +209,9 @@ class HandleGFF:
                 gene_name, locus = self.gene_meta_info[gene_id]
                 arguments = dict()
                 arguments['owner'] = owner
-                arguments['organism_name'] = self.gene_organism[gene_id]
+                arguments['organism_name'] = self.gene_organism.get(gene_id)
+                if not arguments['organism_name']:
+                    arguments['organism_name'] = any_organism
                 arguments['gene_id'] = gene_id
                 arguments['mrna_id'] = mrna_id
                 arguments['gene_name'] = gene_name
