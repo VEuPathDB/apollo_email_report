@@ -108,6 +108,10 @@ def download_gff(base_url, username, password, organism, out_dir):
 
 
 def validate_gff(base_url, username, password, gff_file_path, gene_organism, moderator):
+    """Validate a gff
+    
+    Returns None if there are no errors.
+    """
     gff_file_object = gff_file.HandleGFF(gff_file_path, gene_organism, moderator)
     gff_file_object.read_gff_file()
     gff_file_object.scan_gff_for_errors()
