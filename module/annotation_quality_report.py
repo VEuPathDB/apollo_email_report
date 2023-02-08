@@ -35,7 +35,24 @@ def get_recent_genes_from_apollo(base_url, username, password, days=1):
             raise Exception("Unauthorized")
         else:
             raise Exception(f"Response error: {response.status_code}")
-        return False
+
+def get_organisms(base_url, username, password):
+
+    webservice_data = {'username': username, 'password': password}
+    url = urllib.parse.urljoin(base_url, 'organism/findAllOrganisms')
+
+    response = requests.post(url, json=webservice_data)
+    if response.status_code == requests.codes.ok:
+        try:
+            return response.json()
+        except Exception:
+            print(response.text)
+            raise Exception()
+    else:
+        if response.status_code == requests.codes.unauthorized:
+            raise Exception("Unauthorized")
+        else:
+            raise Exception(f"Response error: {response.status_code}")
 
 
 def get_email(base_url, client_id, client_secret, user_id):
