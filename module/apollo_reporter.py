@@ -111,7 +111,7 @@ class ApolloReporter:
 
     def prepare_summary_emails(self, master_gff_file_name, gene_organism, file_extension):
         config = self.config
-        email_dir = config['SETUP']['dir']
+        email_dir = Path(config['SETUP']['dir'])
         footer_text = self.load_summary_footer()
 
         gff_file_object = gff_file.HandleGFF(master_gff_file_name, gene_organism, config['EMAIL']['moderator'])
@@ -126,7 +126,7 @@ class ApolloReporter:
         return messages
 
     @staticmethod
-    def _write_email_body(file_object, out_dir):
+    def _write_email_body(file_object, out_dir: Path):
         for owner, annotator_object in file_object.annotators.items():
             report.write_summary_text(annotator_object, out_dir)
 
@@ -172,7 +172,7 @@ class ApolloReporter:
 
     def prepare_error_emails(self, master_gff_file_name, gene_organism_lookup, file_extension):
         config = self.config
-        email_dir = config['SETUP']['dir']
+        email_dir = Path(config['SETUP']['dir'])
         apollo_url = config['APOLLO']['base_url']
         footer_text = self.load_error_footer()
         messages = list()
@@ -194,7 +194,7 @@ class ApolloReporter:
         return messages
 
     @staticmethod
-    def _sort_error_and_write_email_body(gff_file_object, email_dir):
+    def _sort_error_and_write_email_body(gff_file_object, email_dir: Path):
 
         sort_order_list = ('all', 'owner', 'organism_name', 'gene_id', 'mrna_id')
         error_object_list = list()

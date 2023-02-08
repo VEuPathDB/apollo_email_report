@@ -11,6 +11,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+from pathlib import Path
 import requests
 import datetime
 import urllib.parse
@@ -140,7 +141,7 @@ def validate_gff(base_url, username, password, gff_file_path, gene_organism, mod
         return None
 
 
-def sort_and_write_errors(dict_of_list, order_of_lists, index, out_dir, file_handle=None):
+def sort_and_write_errors(dict_of_list, order_of_lists, index, out_dir: Path, file_handle=None):
     file_handle = file_handle
     # print("length of list:", order_of_lists[index], len(dict_of_list[order_of_lists[index]]))
     if index < 0:
@@ -182,15 +183,15 @@ def copy_function(dict_of_list, order_of_lists, index):
             dict_of_list[order_of_lists[index]].remove(delete_object)
 
 
-def write_function(dict_of_list, order_of_list, index, out_dir, file_handle=None):
+def write_function(dict_of_list, order_of_list, index, out_dir: Path, file_handle=None):
     file_handle = file_handle
     if order_of_list[index] == 'owner':
         if file_handle:
             file_handle.close()
         owner = dict_of_list['owner'][0].owner
         time_stamp = str(datetime.datetime.now().date())
-        file_name = out_dir + owner + '_' + time_stamp + '.error'
-        file_handle = open(file_name, 'a')
+        file_name = out_dir / f"{owner}_{time_stamp}.error"
+        file_handle = file_name.open('a')
         file_handle.write(owner + "\n")
         file_handle.write("Dear Annotator (" + owner + ")," + "\n")
         file_handle.write("***  If you've done functional annotation and not structural annotation, please ignore this message. ***" + "\n")
@@ -223,7 +224,7 @@ def write_function(dict_of_list, order_of_list, index, out_dir, file_handle=None
     return file_handle
 
 
-def write_summary_text(annotator_summary, out_dir) -> None:
+def write_summary_text(annotator_summary, out_dir: Path) -> None:
     """Write an email summary and a list of unfinished genes to files for an annotator.
     
     The files are not created if there are no annotations for that user.
@@ -234,8 +235,8 @@ def write_summary_text(annotator_summary, out_dir) -> None:
         return
     
     # Create the email summary file
-    file_name = out_dir + annotator_summary.email + '.summary'
-    with open(file_name, 'w') as file_handle:
+    file_name = out_dir / f"{annotator_summary.email}.summary"
+    with file_name.open('w') as file_handle:
         unfinished_genes = annotator_summary.total_gene_count - annotator_summary.finished_gene_count
         file_handle.write(annotator_summary.email + "\n")
         file_handle.write('Dear Annotator (' + annotator_summary.email + '),' + "\n")
@@ -245,7 +246,7 @@ def write_summary_text(annotator_summary, out_dir) -> None:
         file_handle.write('Non Canonical splice site: ' + str(annotator_summary.non_canonical_count) + "\n")
     
     # Create the gene_list file
-    gene_list_name = out_dir + annotator_summary.email + '.gene_list'
+    gene_list_name = out_dir / f"{annotator_summary.email}.gene_list"
     with open(gene_list_name, 'w') as gene_list_handle:
         for gene_name in annotator_summary.unfinished_gene_list:
             gene_list_handle.write(gene_name + "\n")
