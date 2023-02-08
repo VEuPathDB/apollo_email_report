@@ -230,31 +230,34 @@ def write_summary_text(annotator_summary, out_dir: Path) -> None:
     The files are not created if there are no annotations for that user.
     """
     # Do not create (and so do not send) an email if there is nothing for this annotator
-    any_change = annotator_summary.total_gene_count
-    if not any_change:
+    if not annotator_summary.has_changes():
         return
     
     # Create the email summary file
     file_name = out_dir / f"{annotator_summary.email}.summary"
     with file_name.open('w') as file_handle:
-        unfinished_genes = annotator_summary.total_gene_count - annotator_summary.finished_gene_count
-        unfinished_pseudogenes = annotator_summary.total_pseudogene_count - annotator_summary.finished_pseudogene_count
+        stats = {
+            "Finished mRNAs": annotator_summary.total_mrna_count,
+            "Unfinished mRNAs": annotator_summary.total_mrna_count - annotator_summary.finished_mrna_count,
+            "Finished ncRNAs": annotator_summary.total_gene_count,
+            "Unfinished ncRNAs": annotator_summary.total_ncrna_count - annotator_summary.finished_ncrna_count,
+            "Finished pseudogenes": annotator_summary.total_pseudogene_count,
+            "Unfinished pseudogenes": annotator_summary.total_pseudogene_count - annotator_summary.finished_pseudogene_count,
+            "Non Canonical splice site": annotator_summary.non_canonical_count,
+        }
         file_handle.write(annotator_summary.email + "\n")
         file_handle.write('Dear Annotator (' + annotator_summary.email + '),' + "\n")
         file_handle.write('Here is a summary of your annotation in Apollo hosted at VEuPathDB.org.' + "\n")
-        file_handle.write('Finished Genes: ' + str(annotator_summary.finished_gene_count) + "\n")
-        file_handle.write('Unfinished Genes: ' + str(unfinished_genes) + "\n")
-        file_handle.write('Finished Pseudogenes: ' + str(annotator_summary.finished_pseudogene_count) + "\n")
-        file_handle.write('Unfinished Pseudogenes: ' + str(unfinished_pseudogenes) + "\n")
-        file_handle.write('Non Canonical splice site: ' + str(annotator_summary.non_canonical_count) + "\n")
+        for (item, count) in stats.items():
+            if count > 0:
+                file_handle.write(f"{item}: {count}\n")
     
     # Create the gene_list file
     gene_list_name = out_dir / f"{annotator_summary.email}.gene_list"
+    gene_list = annotator_summary.get_unfinished()
     with open(gene_list_name, 'w') as gene_list_handle:
-        for gene_name in annotator_summary.unfinished_gene_list:
-            gene_list_handle.write(gene_name + "\n")
-        for gene_name in annotator_summary.unfinished_pseudogene_list:
-            gene_list_handle.write(gene_name + "\n")
+        gene_list_handle.write("\n".join(gene_list))
+
 
 def send_email_mailgun(url, api_key, from_address, email_address, moderator_email_address, subject, message, file_attached=None):
 

@@ -25,7 +25,24 @@ sub_prot_feat = set((
     'non_canonical_five_prime_splice_site',
     'non_canonical_three_prime_splice_site'
 ))
-non_coding_feat = set()
+non_coding_feat = set((
+    'rRNA',
+    'tRNA',
+    'sRNA',
+    'snoRNA',
+    'ncRNA',
+    'miRNA',
+    'guide_RNA',
+    'RNAse_MRP_RNA',
+    'telomerase_RNA',
+    'SRP_RNA',
+    'lnc_RNA',
+    'RNAse_P_RNA',
+    'scRNA',
+    'piRNA',
+    'tmRNA',
+    'enzymatic_RNA',
+))
 allowed_feature = top_level_feat.union(sub_prot_feat).union(non_coding_feat)
 
 class HandleGFF:
@@ -95,7 +112,7 @@ class HandleGFF:
                         owner = self.moderator
                         print("No owner for Pseudogene: " + feature_id)
 
-                if feature_type == 'mRNA':
+                elif feature_type == 'mRNA':
                     organism = self.gene_organism.get(parent_id)
                     if not organism:
                         organism = any_organism
@@ -105,13 +122,31 @@ class HandleGFF:
                             self.annotators[owner] = annotator.AnnotatorSummary(owner)
 
                         if finished_gene_status:
-                            self.annotators[owner].add_mrna(True)
+                            self.annotators[owner].add_mrna(name, True)
                             self.transcripts.append((feature_id, organism, scaffold))
                         else:
-                            self.annotators[owner].add_mrna(False)
+                            self.annotators[owner].add_mrna(name, False)
                     else:
                         owner = self.moderator
                         print("No owner for mRNA: " + feature_id)
+
+                elif feature_type in non_coding_feat:
+                    organism = self.gene_organism.get(parent_id)
+                    if not organism:
+                        organism = any_organism
+
+                    if owner is not None:
+                        if owner not in self.annotators:
+                            self.annotators[owner] = annotator.AnnotatorSummary(owner)
+
+                        if finished_gene_status:
+                            self.annotators[owner].add_ncrna(name, True)
+                        else:
+                            self.annotators[owner].add_ncrna(name, False)
+                    else:
+                        owner = self.moderator
+                        print("No owner for ncRNA: " + feature_id)
+
 
                 if feature_id in self.child_parent_relationship:
                     feature_id = feature_id + '_' + str(line_number)

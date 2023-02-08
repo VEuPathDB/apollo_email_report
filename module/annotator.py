@@ -13,22 +13,32 @@ limitations under the License.
 """
 
 
+from typing import List
+
+
 class AnnotatorSummary:
     def __init__(self, email):
         self.email = email
 
         self.total_mrna_count = int()
         self.finished_mrna_count = int()
+        self.mrnas = list()
+        self.unfinished_mrnas = list()
 
         self.total_gene_count = int()
         self.finished_gene_count = int()
-        self.gene_list = list()
-        self.unfinished_gene_list = list()
+        self.genes = list()
+        self.unfinished_genes = list()
 
         self.total_pseudogene_count = int()
         self.finished_pseudogene_count = int()
-        self.pseudogene_list = list()
-        self.unfinished_pseudogene_list = list()
+        self.pseudogenes = list()
+        self.unfinished_pseudogenes = list()
+
+        self.total_ncrna_count = int()
+        self.finished_ncrna_count = int()
+        self.ncrnas = list()
+        self.unfinished_ncrnas = list()
 
         self.non_canonical_count = int()
 
@@ -38,8 +48,8 @@ class AnnotatorSummary:
         if finished:
             self.finished_gene_count += 1
         else:
-            self.unfinished_gene_list.append(name)
-        self.gene_list.append(name)
+            self.unfinished_genes.append(name)
+        self.genes.append(name)
 
     def add_pseudogene(self, name, finished=False):
 
@@ -47,14 +57,32 @@ class AnnotatorSummary:
         if finished:
             self.finished_pseudogene_count += 1
         else:
-            self.unfinished_pseudogene_list.append(name)
-        self.pseudogene_list.append(name)
+            self.unfinished_pseudogenes.append(f"pseudogene\t{name}")
+        self.pseudogenes.append(name)
 
-    def add_mrna(self, finished=True):
+    def add_ncrna(self, name, finished=False):
+
+        self.total_ncrna_count += 1
+        if finished:
+            self.finished_ncrna_count += 1
+        else:
+            self.unfinished_ncrnas.append(f"ncRNA\t{name}")
+        self.ncrnas.append(name)
+
+    def add_mrna(self, name, finished=True):
 
         self.total_mrna_count += 1
         if finished:
             self.finished_mrna_count += 1
+        else:
+            self.unfinished_mrnas.append(f"mRNA\t{name}")
+        self.mrnas.append(name)
 
     def add_non_canonical(self):
         self.non_canonical_count += 1
+
+    def has_changes(self) -> bool:
+        return self.total_gene_count + self.total_pseudogene_count > 0
+
+    def get_unfinished(self) -> List[str]:
+        return self.unfinished_mrnas + self.unfinished_ncrnas + self.unfinished_pseudogenes
