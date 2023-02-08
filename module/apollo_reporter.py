@@ -116,7 +116,7 @@ class ApolloReporter:
 
         gff_file_object = gff_file.HandleGFF(master_gff_file_name, gene_organism, config['EMAIL']['moderator'])
         gff_file_object.read_gff_file()
-        self.write_email_body(gff_file_object, email_dir)
+        self._write_email_body(gff_file_object, email_dir)
 
         messages = list()
         annotation_summary_emails = self._collect_files(email_dir, file_extension)
