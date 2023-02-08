@@ -13,6 +13,7 @@ limitations under the License.
 """
 import requests
 import datetime
+import urllib.parse
 import re
 from module import gff_file
 
@@ -20,7 +21,8 @@ from module import gff_file
 def get_recent_genes_from_apollo(base_url, username, password, days=1):
 
     webservice_data = {'username': username, 'password': password, 'days': days}
-    url = base_url + '/annotationEditor/getRecentAnnotations'
+    url = urllib.parse.urljoin(base_url, 'annotationEditor/getRecentAnnotations')
+
     response = requests.post(url, json=webservice_data)
     if response.status_code == requests.codes.ok:
         try:
@@ -65,7 +67,7 @@ def get_gff(base_url, username, password, genes, out_dir):
         features.append({'uniquename': key})
 
     webservice_data = {'username': username, 'password': password, 'features': features}
-    url = base_url + '/annotationEditor/getGff3'
+    url = urllib.parse.urljoin(base_url, 'annotationEditor/getGff3')
 
     response = requests.post(url, json=webservice_data)
     time_stamp = str(datetime.datetime.now().date())
@@ -90,7 +92,7 @@ def download_gff(base_url, username, password, organism, out_dir):
                        'exportAllSequences': 'true',
                        'exportGff3Fasta': 'false'}
 
-    url = base_url + '/IOService/write'
+    url = urllib.parse.urljoin(base_url, '/IOService/write')
     response = requests.post(url, json=webservice_data)
 
     time_stamp = str(datetime.datetime.now().date())
