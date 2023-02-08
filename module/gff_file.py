@@ -17,6 +17,17 @@ from module import annotator, transcript, validation_error
 
 any_organism = 'ANY_ORGANISM'
 
+top_level_feat = set(('gene', 'pseudogene'))
+sub_prot_feat = set((
+    'mRNA',
+    'exon',
+    'CDS',
+    'non_canonical_five_prime_splice_site',
+    'non_canonical_three_prime_splice_site'
+))
+non_coding_feat = set()
+allowed_feature = top_level_feat.union(sub_prot_feat).union(non_coding_feat)
+
 class HandleGFF:
     def __init__(self, file_path, gene_organism, moderator):
         self.file_path = file_path
@@ -35,8 +46,6 @@ class HandleGFF:
     def read_gff_file(self):
         with open(self.file_path, 'r') as file_handle:
             line_number = 0
-            allowed_feature = ['gene', 'mRNA', 'exon', 'CDS', 'non_canonical_five_prime_splice_site',
-                            'non_canonical_three_prime_splice_site']
             disqualified_features = list()
             finished_gene_status = False
             for line in file_handle:
@@ -71,6 +80,20 @@ class HandleGFF:
                     else:
                         owner = self.moderator
                         print("No owner for Gene: " + feature_id)
+
+                elif feature_type == 'pseudogene':
+                    self.gene_meta_info[feature_id] = (name, locus)
+                    if owner is not None:
+                        if owner not in self.annotators:
+                            self.annotators[owner] = annotator.AnnotatorSummary(owner)
+                        if (status == 'Finished' or status == 'Finished annotating') and partial != 'true':
+                            self.annotators[owner].add_pseudogene(name, True)
+                            finished_gene_status = True
+                        else:
+                            self.annotators[owner].add_pseudogene(name, False)
+                    else:
+                        owner = self.moderator
+                        print("No owner for Pseudogene: " + feature_id)
 
                 if feature_type == 'mRNA':
                     organism = self.gene_organism.get(parent_id)
@@ -107,7 +130,7 @@ class HandleGFF:
 
                 if parent_id:
                     self.child_parent_relationship[feature_id] = parent_id
-                elif feature_type == 'gene':
+                elif feature_type in top_level_feat:
                     self.child_parent_relationship[feature_id] = feature_id  # to avoid checking if ID exists
                 else:
                     print("Feature not recognized", feature_type, feature_id)
