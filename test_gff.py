@@ -29,7 +29,7 @@ def main():
     parser.add_argument('--gff', type=str, required=True,
                         help='GFF to validate')
     parser.add_argument('--fasta', type=str,
-                        help='Fasta that goes with the GFF')
+                        help='Fasta with 1 CDS sequence that goes with the GFF, assuming it has a single CDS')
     parser.add_argument('--out_dir', type=str, required=True,
                         help='Outdir')
     parser.add_argument('--type', choices=('summary', 'error'), help="What do check")
