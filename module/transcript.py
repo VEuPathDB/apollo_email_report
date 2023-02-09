@@ -13,6 +13,7 @@ limitations under the License.
 """
 import requests
 import re
+import urllib.parse
 
 
 class CodingSequence:
@@ -28,7 +29,7 @@ class CodingSequence:
     def get_sequence(self, base_url=None, username=None, password=None, fasta_file=None):
 
         if base_url:
-            url = base_url + "/sequence/sequenceByName"
+            url = urllib.parse.urljoin(base_url, 'sequence/sequenceByName')
             body = {'username': username, 'password': password, 'organismString': self.organism_name,
                     'sequenceName': self.sequence_name, 'featureName': self.feature_name,
                     'type': CodingSequence.sequence_type, 'ignoreCache':'true'}
