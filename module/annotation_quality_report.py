@@ -239,6 +239,8 @@ def write_summary_text(summary: AnnotatorSummary, out_dir: Path) -> None:
     file_name = out_dir / f"{summary.email}.summary"
     with file_name.open('w') as file_handle:
         stats = {
+            "Finished genes": summary.finished_gene_count,
+            "Unfinished genes": summary.total_gene_count - summary.finished_gene_count,
             "Finished mRNAs": summary.finished_mrna_count,
             "Unfinished mRNAs": summary.total_mrna_count - summary.finished_mrna_count,
             "Finished ncRNAs": summary.finished_ncrna_count,
@@ -247,7 +249,6 @@ def write_summary_text(summary: AnnotatorSummary, out_dir: Path) -> None:
             "Unfinished pseudogenes": summary.total_pseudogene_count - summary.finished_pseudogene_count,
             "Non Canonical splice site": summary.non_canonical_count,
         }
-        file_handle.write(summary.email + "\n")
         file_handle.write('Dear Annotator (' + summary.email + '),' + "\n")
         file_handle.write('Here is a summary of your annotation in Apollo hosted at VEuPathDB.org.' + "\n")
         for (item, count) in stats.items():

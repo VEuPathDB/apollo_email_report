@@ -82,7 +82,15 @@ class AnnotatorSummary:
         self.non_canonical_count += 1
 
     def has_changes(self) -> bool:
-        return self.total_gene_count + self.total_pseudogene_count > 0
+        return (self.total_gene_count + self.total_pseudogene_count > 0)
+
+    def has_unfinished(self) -> bool:
+        total = self.total_gene_count + self.total_pseudogene_count
+        finished = self.finished_gene_count + self.finished_pseudogene_count
+        return total - finished > 0
 
     def get_unfinished(self) -> List[str]:
-        return self.unfinished_mrnas + self.unfinished_ncrnas + self.unfinished_pseudogenes
+        return self.unfinished_genes + self.unfinished_mrnas + self.unfinished_ncrnas + self.unfinished_pseudogenes
+
+    def get_all(self) -> List[str]:
+        return self.genes
