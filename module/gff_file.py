@@ -89,7 +89,8 @@ class HandleGFF:
                     if owner is not None:
                         if owner not in self.annotators:
                             self.annotators[owner] = annotator.AnnotatorSummary(owner)
-                        if (status == 'Finished' or status == 'Finished annotating') and partial != 'true':
+                        if (status == 'Finished' or status == 'Finished annotating'):
+                            finished_gene_status = True
                             self.annotators[owner].add_gene(name, True)
                             finished_gene_status = True
                         else:
@@ -103,7 +104,8 @@ class HandleGFF:
                     if owner is not None:
                         if owner not in self.annotators:
                             self.annotators[owner] = annotator.AnnotatorSummary(owner)
-                        if (status == 'Finished' or status == 'Finished annotating') and partial != 'true':
+                        if (status == 'Finished' or status == 'Finished annotating'):
+                            finished_gene_status = True
                             self.annotators[owner].add_pseudogene(name, True)
                             finished_gene_status = True
                         else:
@@ -123,7 +125,10 @@ class HandleGFF:
 
                         if finished_gene_status:
                             self.annotators[owner].add_mrna(name, True)
-                            self.transcripts.append((feature_id, organism, scaffold))
+
+                            # Save the transcript for checking
+                            if not partial:
+                                self.transcripts.append((feature_id, organism, scaffold))
                         else:
                             self.annotators[owner].add_mrna(name, False)
                     else:
@@ -315,7 +320,9 @@ def extract_fields_from_gff(fields: List) -> Dict:
     owner = attribs.get('owner')
     name = attribs.get('Name')
     status = attribs.get('status')
-    partial = attribs.get('is_fmax_partial') or attribs.get('is_fmin_partial')
+    partial = False
+    if attribs.get('is_fmax_partial', '') == 'true' or attribs.get('is_fmin_partial', '') == 'true':
+        partial = True
 
     locus = None
     if feature_type == 'gene':
