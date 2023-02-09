@@ -57,7 +57,7 @@ class AnnotatorSummary:
         if finished:
             self.finished_pseudogene_count += 1
         else:
-            self.unfinished_pseudogenes.append(f"pseudogene\t{name}")
+            self.unfinished_pseudogenes.append(name)
         self.pseudogenes.append(name)
 
     def add_ncrna(self, name, finished=False):
@@ -66,7 +66,7 @@ class AnnotatorSummary:
         if finished:
             self.finished_ncrna_count += 1
         else:
-            self.unfinished_ncrnas.append(f"ncRNA\t{name}")
+            self.unfinished_ncrnas.append(name)
         self.ncrnas.append(name)
 
     def add_mrna(self, name, finished=True):
@@ -75,7 +75,7 @@ class AnnotatorSummary:
         if finished:
             self.finished_mrna_count += 1
         else:
-            self.unfinished_mrnas.append(f"mRNA\t{name}")
+            self.unfinished_mrnas.append(name)
         self.mrnas.append(name)
 
     def add_non_canonical(self):
@@ -90,7 +90,12 @@ class AnnotatorSummary:
         return total - finished > 0
 
     def get_unfinished(self) -> List[str]:
-        return self.unfinished_genes + self.unfinished_mrnas + self.unfinished_ncrnas + self.unfinished_pseudogenes
+        unfinished = []
+        unfinished += [f"gene\t{name}" for name in self.unfinished_genes]
+        unfinished += [f"mRNA\t{name}" for name in self.unfinished_mrnas]
+        unfinished += [f"ncRNA\t{name}" for name in self.unfinished_ncrnas]
+        unfinished += [f"pseudogene\t{name}" for name in self.unfinished_pseudogenes]
+        return unfinished
 
     def get_all(self) -> List[str]:
         return self.genes
