@@ -96,6 +96,3 @@ class AnnotatorSummary:
         unfinished += [f"ncRNA\t{name}" for name in self.unfinished_ncrnas]
         unfinished += [f"pseudogene\t{name}" for name in self.unfinished_pseudogenes]
         return unfinished
-
-    def get_all(self) -> List[str]:
-        return self.genes
