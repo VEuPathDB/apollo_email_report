@@ -131,9 +131,9 @@ class ApolloReporter:
             report.write_summary_text(annotator_object, out_dir)
 
     @staticmethod
-    def _collect_files(out_dir, filter_term):
+    def _collect_files(out_dir: Path, filter_term):
         file_filtered_list = list()
-        _, _, file_list = next(os.walk(out_dir), (None, None, []))
+        _, _, file_list = next(os.walk(str(out_dir)), (None, None, []))
         for file_name in file_list:
             _, file_extension = os.path.splitext(file_name)
             if '.' + filter_term == file_extension:
@@ -141,12 +141,12 @@ class ApolloReporter:
         return file_filtered_list
 
     @staticmethod
-    def _compose_message(out_dir, email_body, footer):
-        email_fh = open(out_dir + '/' + email_body, 'r')
-        address = email_fh.readline().rstrip()
-        message = email_fh.readlines()
-        message += footer
-        email_fh.close()
+    def _compose_message(out_dir: Path, email_body, footer):
+        email_path = out_dir / email_body
+        with email_path.open('r') as email_fh:
+            address = email_fh.readline().rstrip()
+            message = email_fh.readlines()
+            message += footer
 
         return address, message
     
