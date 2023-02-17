@@ -27,8 +27,6 @@ if __name__ == '__main__':
     
     send_email = not args.nosend
     config_file = args.config_file
-    if not config_file:
-        config_file = './config/apollo_report_config.conf'
 
     # Parse config
     report_config = configparser.ConfigParser()
