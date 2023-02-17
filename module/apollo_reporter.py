@@ -211,7 +211,6 @@ class ApolloReporter:
 
         report.sort_and_write_errors(error_lookup_table, sort_order_list, 0, email_dir)
 
-    @staticmethod
     def send_emails(self, email_type, list_of_emails):
         config = self.config
         email_dir = config['SETUP']['dir']
