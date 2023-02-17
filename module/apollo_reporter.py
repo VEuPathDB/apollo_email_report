@@ -141,7 +141,7 @@ class ApolloReporter:
         return file_filtered_list
 
     @staticmethod
-    def compose_message(out_dir, email_body, footer):
+    def _compose_message(out_dir, email_body, footer):
         email_fh = open(out_dir + '/' + email_body, 'r')
         address = email_fh.readline().rstrip()
         message = email_fh.readlines()
