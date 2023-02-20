@@ -16,7 +16,7 @@ import configparser
 import sys
 from module.apollo_reporter import ApolloReporter
 
-sys.setrecursionlimit(15000)
+sys.setrecursionlimit(30000)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
@@ -40,16 +40,29 @@ if __name__ == '__main__':
         emails = apollo_reporter.prepare_summary_emails(master_gff, gene_to_organism, 'summary')
         if send_email:
             apollo_reporter.send_emails('summary', emails)
+        else:
+            for email in emails:
+                user_id, email_message = email
+                print(f"Summary email not sent to {user_id}")
 
         error_emails = apollo_reporter.prepare_error_emails(master_gff, gene_to_organism, 'error')
         if send_email:
             apollo_reporter.send_emails('error', error_emails)
+        else:
+            for email in error_emails:
+                user_id, email_message = email
+                print(f"Error email not sent to {user_id}")
     
     # Recent annotations
     if report_config['PIPELINE']['recent_annotation'] == 'yes':
         recent_genes, recent_gff = apollo_reporter.prepare_recent_gff()
+
         # Write error emails
         error_emails = apollo_reporter.prepare_error_emails(recent_gff, recent_genes, 'error')
         if send_email:
             apollo_reporter.send_emails('error', error_emails)
+        else:
+            for email in error_emails:
+                user_id, email_message = email
+                print(f"Error email not sent to {user_id}")
 
