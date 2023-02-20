@@ -230,14 +230,17 @@ def write_summary_text(summary: AnnotatorSummary, out_dir: Path) -> None:
     
     The files are not created if there are no annotations for that user.
     """
+    owner = summary.email
+
     # Do not create (and so do not send) an email if there is nothing for this annotator
     if not summary.has_changes():
-        print(f"No changes for {summary.email}")
+        print(f"No changes for {owner}")
         return
     
     # Create the email summary file
-    file_name = out_dir / f"{summary.email}.summary"
+    file_name = out_dir / f"{owner}.summary"
     with file_name.open('w') as file_handle:
+        file_handle.write(owner + "\n")
         stats = {
             "Finished genes": summary.finished_gene_count,
             "Unfinished genes": summary.total_gene_count - summary.finished_gene_count,
@@ -249,14 +252,14 @@ def write_summary_text(summary: AnnotatorSummary, out_dir: Path) -> None:
             "Unfinished pseudogenes": summary.total_pseudogene_count - summary.finished_pseudogene_count,
             "Non Canonical splice site": summary.non_canonical_count,
         }
-        file_handle.write('Dear Annotator (' + summary.email + '),' + "\n")
+        file_handle.write('Dear Annotator (' + owner + '),' + "\n")
         file_handle.write('Here is a summary of your annotation in Apollo hosted at VEuPathDB.org.' + "\n")
         for (item, count) in stats.items():
             if count > 0:
                 file_handle.write(f"{item}: {count}\n")
     
     # Create the gene_list file
-    gene_list_name = out_dir / f"{summary.email}.gene_list"
+    gene_list_name = out_dir / f"{owner}.gene_list"
     gene_list_name.touch()
     if summary.has_unfinished():
         gene_list = summary.get_unfinished()
