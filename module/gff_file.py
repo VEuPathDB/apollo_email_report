@@ -85,12 +85,12 @@ class HandleGFF:
                     continue
 
                 if feature_type == 'gene':
+                    finished_gene_status = False
                     self.gene_meta_info[feature_id] = (name, locus)
                     if owner is not None:
                         if owner not in self.annotators:
                             self.annotators[owner] = annotator.AnnotatorSummary(owner)
                         if (status == 'Finished' or status == 'Finished annotating'):
-                            finished_gene_status = True
                             self.annotators[owner].add_gene(name, True)
                             finished_gene_status = True
                         else:
@@ -100,12 +100,12 @@ class HandleGFF:
                         print("No owner for Gene: " + feature_id)
 
                 elif feature_type == 'pseudogene':
+                    finished_gene_status = False
                     self.gene_meta_info[feature_id] = (name, locus)
                     if owner is not None:
                         if owner not in self.annotators:
                             self.annotators[owner] = annotator.AnnotatorSummary(owner)
                         if (status == 'Finished' or status == 'Finished annotating'):
-                            finished_gene_status = True
                             self.annotators[owner].add_pseudogene(name, True)
                             finished_gene_status = True
                         else:
