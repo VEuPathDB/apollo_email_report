@@ -267,10 +267,37 @@ def write_summary_text(summary: AnnotatorSummary, out_dir: Path) -> None:
 
 def send_email_mailgun(url, api_key, from_address, email_address, moderator_email_address, subject, message, file_attached=None):
 
-    if file_attached and Path(file_attached).exists() and Path(file_attached).stat().st_size > 0:
-        return requests.post(url, auth=("api", api_key), files=[("attachment", ("unfinished_genes.txt",
-                                                                                open(file_attached, "rb").read()))],
-                             data={"from": from_address, "to": email_address, "bcc": moderator_email_address, "subject": subject, "text": message})
+    api_auth = ("api", api_key)
+    mail_data = {
+        "from": from_address,
+        "to": email_address,
+        "bcc": moderator_email_address,
+        "subject": subject,
+        "text": message,
+    }
+    req = None
+    if _can_attach_file(file_attached):
+        try:
+            files_data=[("attachment", ("unfinished_genes.txt", open(file_attached, "rb").read()))]
+            req = requests.post(
+                url,
+                auth=api_auth,
+                data=mail_data,
+                files=files_data,
+            )
+        except ConnectionError as error:
+            print(f"Connection error sending to {email_address}: {error}")
     else:
-        return requests.post(url, auth=("api", api_key), data={"from": from_address, "to": email_address, "bcc": moderator_email_address,
-                                                               "subject": subject, "text": message})
+        try:
+            req = requests.post(
+                url,
+                auth=api_auth,
+                data=mail_data,
+            )
+        except ConnectionError as error:
+            print(f"Connection error sending to {email_address} with file {file_attached}: {error}")
+
+    return req
+
+def _can_attach_file(file_attached: str) -> bool:
+    return (file_attached and Path(file_attached).exists() and Path(file_attached).stat().st_size > 0)
