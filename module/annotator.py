@@ -43,40 +43,32 @@ class AnnotatorSummary:
         self.non_canonical_count = int()
 
     def add_gene(self, name, finished=False):
-
-        self.total_gene_count += 1
-        if finished:
-            self.finished_gene_count += 1
-        else:
-            self.unfinished_genes.add(name)
         self.genes.add(name)
+        if not finished:
+            self.unfinished_genes.add(name)
+        self.total_gene_count = len(self.genes)
+        self.finished_gene_count = self.total_gene_count - len(self.unfinished_genes)
 
     def add_pseudogene(self, name, finished=False):
-
-        self.total_pseudogene_count += 1
-        if finished:
-            self.finished_pseudogene_count += 1
-        else:
-            self.unfinished_pseudogenes.add(name)
         self.pseudogenes.add(name)
+        if not finished:
+            self.unfinished_pseudogenes.add(name)
+        self.total_pseudogene_count = len(self.pseudogenes)
+        self.finished_pseudogene_count = self.total_pseudogene_count - len(self.unfinished_pseudogenes)
 
     def add_ncrna(self, name, finished=False):
-
-        self.total_ncrna_count += 1
-        if finished:
-            self.finished_ncrna_count += 1
-        else:
-            self.unfinished_ncrnas.add(name)
         self.ncrnas.add(name)
+        if not finished:
+            self.unfinished_ncrnas.add(name)
+        self.total_ncrna_count = len(self.ncrnas)
+        self.finished_ncrna_count = self.total_ncrna_count - len(self.unfinished_ncrnas)
 
     def add_mrna(self, name, finished=True):
-
-        self.total_mrna_count += 1
-        if finished:
-            self.finished_mrna_count += 1
-        else:
-            self.unfinished_mrnas.add(name)
         self.mrnas.add(name)
+        if not finished:
+            self.unfinished_mrnas.add(name)
+        self.total_mrna_count = len(self.mrnas)
+        self.finished_mrna_count = self.total_mrna_count - len(self.unfinished_mrnas)
 
     def add_non_canonical(self):
         self.non_canonical_count += 1
