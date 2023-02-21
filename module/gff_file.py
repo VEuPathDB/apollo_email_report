@@ -56,6 +56,7 @@ class HandleGFF:
         self.child_parent_relationship = dict()
         self.transcripts = list()
         self.annotators = dict()
+        self.parent_name = dict()
 
         self.fields = dict()
         self.errors = dict()
@@ -90,11 +91,10 @@ class HandleGFF:
                     if owner is not None:
                         if owner not in self.annotators:
                             self.annotators[owner] = annotator.AnnotatorSummary(owner)
+                        
                         if (status == 'Finished' or status == 'Finished annotating'):
-                            self.annotators[owner].add_gene(name, True)
                             finished_gene_status = True
-                        else:
-                            self.annotators[owner].add_gene(name, False)
+                        self.annotators[owner].add_gene(name, finished_gene_status)
                     else:
                         owner = self.moderator
                         print("No owner for Gene: " + feature_id)
@@ -106,10 +106,8 @@ class HandleGFF:
                         if owner not in self.annotators:
                             self.annotators[owner] = annotator.AnnotatorSummary(owner)
                         if (status == 'Finished' or status == 'Finished annotating'):
-                            self.annotators[owner].add_pseudogene(name, True)
                             finished_gene_status = True
-                        else:
-                            self.annotators[owner].add_pseudogene(name, False)
+                        self.annotators[owner].add_pseudogene(name, finished_gene_status)
                     else:
                         owner = self.moderator
                         print("No owner for Pseudogene: " + feature_id)
@@ -123,12 +121,13 @@ class HandleGFF:
                         if owner not in self.annotators:
                             self.annotators[owner] = annotator.AnnotatorSummary(owner)
 
+                        parent_name, _ = self.gene_meta_info[parent_id]
                         if finished_gene_status:
-                            self.annotators[owner].add_mrna(name, True)
+                            self.annotators[owner].add_mrna(parent_name, True)
 
                             # Save the transcript for checking
                             if not partial:
-                                self.transcripts.append((feature_id, organism, scaffold))
+                                self.transcripts.append((parent_name, organism, scaffold))
                         else:
                             self.annotators[owner].add_mrna(name, False)
                     else:
@@ -144,10 +143,8 @@ class HandleGFF:
                         if owner not in self.annotators:
                             self.annotators[owner] = annotator.AnnotatorSummary(owner)
 
-                        if finished_gene_status:
-                            self.annotators[owner].add_ncrna(name, True)
-                        else:
-                            self.annotators[owner].add_ncrna(name, False)
+                        parent_name, _ = self.gene_meta_info[parent_id]
+                        self.annotators[owner].add_ncrna(parent_name, finished_gene_status)
                     else:
                         owner = self.moderator
                         print("No owner for ncRNA: " + feature_id)
