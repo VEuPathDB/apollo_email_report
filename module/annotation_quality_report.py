@@ -242,12 +242,10 @@ def write_summary_text(summary: AnnotatorSummary, out_dir: Path) -> None:
     with file_name.open('w') as file_handle:
         file_handle.write(owner + "\n")
         stats = {
-            "Finished genes": summary.finished_gene_count,
-            "Unfinished genes": summary.total_gene_count - summary.finished_gene_count,
-            "Finished mRNAs": summary.finished_mrna_count,
-            "Unfinished mRNAs": summary.total_mrna_count - summary.finished_mrna_count,
-            "Finished ncRNAs": summary.finished_ncrna_count,
-            "Unfinished ncRNAs": summary.total_ncrna_count - summary.finished_ncrna_count,
+            "Finished protein-coding genes": summary.finished_mrna_count,
+            "Unfinished protein-coding genes": summary.total_mrna_count - summary.finished_mrna_count,
+            "Finished ncRNAs genes": summary.finished_ncrna_count,
+            "Unfinished ncRNAs genes": summary.total_ncrna_count - summary.finished_ncrna_count,
             "Finished pseudogenes": summary.finished_pseudogene_count,
             "Unfinished pseudogenes": summary.total_pseudogene_count - summary.finished_pseudogene_count,
             "Non Canonical splice site": summary.non_canonical_count,
