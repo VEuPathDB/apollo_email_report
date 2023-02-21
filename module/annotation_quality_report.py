@@ -267,7 +267,7 @@ def write_summary_text(summary: AnnotatorSummary, out_dir: Path) -> None:
 
 def send_email_mailgun(url, api_key, from_address, email_address, moderator_email_address, subject, message, file_attached=None):
 
-    if file_attached:
+    if file_attached and Path(file_attached).exists() and Path(file_attached).stat().st_size > 0:
         return requests.post(url, auth=("api", api_key), files=[("attachment", ("unfinished_genes.txt",
                                                                                 open(file_attached, "rb").read()))],
                              data={"from": from_address, "to": email_address, "bcc": moderator_email_address, "subject": subject, "text": message})
