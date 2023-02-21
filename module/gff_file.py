@@ -129,7 +129,7 @@ class HandleGFF:
                             if not partial:
                                 self.transcripts.append((parent_name, organism, scaffold))
                         else:
-                            self.annotators[owner].add_mrna(name, False)
+                            self.annotators[owner].add_mrna(parent_name, False)
                     else:
                         owner = self.moderator
                         print("No owner for mRNA: " + feature_id)
