@@ -12,7 +12,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 from pathlib import Path
-from typing import Dict, List, TextIO, Tuple
+from typing import Dict, List
 import requests
 from requests.exceptions import ConnectionError
 import datetime
@@ -174,132 +174,88 @@ def write_email_texts(errors_dict: Dict[str, List[ValidationError]], out_dir: Pa
 
 def _get_owner_error_text(owner: str, errors: List[ValidationError]) -> str:
 
-    error_text = f"Owner {owner} has {len(errors)} errors"
+    lines = [
+        owner,
+        f"Dear Annotator ({owner}),",
+        (
+            "***  If you've done functional annotation and not structural annotation,"
+            " please ignore this message. ***"
+        ),
+        (
+            "If you have already amended this gene annotation and think that it is correct,"
+            " please ignore this message or contact us at: help@veupathdb.org to discuss any concerns."
+        ),
+        (
+            "There is a gene annotation attributed to your account"
+            " that has been edited by yourself or another annotator that currently has errors."
+            " If you made any edit to this gene in the last 24 hours"
+            " could you please check that the gene is correct."
+        ),
+        "",
+    ]
+
+    organism_groups = _group_errors(errors, "organism_name")
+
+    for organism, organism_errors in organism_groups.items():
+        organism_text = _get_organism_error_text(organism, organism_errors)
+        lines.append(organism_text)
+
+    error_text = "\n".join(lines)
     return error_text
 
 
-def sort_and_write_errors_old(
-    errors_lookup: Dict[str, List],
-    fields: Tuple,
-    index: int,
-    out_dir: Path,
-    file_handle: TextIO = None,
-) -> None:
-    file_handle = file_handle
-    if index < 0:
-        return
+def _get_organism_error_text(organism_name: str, errors: List[ValidationError]) -> str:
 
-    field = fields[index]
-    print("length of list:", field, len(errors_lookup[field]))
-    print(errors_lookup)
-    if index == 0 and len(errors_lookup[field]) == 0:
-        return
+    lines = [
+        f"Species: {organism_name}"
+    ]
 
-    if len(errors_lookup[field]) > 0 and index + 1 < len(fields):
-        print("copy to and writing out for", fields[index + 1])
-        copy_function(errors_lookup, fields, index)
-        file_handle = write_function(
-            errors_lookup, fields, index + 1, out_dir, file_handle
-        )
-        sort_and_write_errors_old(errors_lookup, fields, index + 1, out_dir, file_handle)
-    else:
-        print("clear list", fields[index])
-        print("going up to", fields[index - 1])
-        errors_lookup[field].clear()
-        sort_and_write_errors_old(errors_lookup, fields, index - 1, out_dir, file_handle)
-    if file_handle:
-        file_handle.close()
+    gene_groups = _group_errors(errors, "gene_id")
+
+    for gene_id, gene_errors in gene_groups.items():
+        gene_text = _get_gene_error_text(gene_id, gene_errors)
+        lines.append(gene_text)
+
+    error_text = "\n".join(lines)
+    return error_text
 
 
-def copy_function(errors_lookup: Dict[str, List], fields: Tuple, index: int) -> None:
-    """This does"""
-    search_term = fields[index + 1]
-    search_value = str()
+def _get_gene_error_text(gene_id: str, errors: List[ValidationError]) -> str:
 
-    for error_object in errors_lookup[fields[index]]:
-        print(
-            "search value",
-            search_value,
-            "search term",
-            error_object.__dict__[search_term],
-        )
-        if not search_value:
-            search_value = error_object.__dict__[search_term]
-            print("setting search value to", search_value)
-            errors_lookup[fields[index + 1]].append(error_object)
-            continue
-        if error_object.__dict__[search_term] == search_value:
-            print("copy to", fields[index + 1])
-            errors_lookup[fields[index + 1]].append(error_object)
+    one_error = errors[0]
+    gene_name = one_error.gene_name
+    locus = one_error.locus
+    lines = [
+        f"Gene: {gene_name} (ID:{gene_id})\nLocation: {locus}"
+    ]
+    for error in errors:
+        if error.mrna_id is None:
+            for gene_gff_error in error.gff_error_text():
+                lines.append(gene_gff_error)
 
-    if errors_lookup[fields[index + 1]]:
-        for delete_object in errors_lookup[fields[index + 1]]:
-            print("delete from", fields[index])
-            errors_lookup[fields[index]].remove(delete_object)
+    mrna_groups = _group_errors(errors, "mrna_id")
+
+    for mrna, mrna_errors in mrna_groups.items():
+        mrna_text = _get_mrna_error_text(mrna, mrna_errors)
+        lines.append(mrna_text)
+
+    error_text = "\n".join(lines)
+    return error_text
 
 
-def write_function(
-    errors_lookup: Dict[str, List],
-    fields: Tuple,
-    index: int,
-    out_dir: Path,
-    file_handle=None,
-) -> TextIO:
-    file_handle = file_handle
-    if fields[index] == "owner":
-        if file_handle:
-            file_handle.close()
-        owner = errors_lookup["owner"][0].owner
-        time_stamp = str(datetime.datetime.now().date())
-        file_name = out_dir / f"{owner}_{time_stamp}.error"
-        file_handle = file_name.open("a")
+def _get_mrna_error_text(mrna_id: str, errors: List[ValidationError]) -> str:
 
-        lines = [
-            owner,
-            f"Dear Annotator ({owner}),",
-            (
-                "***  If you've done functional annotation and not structural annotation,"
-                " please ignore this message. ***"
-            ),
-            (
-                "If you have already amended this gene annotation and think that it is correct,"
-                " please ignore this message or contact us at: help@veupathdb.org to discuss any concerns."
-            ),
-            (
-                "There is a gene annotation attributed to your account"
-                " that has been edited by yourself or another annotator that currently has errors."
-                " If you made any edit to this gene in the last 24 hours"
-                " could you please check that the gene is correct."
-            ),
-            "",
-        ]
-        lines_str = "\n".join(lines)
-        file_handle.write(lines_str)
+    lines = []
 
-    elif fields[index] == "organism_name":
-        organism_name = errors_lookup["organism_name"][0].organism_name
-        organism_str = "Species: {}\n".format(organism_name)
-        file_handle.write(organism_str)
-    elif fields[index] == "gene_id":
-        gene_name = errors_lookup["gene_id"][0].gene_name
-        gene_id = errors_lookup["gene_id"][0].gene_id
-        locus = errors_lookup["gene_id"][0].locus
-        gene_str = "Gene: {} (ID:{})\nLocation: {}\n".format(gene_name, gene_id, locus)
-        file_handle.write(gene_str)
-        for error_object in errors_lookup["gene_id"]:
-            if error_object.mrna_id is None:
-                for string in error_object.gff_error_text():
-                    file_handle.write(string)
+    for error in errors:
+        for mrna_gff_error in error.gff_error_text():
+            lines.append(mrna_gff_error + '.')
 
-    elif fields[index] == "mrna_id":
-        for error_object in errors_lookup["mrna_id"]:
-            for string in error_object.gff_error_text():
-                file_handle.write(string)
+        for mrna_seq_error in error.sequence_error_text():
+            lines.append(mrna_seq_error + '.')
 
-            for string in error_object.sequence_error_text():
-                file_handle.write(string)
-
-    return file_handle
+    error_text = "\n".join(lines)
+    return error_text
 
 
 def write_summary_text(summary: AnnotatorSummary, out_dir: Path) -> None:

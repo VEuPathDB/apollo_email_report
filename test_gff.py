@@ -12,10 +12,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 import argparse
-import configparser
 from pathlib import Path
 import sys
-from module.apollo_reporter import ApolloReporter
 from module import gff_file
 from module import annotation_quality_report as report
 

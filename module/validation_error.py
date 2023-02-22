@@ -70,7 +70,7 @@ class ValidationError:
             output_text = (
                 "The {field_type} of this feature {feature_type} : {feature_id} with value"
                 " {feature_value} is not in accordance with"
-                " its parent {parent_id} with value {parent_value}.\n".format(
+                " its parent {parent_id} with value {parent_value}".format(
                     **error_values
                 )
             )
@@ -81,7 +81,7 @@ class ValidationError:
         output_list = list()
         for error_values in self.sequence_error:
             output_text = (
-                "The coding sequence for mRNA: {mrna_id} has {error_text}.\n".format(
+                "The coding sequence for mRNA: {mrna_id} has {error_text}".format(
                     **error_values
                 )
             )
