@@ -47,6 +47,7 @@ class CodingSequence:
                     return False
                 self.sequence = seq
             else:
+                print(f"No sequence retrieved for {self.feature_name}: code {response.status_code}")
                 return False
         elif fasta_file:
             with open(fasta_file, 'r') as file_handle:

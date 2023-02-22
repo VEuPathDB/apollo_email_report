@@ -258,6 +258,10 @@ class HandleGFF:
             else:
                 return False
 
+            if not mrna.sequence:
+                print(f"No mRNA sequence could be used for {mrna_id}")
+                continue
+
             mrna.coding_sequence_has_start_codon()
             mrna.coding_sequence_has_stop_codon()
             mrna.coding_sequence_no_internal_stop_codon()
