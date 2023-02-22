@@ -19,26 +19,28 @@ from module import annotation_quality_report as report
 
 sys.setrecursionlimit(2500)
 
+
 def main():
-    parser = argparse.ArgumentParser(description='Check Apollo edits for an organism, no email')
-    
-    parser.add_argument('--config', type=str, required=True,
-                        help='Config file')
-    
-    parser.add_argument('--password', type=str, required=True,
-                        help='Apollo password')
+    parser = argparse.ArgumentParser(
+        description="Check Apollo edits for an organism, no email"
+    )
+
+    parser.add_argument("--config", type=str, required=True, help="Config file")
+
+    parser.add_argument("--password", type=str, required=True, help="Apollo password")
     args = parser.parse_args()
 
     config = configparser.ConfigParser()
     config.read(args.config)
-    config['APOLLO']['password'] = args.password
+    config["APOLLO"]["password"] = args.password
 
     organisms = report.get_organisms(
-        config['APOLLO']['base_url'],
-        config['APOLLO']['username'],
-        config['APOLLO']['password'],
+        config["APOLLO"]["base_url"],
+        config["APOLLO"]["username"],
+        config["APOLLO"]["password"],
     )
     print(json.dumps(organisms, indent=1))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

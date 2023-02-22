@@ -54,7 +54,9 @@ class AnnotatorSummary:
         if not finished:
             self.unfinished_pseudogenes.add(name)
         self.total_pseudogene_count = len(self.pseudogenes)
-        self.finished_pseudogene_count = self.total_pseudogene_count - len(self.unfinished_pseudogenes)
+        self.finished_pseudogene_count = self.total_pseudogene_count - len(
+            self.unfinished_pseudogenes
+        )
 
     def add_ncrna(self, name, finished=False):
         self.ncrnas.add(name)
@@ -74,7 +76,7 @@ class AnnotatorSummary:
         self.non_canonical_count += 1
 
     def has_changes(self) -> bool:
-        return (self.total_gene_count + self.total_pseudogene_count > 0)
+        return self.total_gene_count + self.total_pseudogene_count > 0
 
     def has_unfinished(self) -> bool:
         total = self.total_gene_count + self.total_pseudogene_count
@@ -83,7 +85,11 @@ class AnnotatorSummary:
 
     def get_unfinished(self) -> List[str]:
         unfinished = []
-        unfinished += [f"protein_coding\t{name}" for name in sorted(self.unfinished_mrnas)]
+        unfinished += [
+            f"protein_coding\t{name}" for name in sorted(self.unfinished_mrnas)
+        ]
         unfinished += [f"ncRNA\t{name}" for name in sorted(self.unfinished_ncrnas)]
-        unfinished += [f"pseudogene\t{name}" for name in sorted(self.unfinished_pseudogenes)]
+        unfinished += [
+            f"pseudogene\t{name}" for name in sorted(self.unfinished_pseudogenes)
+        ]
         return unfinished

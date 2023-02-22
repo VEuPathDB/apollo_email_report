@@ -18,13 +18,16 @@ from module.apollo_reporter import ApolloReporter
 
 sys.setrecursionlimit(30000)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-            description='Check annotations and send reports based on a config file.')
-    parser.add_argument('config_file', help='Config file to use')
-    parser.add_argument('--nosend', action='store_true', help='Do not send emails (for testing)')
+        description="Check annotations and send reports based on a config file."
+    )
+    parser.add_argument("config_file", help="Config file to use")
+    parser.add_argument(
+        "--nosend", action="store_true", help="Do not send emails (for testing)"
+    )
     args = parser.parse_args()
-    
+
     send_email = not args.nosend
     config_file = args.config_file
 
@@ -34,35 +37,40 @@ if __name__ == '__main__':
     apollo_reporter = ApolloReporter(report_config)
 
     # Summary annotations
-    if report_config['PIPELINE']['summary_annotation'] == 'yes':
+    if report_config["PIPELINE"]["summary_annotation"] == "yes":
         gene_to_organism, master_gff = apollo_reporter.prepare_summary_gff()
-        
-        emails = apollo_reporter.prepare_summary_emails(master_gff, gene_to_organism, 'summary')
+
+        emails = apollo_reporter.prepare_summary_emails(
+            master_gff, gene_to_organism, "summary"
+        )
         if send_email:
-            apollo_reporter.send_emails('summary', emails)
+            apollo_reporter.send_emails("summary", emails)
         else:
             for email in emails:
                 user_id, email_message = email
                 print(f"Summary email not sent to {user_id}")
 
-        error_emails = apollo_reporter.prepare_error_emails(master_gff, gene_to_organism, 'error')
+        error_emails = apollo_reporter.prepare_error_emails(
+            master_gff, gene_to_organism, "error"
+        )
         if send_email:
-            apollo_reporter.send_emails('error', error_emails)
+            apollo_reporter.send_emails("error", error_emails)
         else:
             for email in error_emails:
                 user_id, email_message = email
                 print(f"Error email not sent to {user_id}")
-    
+
     # Recent annotations
-    if report_config['PIPELINE']['recent_annotation'] == 'yes':
+    if report_config["PIPELINE"]["recent_annotation"] == "yes":
         recent_genes, recent_gff = apollo_reporter.prepare_recent_gff()
 
         # Write error emails
-        error_emails = apollo_reporter.prepare_error_emails(recent_gff, recent_genes, 'error')
+        error_emails = apollo_reporter.prepare_error_emails(
+            recent_gff, recent_genes, "error"
+        )
         if send_email:
-            apollo_reporter.send_emails('error', error_emails)
+            apollo_reporter.send_emails("error", error_emails)
         else:
             for email in error_emails:
                 user_id, email_message = email
                 print(f"Error email not sent to {user_id}")
-

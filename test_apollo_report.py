@@ -18,32 +18,40 @@ from module.apollo_reporter import ApolloReporter
 
 sys.setrecursionlimit(2500)
 
+
 def main():
-    parser = argparse.ArgumentParser(description='Check Apollo edits for an organism, no email')
-    
-    parser.add_argument('--config', type=str, required=True,
-                        help='Config file')
-    
-    parser.add_argument('--password', type=str, required=True,
-                        help='Apollo password')
+    parser = argparse.ArgumentParser(
+        description="Check Apollo edits for an organism, no email"
+    )
+
+    parser.add_argument("--config", type=str, required=True, help="Config file")
+
+    parser.add_argument("--password", type=str, required=True, help="Apollo password")
     args = parser.parse_args()
 
     config = configparser.ConfigParser()
     config.read(args.config)
-    config['APOLLO']['password'] = args.password
+    config["APOLLO"]["password"] = args.password
     apollo_reporter = ApolloReporter(config)
 
     # Summary annotations
-    if config['PIPELINE']['summary_annotation'] == 'yes':
+    if config["PIPELINE"]["summary_annotation"] == "yes":
         gene_to_organism, master_gff = apollo_reporter.prepare_summary_gff()
-        emails = apollo_reporter.prepare_summary_emails(master_gff, gene_to_organism, 'summary')
-        error_emails = apollo_reporter.prepare_error_emails(master_gff, gene_to_organism, 'error')
-    
+        emails = apollo_reporter.prepare_summary_emails(
+            master_gff, gene_to_organism, "summary"
+        )
+        error_emails = apollo_reporter.prepare_error_emails(
+            master_gff, gene_to_organism, "error"
+        )
+
     # Recent annotations
-    if config['PIPELINE']['recent_annotation'] == 'yes':
+    if config["PIPELINE"]["recent_annotation"] == "yes":
         recent_genes, recent_gff = apollo_reporter.prepare_recent_gff()
         # Write error emails
-        error_emails = apollo_reporter.prepare_error_emails(recent_gff, recent_genes, 'error')
+        error_emails = apollo_reporter.prepare_error_emails(
+            recent_gff, recent_genes, "error"
+        )
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
