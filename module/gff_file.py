@@ -15,6 +15,7 @@ from typing import Dict, List
 from module import annotator, transcript, validation_error
 
 any_organism = "ANY_ORGANISM"
+MAX_ITERATION = 6
 
 top_level_feat = set(("gene", "pseudogene"))
 sub_prot_feat = set(
@@ -54,7 +55,7 @@ class HandleGFF:
         self.file_path = file_path
         self.gene_organism = gene_organism
         self.moderator = moderator
-        self.future_type = dict()
+        self.feature_type = dict()
         self.gene_meta_info = dict()
         self.feature_owner = dict()
         self.child_parent_relationship = dict()
@@ -180,7 +181,7 @@ class HandleGFF:
                     self.annotators[owner].add_non_canonical()
 
                 self.feature_owner[feature_id] = owner
-                self.future_type[feature_id] = feature_type
+                self.feature_type[feature_id] = feature_type
 
                 if finished_gene_status:
                     self.fields[("scaffold", feature_id)] = scaffold
@@ -204,28 +205,37 @@ class HandleGFF:
         owners = owner.rstrip().split(",")
         return owners[0]
 
-    def get_gene_id(self, feature_id):
+    def get_gene_id(self, feature_id, iteration=0):
+        if iteration > MAX_ITERATION:
+            raise RecursionError(f"Too many iteration for id {feature_id}")
         if feature_id == self.child_parent_relationship[feature_id]:
             return feature_id
         else:
             parent_id = self.child_parent_relationship[feature_id]
-            return self.get_gene_id(parent_id)
+            iteration += 1
+            return self.get_gene_id(parent_id, iteration)
 
-    def get_parent_owner(self, feature_id):
+    def get_parent_owner(self, feature_id, iteration=0):
+        if iteration > MAX_ITERATION:
+            raise RecursionError(f"Too many iteration for id {feature_id}")
         if self.feature_owner[feature_id]:
             return self.feature_owner[feature_id]
         else:
             parent_id = self.child_parent_relationship[feature_id]
+            iteration += 1
             return self.get_parent_owner(parent_id)
 
-    def get_mrna_id(self, feature_id):
-        if self.future_type[feature_id] == "mRNA":
+    def get_mrna_id(self, feature_id, iteration=0):
+        if iteration > MAX_ITERATION:
+            raise RecursionError(f"Too many iteration for id {feature_id}")
+        if self.feature_type[feature_id] == "mRNA":
             return feature_id
         elif self.feature_type[feature_id] in top_level_feat:
             return None
         else:
             parent_id = self.child_parent_relationship[feature_id]
-            return self.get_mrna_id(parent_id)
+            iteration += 1
+            return self.get_mrna_id(parent_id, iteration)
 
     def scan_gff_for_errors(self):
         for key, value in self.fields.items():
@@ -260,7 +270,7 @@ class HandleGFF:
                     and parent_begin <= end <= parent_end
                 ):
                     arguments["field_type"] = field
-                    arguments["feature_type"] = self.future_type[feature_id]
+                    arguments["feature_type"] = self.feature_type[feature_id]
                     arguments["feature_value"] = "Begin:{}..End:{}".format(begin, end)
                     arguments["parent_id"] = parent_id
                     arguments["parent_value"] = "Begin:{}..End:{}".format(
@@ -272,7 +282,7 @@ class HandleGFF:
             else:
                 if value != parent_value:
                     arguments["field_type"] = field
-                    arguments["feature_type"] = self.future_type[feature_id]
+                    arguments["feature_type"] = self.feature_type[feature_id]
                     arguments["feature_value"] = value
                     arguments["parent_id"] = parent_id
                     arguments["parent_value"] = parent_value

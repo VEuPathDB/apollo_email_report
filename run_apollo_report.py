@@ -16,7 +16,7 @@ import configparser
 import sys
 from module.apollo_reporter import ApolloReporter
 
-sys.setrecursionlimit(30000)
+sys.setrecursionlimit(1500)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
