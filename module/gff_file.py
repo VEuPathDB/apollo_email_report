@@ -221,7 +221,7 @@ class HandleGFF:
     def get_mrna_id(self, feature_id):
         if self.future_type[feature_id] == "mRNA":
             return feature_id
-        elif self.future_type[feature_id] == "gene":
+        elif self.feature_type[feature_id] in top_level_feat:
             return None
         else:
             parent_id = self.child_parent_relationship[feature_id]
