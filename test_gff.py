@@ -47,8 +47,7 @@ def main():
         if args.fasta:
             gff_file_object.scan_mrna_sequence(fasta_file=args.fasta)
 
-        ApolloReporter._sort_error_and_write_email_body(gff_file_object, out_dir)
-        print(gff_file_object.errors)
+        report.write_email_texts(gff_file_object.errors, out_dir)
 
     elif args.type == "summary":
         gff_file_object = gff_file.HandleGFF(args.gff, {}, moderator_name)

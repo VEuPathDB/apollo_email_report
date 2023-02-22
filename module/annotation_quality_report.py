@@ -12,6 +12,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 from pathlib import Path
+from typing import Dict, List, TextIO, Tuple
 import requests
 from requests.exceptions import ConnectionError
 import datetime
@@ -19,6 +20,7 @@ import urllib.parse
 import re
 from module import gff_file
 from module.annotator import AnnotatorSummary
+from module.validation_error import ValidationError
 
 
 def get_recent_genes_from_apollo(base_url, username, password, days=1):
@@ -143,64 +145,111 @@ def validate_gff(base_url, username, password, gff_file_path, gene_organism, mod
         return None
 
 
-def sort_and_write_errors(
-    dict_of_list, order_of_lists, index, out_dir: Path, file_handle=None
-):
+def _group_errors(errors: List[ValidationError], attrib_name: str) -> Dict[str, List[ValidationError]]:
+    groups = dict()
+
+    for error in errors:
+        attrib = error.__getattribute__(attrib_name)
+        if attrib in groups:
+            groups[attrib].append(error)
+        else:
+            groups[attrib] = [error]
+
+    return groups
+
+
+def write_email_texts(errors_dict: Dict[str, List[ValidationError]], out_dir: Path) -> None:
+    # First group by owner
+    errors = list(errors_dict.values())
+    ownership = _group_errors(errors, "owner")
+
+    # Then write one file for each owner
+    for owner, owner_errors in ownership.items():
+        owner_text = _get_owner_error_text(owner, owner_errors)
+        time_stamp = str(datetime.datetime.now().date())
+        owner_file = out_dir / f"{owner}_{time_stamp}.error"
+        with owner_file.open('w') as owner_fh:
+            owner_fh.write(owner_text + "\n")
+
+
+def _get_owner_error_text(owner: str, errors: List[ValidationError]) -> str:
+
+    error_text = f"Owner {owner} has {len(errors)} errors"
+    return error_text
+
+
+def sort_and_write_errors_old(
+    errors_lookup: Dict[str, List],
+    fields: Tuple,
+    index: int,
+    out_dir: Path,
+    file_handle: TextIO = None,
+) -> None:
     file_handle = file_handle
-    # print("length of list:", order_of_lists[index], len(dict_of_list[order_of_lists[index]]))
     if index < 0:
-        return False
-    elif index == 0 and len(dict_of_list[order_of_lists[index]]) == 0:
-        return False
-    elif len(dict_of_list[order_of_lists[index]]) > 0 and index + 1 < len(
-        order_of_lists
-    ):
-        # print("copy to and writing out for", order_of_lists[index + 1])
-        copy_function(dict_of_list, order_of_lists, index)
+        return
+
+    field = fields[index]
+    print("length of list:", field, len(errors_lookup[field]))
+    print(errors_lookup)
+    if index == 0 and len(errors_lookup[field]) == 0:
+        return
+
+    if len(errors_lookup[field]) > 0 and index + 1 < len(fields):
+        print("copy to and writing out for", fields[index + 1])
+        copy_function(errors_lookup, fields, index)
         file_handle = write_function(
-            dict_of_list, order_of_lists, index + 1, out_dir, file_handle
+            errors_lookup, fields, index + 1, out_dir, file_handle
         )
-        sort_and_write_errors(
-            dict_of_list, order_of_lists, index + 1, out_dir, file_handle
-        )
+        sort_and_write_errors_old(errors_lookup, fields, index + 1, out_dir, file_handle)
     else:
-        # print("clear list", order_of_lists[index])
-        # print("going up to", order_of_lists[index - 1])
-        dict_of_list[order_of_lists[index]].clear()
-        sort_and_write_errors(
-            dict_of_list, order_of_lists, index - 1, out_dir, file_handle
-        )
+        print("clear list", fields[index])
+        print("going up to", fields[index - 1])
+        errors_lookup[field].clear()
+        sort_and_write_errors_old(errors_lookup, fields, index - 1, out_dir, file_handle)
     if file_handle:
         file_handle.close()
 
 
-def copy_function(dict_of_list, order_of_lists, index):
-    search_term = order_of_lists[index + 1]
+def copy_function(errors_lookup: Dict[str, List], fields: Tuple, index: int) -> None:
+    """This does"""
+    search_term = fields[index + 1]
     search_value = str()
 
-    for error_object in dict_of_list[order_of_lists[index]]:
-        # print("search value", search_value, "search term", error_object.__dict__[search_term])
+    for error_object in errors_lookup[fields[index]]:
+        print(
+            "search value",
+            search_value,
+            "search term",
+            error_object.__dict__[search_term],
+        )
         if not search_value:
             search_value = error_object.__dict__[search_term]
-            # print("setting search value to", search_value)
-            dict_of_list[order_of_lists[index + 1]].append(error_object)
+            print("setting search value to", search_value)
+            errors_lookup[fields[index + 1]].append(error_object)
             continue
         if error_object.__dict__[search_term] == search_value:
-            # print("copy to", order_of_lists[index + 1])
-            dict_of_list[order_of_lists[index + 1]].append(error_object)
+            print("copy to", fields[index + 1])
+            errors_lookup[fields[index + 1]].append(error_object)
 
-    if dict_of_list[order_of_lists[index + 1]]:
-        for delete_object in dict_of_list[order_of_lists[index + 1]]:
-            # print("delete from", order_of_lists[index])
-            dict_of_list[order_of_lists[index]].remove(delete_object)
+    if errors_lookup[fields[index + 1]]:
+        for delete_object in errors_lookup[fields[index + 1]]:
+            print("delete from", fields[index])
+            errors_lookup[fields[index]].remove(delete_object)
 
 
-def write_function(dict_of_list, order_of_list, index, out_dir: Path, file_handle=None):
+def write_function(
+    errors_lookup: Dict[str, List],
+    fields: Tuple,
+    index: int,
+    out_dir: Path,
+    file_handle=None,
+) -> TextIO:
     file_handle = file_handle
-    if order_of_list[index] == "owner":
+    if fields[index] == "owner":
         if file_handle:
             file_handle.close()
-        owner = dict_of_list["owner"][0].owner
+        owner = errors_lookup["owner"][0].owner
         time_stamp = str(datetime.datetime.now().date())
         file_name = out_dir / f"{owner}_{time_stamp}.error"
         file_handle = file_name.open("a")
@@ -222,28 +271,28 @@ def write_function(dict_of_list, order_of_list, index, out_dir: Path, file_handl
                 " If you made any edit to this gene in the last 24 hours"
                 " could you please check that the gene is correct."
             ),
-            ""
+            "",
         ]
         lines_str = "\n".join(lines)
         file_handle.write(lines_str)
 
-    elif order_of_list[index] == "organism_name":
-        organism_name = dict_of_list["organism_name"][0].organism_name
+    elif fields[index] == "organism_name":
+        organism_name = errors_lookup["organism_name"][0].organism_name
         organism_str = "Species: {}\n".format(organism_name)
         file_handle.write(organism_str)
-    elif order_of_list[index] == "gene_id":
-        gene_name = dict_of_list["gene_id"][0].gene_name
-        gene_id = dict_of_list["gene_id"][0].gene_id
-        locus = dict_of_list["gene_id"][0].locus
+    elif fields[index] == "gene_id":
+        gene_name = errors_lookup["gene_id"][0].gene_name
+        gene_id = errors_lookup["gene_id"][0].gene_id
+        locus = errors_lookup["gene_id"][0].locus
         gene_str = "Gene: {} (ID:{})\nLocation: {}\n".format(gene_name, gene_id, locus)
         file_handle.write(gene_str)
-        for error_object in dict_of_list["gene_id"]:
+        for error_object in errors_lookup["gene_id"]:
             if error_object.mrna_id is None:
                 for string in error_object.gff_error_text():
                     file_handle.write(string)
 
-    elif order_of_list[index] == "mrna_id":
-        for error_object in dict_of_list["mrna_id"]:
+    elif fields[index] == "mrna_id":
+        for error_object in errors_lookup["mrna_id"]:
             for string in error_object.gff_error_text():
                 file_handle.write(string)
 

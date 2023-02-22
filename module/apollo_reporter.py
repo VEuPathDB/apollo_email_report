@@ -19,6 +19,7 @@ from pathlib import Path
 import shutil
 
 from module import annotation_quality_report as report, gff_file
+from module.gff_file import HandleGFF
 
 root_path = Path(inspect.getfile(sys.modules[__name__])).parent / ".."
 summary_footer_path = root_path / "summary_static_footer.txt"
@@ -220,7 +221,7 @@ class ApolloReporter:
             print("No error was found")
             return messages
 
-        self._sort_error_and_write_email_body(gff_file_object, email_dir)
+        report.write_email_texts(gff_file_object.errors, email_dir)
 
         annotation_error_emails = self._collect_files(email_dir, file_extension)
         for email in annotation_error_emails:
@@ -231,7 +232,8 @@ class ApolloReporter:
         return messages
 
     @staticmethod
-    def _sort_error_and_write_email_body(gff_file_object, email_dir: Path):
+    def _sort_error_and_write_email_body(gff_file_object: HandleGFF, email_dir: Path) -> None:
+
         sort_order_list = ("all", "owner", "organism_name", "gene_id", "mrna_id")
         error_object_list = list()
         error_lookup_table = dict()
@@ -245,7 +247,7 @@ class ApolloReporter:
         error_lookup_table["gene_id"] = list()
         error_lookup_table["mrna_id"] = list()
 
-        report.sort_and_write_errors(error_lookup_table, sort_order_list, 0, email_dir)
+        report.sort_and_write_errors_old(error_lookup_table, sort_order_list, 0, email_dir)
 
     def send_emails(self, email_type, list_of_emails):
         config = self.config

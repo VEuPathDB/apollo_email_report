@@ -36,7 +36,7 @@ class MyTestCase(unittest.TestCase):
         error_lookup_table["gene_id"] = list()
         error_lookup_table["mrna_id"] = list()
 
-        annotation_quality_report.sort_and_write_errors(
+        annotation_quality_report.sort_and_write_errors_old(
             error_lookup_table, sort_order_list, 0, "./"
         )
 
@@ -79,7 +79,7 @@ class MyTestCase(unittest.TestCase):
         error_lookup_table["gene_id"] = list()
         error_lookup_table["mrna_id"] = list()
 
-        annotation_quality_report.sort_and_write_errors(
+        annotation_quality_report.sort_and_write_errors_old(
             error_lookup_table, sort_order_list, 0, "./"
         )
 
@@ -129,7 +129,7 @@ class MyTestCase(unittest.TestCase):
         error_lookup_table["gene_id"] = list()
         error_lookup_table["mrna_id"] = list()
 
-        annotation_quality_report.sort_and_write_errors(
+        annotation_quality_report.sort_and_write_errors_old(
             error_lookup_table, sort_order_list, 0, "./"
         )
 
@@ -171,7 +171,7 @@ class MyTestCase(unittest.TestCase):
         error_lookup_table["gene_id"] = list()
         error_lookup_table["mrna_id"] = list()
 
-        annotation_quality_report.sort_and_write_errors(
+        annotation_quality_report.sort_and_write_errors_old(
             error_lookup_table, sort_order_list, 0, "./"
         )
 
@@ -213,7 +213,7 @@ class MyTestCase(unittest.TestCase):
         error_lookup_table["gene_id"] = list()
         error_lookup_table["mrna_id"] = list()
 
-        annotation_quality_report.sort_and_write_errors(
+        annotation_quality_report.sort_and_write_errors_old(
             error_lookup_table, sort_order_list, 0, "./"
         )
 
