@@ -127,7 +127,7 @@ class HandleGFF:
 
                             # Save the transcript for checking
                             if not partial:
-                                self.transcripts.append((parent_name, organism, scaffold))
+                                self.transcripts.append((feature_id, organism, scaffold))
                         else:
                             self.annotators[owner].add_mrna(parent_name, False)
                     else:
